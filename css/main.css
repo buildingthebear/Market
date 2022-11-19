@@ -64,7 +64,8 @@ hr {
 }
 
 #cards {
-    display: inline-flex;
+    display: flex;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -340,10 +341,10 @@ h6 {
 }
 
 #welcomeMessage {
-    width: fit-content;
     height: fit-content;
     max-height: 150px;
     padding-left: 0;
+    text-align: center;
 }
 
 #toolbox {
