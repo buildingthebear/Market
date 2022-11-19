@@ -1,0 +1,331 @@
+/* font-family: 'Concert One', cursive; */
+/* font-family: 'Rubik', sans-serif; */
+
+/* ELEMENT STYLES */
+* {
+    transition: all 0.15s ease-in-out;
+    font-family: 'Rubik', sans-serif;
+    text-transform: uppercase;
+    color: #E7E5DF;
+}
+
+html {
+    background: #2A2C24;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    background-size: cover;
+}
+
+main {
+    margin-top: 6rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    width: 75%;
+    z-index: 0;
+}
+
+#backgroundImage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../img/background-1.gif") no-repeat fixed center;
+    background-size: cover;
+    opacity: 0.05;
+    z-index: -2;
+}
+
+#backgroundCover {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), #2A2C24, #2A2C24);
+    z-index: -1;
+}
+
+
+/* MAIN CARD SECTION STYLES */
+.mainSectionCard {
+    margin: 0 5%;
+    padding: 1rem;
+}
+
+.mainSectionCard button :hover {
+    opacity: 1;
+}
+
+.mainSectionCard h3 {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+h6 {
+    margin-bottom: 0;
+}
+
+.mainSectionCard button {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    margin: 2rem 2rem 0 2rem;
+    padding: 0.25rem;
+    cursor: pointer;
+}
+
+.mainSectionCard button:hover {
+    opacity: 0.75;
+}
+
+/* WALLET CONNECTION SECTION STYLES */
+#walletConnection {
+    min-width: 250px;
+    max-width: 250px;
+    width: 250px !important;
+    height: fit-content;
+    max-height: 150px;
+    border: 1px solid #E7E5DF;
+    border-radius: 0.25rem;
+    text-align: center;
+    display: inline-grid;
+    background: #575A4B;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+}
+
+#walletConnection * {
+    color: #E7E5DF;
+}
+
+#walletConnection button {
+    border: 1px solid #E7E5DF;
+    border-radius: 0.25rem;
+    background: #2A2C24;
+    height: 35px;
+}
+
+#connectWallet {
+
+}
+
+#verifyWallet {
+    display: none;
+}
+
+.connectedWallet {
+    border-color: #FFD147 !important;
+}
+
+.connectedWallet * {
+    border-color: #FFD147 !important;
+    color: #FFD147 !important;
+}
+
+.verifiedWallet {
+    border-color: #4FB477 !important;
+}
+
+.verifiedWallet * {
+    border-color: #4FB477 !important;
+    color: #4FB477 !important;
+}
+
+#connectedWalletAddress {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+/* MARKET PRICING SECTION STYLES */
+#marketPrices {
+    position: fixed;
+    display: inline-flex;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    width: 100%;
+    left: 0;
+    top: 0;
+    transition: all 0.2s ease-out;
+    border-bottom: 1px solid #E7E5DF;
+}
+
+.card {
+    border: none;
+    background: none;
+    transition: opacity 0.1s ease-in-out;
+    opacity: 0.5;
+    display: flex;
+    padding: 0 5px;
+    align-items: center;
+    text-align: left;
+    width: 20%;
+    height: 2rem;
+    margin: 0.5rem 0;
+}
+
+.card:hover {
+    opacity: 1;
+}
+
+.card:hover .cardInner {
+    transform: rotateX(180deg);
+    justify-content: end;
+    cursor: pointer;
+}
+
+.card, .cardInner{
+    position: relative;
+    width: inherit;
+    height: 2rem;
+}
+
+.cardInner {
+    transition: transform .25s ease-in-out;
+    transform-origin: 50% 50%;
+    transform-style: preserve-3d;
+}
+
+.cardBack {
+    transform: rotateX(180deg);
+}
+
+.active + .panel:before {
+    border-bottom: 1px solid #E7E5DF;
+    content: '';
+    display: block;
+    margin: -5px 0 0 4%;
+    /* padding-bottom: 5px; */
+    width: 7.5%;
+    position: absolute;
+}
+
+.cardFront {
+
+}
+
+.cardFront, .cardBack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+}
+
+.cardContainer {
+    width: inherit;
+}
+
+.cardLink {
+    font-size: 10px;
+    text-decoration: none;
+    text-underline: none;
+    color: #E7E5DF !important;
+}
+
+.active, .accordion:hover {
+    color: darkslategrey;
+}
+
+.panel {
+    color: darkslategrey;
+    font-size: 12px;
+    margin: 0.25rem 3.0rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.2s ease-out;
+    text-align: right;
+}
+
+.panel.up {
+    color: #4FB477 !important;
+}
+
+.panel.down {
+    color: #E63946 !important;
+}
+
+.active + .panel {
+    margin: 0.25rem 3.5rem;
+    transition: all 0.2s ease-out;
+}
+
+#welcomeMessage {
+    width: fit-content;
+    height: fit-content;
+    max-height: 150px;
+    margin-top: 5rem;
+}
+
+#toolbox {
+    position: fixed;
+    text-align: right;
+    right: 0;
+    top: 10%;
+    padding: 0 2rem 1rem 1rem;
+    background: #FFD147;
+    border-radius: 0.25rem 0 0 0.25rem;
+    color: #2A2C24 !important;
+}
+
+#toolbox * {
+    color: #2A2C24 !important;
+}
+
+.toolLink {
+    font-size: 10px;
+    text-decoration: none;
+    text-underline: none;
+    display: block;
+    position: relative;
+    padding: 0.2em 0;
+    overflow: hidden;
+}
+
+.toolLink:hover {
+    opacity: 0.75;
+}
+
+.toolLink::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 0.1em;
+    background-color: #2A2C24;
+    opacity: 0;
+    transition: opacity 300ms, transform 300ms;
+}
+
+.toolLink:hover::after,
+.toolLink:focus::after {
+    opacity: 0.75;
+    transform: translate3d(0, 0.2em, 0);
+}
+.toolLink::after {
+    opacity: 0.75;
+    transform: translate3d(200%, 0, 0);
+}
+
+.toolLink:hover::after,
+.toolLink:focus::after{
+    transform: translate3d(50%, 0, 0);
+}
+
+#tokenCharts {
+    padding: 1rem 0;
+}
+
+iframe {
+    border: 1px solid #E7E5DF;
+    border-radius: 0.25rem;
+}

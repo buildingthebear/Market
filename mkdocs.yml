@@ -1,0 +1,12 @@
+site_name: Build the Bear
+site_url: https://buildthebear.market/docs/
+site_dir: https://buildthebear.market/site/
+nav:
+  - Launch: index.md
+  - Build: tools.md
+theme:
+  name: mkdocs
+  highlightjs: true
+  hljs_languages:
+    - javascript
+    - solidity

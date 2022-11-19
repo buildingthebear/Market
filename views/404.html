@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>not found</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/js/walletsBundle.js" type="module"></script>
+  <script src="/js/index.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Rubik:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="backgroundImage"></div>
+<div id="backgroundCover"></div>
+<header id="marketPrices"></header>
+<main>
+  <div id="welcomeMessage" class="mainSectionCard">
+    <h3>that isn't the address of whatever it is you're looking for</h3>
+  </div>
+  <aside id="toolbox">
+    <div class="toolboxSection">
+      <h4>Trusted Token Tools</h4>
+      <a class="toolLink" target="_blank" href="https://blockscan.com/">Blockscan</a><br>
+      <a class="toolLink" target="_blank" href="https://hibiki.finance/">Hibiki Finance</a><br>
+      <a class="toolLink" target="_blank" href="https://app.bogged.finance/bsc/dashboard">Bogged Finance</a><br>
+      <a class="toolLink" target="_blank" href="https://moonarch.app/">Moonarch</a>
+    </div>
+  </aside>
+</main>
+<script>
+  let url = 'https://api.binance.us/api/v3/ticker/24hr?symbols=["BTCUSD","ETHUSD","BNBUSD","ADAUSD","SOLUSD"]';
+  let arr = [];
+  let cur = [{Symbol: "BTC", Name: "Bitcoin"},
+    {Symbol: "ETH", Name: "Ethereum"},
+    {Symbol: "BNB", Name: "BNB"},
+    {Symbol: "ADA", Name: "Cardano"},
+    {Symbol: "SOL", Name: "Solana"}];
+  let acc = ``;
+
+  $(async function() {
+    // fetch information for #marketPrices
+    try {
+      let res = await fetch(url);
+      arr = await res.json();
+    } catch (error) {
+      console.log(error);
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+      let obj = arr[i], dir = 'up ', emoji = '📈', className = 'up', currencyName = '';
+
+      if (obj.priceChangePercent < 0) {
+        dir = 'down ';
+        className = 'down';
+        emoji = '📉';
+      }
+
+      $('#marketPrices').append('<div class="cardContainer"><button class="card accordion" data-symbol="' + obj.symbol +
+              '" data-lastPrice="' + obj.lastPrice + '"><div class="cardInner"><div class="cardFront">' + obj.symbol +
+              ' ' + emoji + '</div><div class="cardBack">$' + obj.lastPrice.toString() + '</div></div></button></div>');
+
+      cur.forEach(function(c){
+        if (c.Symbol == obj.symbol.slice(0, -3)) {
+          currencyName = c.Name;
+        }
+      });
+
+      $('.cardContainer').last().append('<div class="panel ' + className + '">' + dir + obj.priceChangePercent + '%<br><a class="cardLink" target="_blank" href="https://coinmarketcap.com/currencies/' + currencyName + '/">coinmarketcap</a></div>')
+    }
+
+    // detailed information for banner currency
+    $('.accordion').click(function() {
+      this.classList.toggle("active");
+
+      let panel = this.nextElementSibling;
+      if (panel.style.maxHeight) {
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    });
+  });
+</script>
+</body>
+</html>
