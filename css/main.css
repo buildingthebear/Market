@@ -1,5 +1,5 @@
-/* font-family: 'Concert One', cursive; */
-/* font-family: 'Rubik', sans-serif; */
+/* font-family: \'Concert One\', cursive; */
+/* font-family: \'Rubik\', sans-serif; */
 .palette_template {
     color: #E7E5DF;
     color: #FFD147;
@@ -16,10 +16,9 @@
     color: #2b3a67;
 }
 
-/* ELEMENT STYLES */
 * {
     transition: all 0.15s ease-in-out;
-    font-family: 'Rubik', sans-serif;
+    font-family: \'Rubik\', sans-serif;
     text-transform: uppercase;
     text-decoration: none;
     color: #2A2C24;
@@ -30,12 +29,37 @@ a:hover {
     padding-left: 0.5rem;
 }
 
+body {
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+
+h6 {
+    margin-bottom: 0;
+}
+
+hr {
+    border: 1px solid #2A2C24;
+}
+
 html {
     background: white;
     margin: 0;
     padding: 0;
     position: fixed;
     background-size: cover;
+}
+
+iframe {
+    border: 1px solid #E7E5DF;
+    border-radius: 0.25rem;
+}
+
+li {
+    margin: 0.5rem;
 }
 
 main {
@@ -45,201 +69,33 @@ main {
     z-index: 0;
 }
 
-h1, h2, h3, h4, h5 {
-    margin: 0;
+svg {
+    width: 20px;
+    height: 20px;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 0;
+     list-style: none;
+     padding: 0;
+     margin-bottom: 0;
 }
 
-li {
-    margin: 0.5rem;
-}
-
-hr {
-    border: 1px solid #2A2C24;
-}
-
-#cards {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-}
-
-#documentation {
-    background: rgba(255, 196, 130, 0.5);
-    border: 4px solid rgb(0 0 0 / 10%);
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-    padding-bottom: 0.5rem;
-}
-
-#earlyAdopters {
-    border: 4px solid rgb(0 0 0 / 10%);
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-    padding: 0;
-    background: url("../img/background-2.gif") no-repeat fixed center;
-    background-size: cover;
-}
-
-#earlyAdopters > div {
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 0.2rem;
-    padding: 0.5rem;
-}
-
-#socials {
-    background: rgba(202, 194, 181, 0.5);
-    border: 4px solid rgb(0 0 0 / 10%);
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-    padding-bottom: 0.5rem;
-}
-
-#roadmap {
-    background: rgba(237, 212, 178, 0.5);
-    border: 4px solid rgb(0 0 0 / 10%);
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-    padding-bottom: 0.5rem;
-}
-
-.roadmapDivider {
-    font-size: 10px;
-}
-
-#backgroundImage {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("../img/background-2.gif") no-repeat fixed center;
-    background-size: cover;
-    opacity: 0.05;
-    z-index: -2;
-}
-
-#backgroundCover {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0), white);
-    z-index: -1;
-}
-
-
-/* MAIN CARD SECTION STYLES */
-.mainSectionCard {
-    margin: 0 0 0 2rem;
-    padding: 1rem;
-    height: fit-content;
-    margin-top: 2rem;
-}
-
-.mainSectionCard button :hover {
-    opacity: 1;
-}
-
-.mainSectionCard h3 {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
-}
-
-h6 {
-    margin-bottom: 0;
-}
-
-.mainSectionCard button {
-    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-    margin: 2rem 2rem 0 2rem;
-    padding: 0.25rem;
-    cursor: pointer;
-}
-
-.mainSectionCard button:hover {
-    opacity: 0.75;
-}
-
-/* WALLET CONNECTION SECTION STYLES */
-#walletConnection {
-    min-width: 250px;
-    max-width: 250px;
-    width: 250px !important;
-    height: fit-content;
-    max-height: 150px;
-    border: 1px solid #E7E5DF;
-    border-radius: 0.25rem;
-    text-align: center;
-    display: inline-grid;
-    background: #575A4B;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-}
-
-#walletConnection * {
-    color: #E7E5DF;
-}
-
-#walletConnection button {
-    border: 1px solid #E7E5DF;
-    border-radius: 0.25rem;
-    background: #2A2C24;
-    height: 35px;
-}
-
-#connectWallet {
-
-}
-
-#verifyWallet {
-    display: none;
-}
-
-.connectedWallet {
-    border-color: #FFD147 !important;
-}
-
-.connectedWallet * {
-    border-color: #FFD147 !important;
-    color: #FFD147 !important;
-}
-
-.verifiedWallet {
-    border-color: #4FB477 !important;
-}
-
-.verifiedWallet * {
-    border-color: #4FB477 !important;
-    color: #4FB477 !important;
-}
-
-#connectedWalletAddress {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
-}
-
-/* MARKET PRICING SECTION STYLES */
-#marketPrices {
-    position: fixed;
-    display: inline-flex;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-    width: 100%;
-    left: 0;
-    top: 0;
+.active + .panel {
+    margin: 0.25rem 3.5rem;
     transition: all 0.2s ease-out;
+}
+
+.active + .panel:before {
     border-bottom: 1px solid #E7E5DF;
+    content: '';
+    display: block;
+    margin: -5px 0 0 4%;
+    width: 7.5%;
+    position: absolute;
+}
+
+.active, .accordion:hover {
+    color: darkslategrey;
 }
 
 .card {
@@ -252,12 +108,14 @@ h6 {
     align-items: center;
     text-align: left;
     width: 20%;
-    height: 2rem;
+    height: 1rem;
     margin: 0.5rem 0;
 }
 
-.card:hover {
-    opacity: 1;
+.card, .cardInner{
+    position: relative;
+    width: inherit;
+    height: 1rem;
 }
 
 .card:hover .cardInner {
@@ -266,30 +124,16 @@ h6 {
     cursor: pointer;
 }
 
-.card, .cardInner{
-    position: relative;
-    width: inherit;
-    height: 2rem;
-}
-
-.cardInner {
-    transition: transform .25s ease-in-out;
-    transform-origin: 50% 50%;
-    transform-style: preserve-3d;
+.card:hover {
+    opacity: 1;
 }
 
 .cardBack {
     transform: rotateX(180deg);
 }
 
-.active + .panel:before {
-    border-bottom: 1px solid #E7E5DF;
-    content: '';
-    display: block;
-    margin: -5px 0 0 4%;
-    /* padding-bottom: 5px; */
-    width: 7.5%;
-    position: absolute;
+.cardContainer {
+    width: inherit;
 }
 
 .cardFront {
@@ -309,8 +153,10 @@ h6 {
     backface-visibility: hidden;
 }
 
-.cardContainer {
-    width: inherit;
+.cardInner {
+    transition: transform .25s ease-in-out;
+    transform-origin: 50% 50%;
+    transform-style: preserve-3d;
 }
 
 .cardLink {
@@ -320,8 +166,52 @@ h6 {
     color: #E7E5DF !important;
 }
 
-.active, .accordion:hover {
-    color: darkslategrey;
+.cardLink:hover {
+    color: #2A2C24 !important;
+}
+
+.connectedWallet * {
+    border-color: #FFD147 !important;
+    color: #FFD147 !important;
+}
+
+.connectedWallet {
+    border-color: #FFD147 !important;
+}
+
+.mainSectionCard button :hover {
+    opacity: 1;
+}
+
+.mainSectionCard button {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    margin: 2rem 2rem 0 2rem;
+    padding: 0.25rem;
+    cursor: pointer;
+}
+
+.mainSectionCard button:hover {
+    opacity: 0.75;
+}
+
+.mainSectionCard h3 {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.mainSectionCard {
+    margin: 0 0 0 2rem;
+    padding: 1rem;
+    height: fit-content;
+    margin-top: 2rem;
+}
+
+.md-button {
+    color: black !important;
+    margin-bottom: 0.5rem !important;
 }
 
 .panel {
@@ -334,24 +224,165 @@ h6 {
     text-align: right;
 }
 
-.panel.up {
-    color: #4FB477 !important;
-}
-
 .panel.down {
     color: #E63946 !important;
 }
 
-.active + .panel {
-    margin: 0.25rem 3.5rem;
-    transition: all 0.2s ease-out;
+.panel.up {
+    color: #4FB477 !important;
 }
 
-#welcomeMessage {
-    height: fit-content;
-    max-height: 150px;
-    padding-left: 0;
-    text-align: center;
+.roadmapDivider {
+    font-size: 10px;
+}
+
+.toolLink {
+    font-size: 10px;
+    text-decoration: none;
+    text-underline: none;
+    display: block;
+    position: relative;
+    padding: 0.2em 0;
+    overflow: hidden;
+}
+
+.toolLink::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 0.1em;
+    background-color: #2A2C24;
+    opacity: 0;
+    transition: opacity 300ms, transform 300ms;
+}
+
+.toolLink::after {
+    opacity: 0.75;
+    transform: translate3d(200%, 0, 0);
+}
+
+.toolLink:hover {
+    opacity: 0.75;
+}
+
+.toolLink:hover::after,
+.toolLink:focus::after {
+    opacity: 0.75;
+    transform: translate3d(0, 0.2em, 0);
+}
+.toolLink:hover::after,
+.toolLink:focus::after{
+    transform: translate3d(50%, 0, 0);
+}
+
+.verifiedWallet * {
+    border-color: #4FB477 !important;
+    color: #4FB477 !important;
+}
+
+.verifiedWallet {
+    border-color: #4FB477 !important;
+}
+
+#backgroundCover {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0), white);
+    z-index: -1;
+}
+
+
+#backgroundImage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../img/background-2.gif") no-repeat fixed center;
+    background-size: cover;
+    opacity: 0.05;
+    z-index: -2;
+}
+
+#cards {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+#connectWallet {
+
+}
+
+#connectedWalletAddress {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+#documentation {
+    background: rgba(255, 203, 71, 0.5);
+    border: 4px solid rgb(0 0 0 / 10%);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    padding-bottom: 0.5rem;
+}
+
+#earlyAdopters > div {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 0.2rem;
+    padding: 0.5rem;
+}
+
+#earlyAdopters {
+    border: 4px solid rgb(0 0 0 / 10%);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    padding: 0;
+    background: url("../img/background-2.gif") no-repeat fixed center;
+    background-size: cover;
+}
+
+#marketPrices {
+    position: fixed;
+    display: inline-flex;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    width: 100%;
+    left: 0;
+    top: 0;
+    transition: all 0.2s ease-out;
+    border-bottom: 1px solid #E7E5DF;
+}
+
+#roadmap {
+    background: rgba(237, 212, 178, 0.5);
+    border: 4px solid rgb(0 0 0 / 10%);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    padding-bottom: 0.5rem;
+}
+
+#socials {
+    background: rgba(251, 177, 60, 0.25);
+    border: 4px solid rgb(0 0 0 / 10%);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    padding-bottom: 0.5rem;
+}
+
+#tokenCharts {
+    padding: 1rem 0;
+}
+
+#toolbox * {
+    color: #2A2C24 !important;
 }
 
 #toolbox {
@@ -368,66 +399,52 @@ h6 {
     box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
 }
 
-#toolbox * {
-    color: #2A2C24 !important;
+#verifyWallet {
+    display: none;
 }
 
-.toolLink {
-    font-size: 10px;
-    text-decoration: none;
-    text-underline: none;
-    display: block;
-    position: relative;
-    padding: 0.2em 0;
-    overflow: hidden;
+#walletConnection * {
+    color: #E7E5DF;
 }
 
-.toolLink:hover {
-    opacity: 0.75;
-}
-
-.toolLink::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 0.1em;
-    background-color: #2A2C24;
-    opacity: 0;
-    transition: opacity 300ms, transform 300ms;
-}
-
-.toolLink:hover::after,
-.toolLink:focus::after {
-    opacity: 0.75;
-    transform: translate3d(0, 0.2em, 0);
-}
-.toolLink::after {
-    opacity: 0.75;
-    transform: translate3d(200%, 0, 0);
-}
-
-.toolLink:hover::after,
-.toolLink:focus::after{
-    transform: translate3d(50%, 0, 0);
-}
-
-#tokenCharts {
-    padding: 1rem 0;
-}
-
-iframe {
+#walletConnection button {
     border: 1px solid #E7E5DF;
     border-radius: 0.25rem;
+    background: #2A2C24;
+    height: 35px;
 }
 
-.md-button {
-    color: black !important;
-    margin-bottom: 0.5rem !important;
+#walletConnection {
+    min-width: 250px;
+    max-width: 250px;
+    width: 250px !important;
+    height: fit-content;
+    max-height: 150px;
+    border: 1px solid #E7E5DF;
+    border-radius: 0.25rem;
+    text-align: center;
+    display: inline-grid;
+    background: #575A4B;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
 }
 
-svg {
-    width: 20px;
-    height: 20px;
+#welcomeMessage {
+    height: fit-content;
+    max-height: 150px;
+    padding-left: 0;
+    text-align: center;
+}
+
+@media (max-width: 414px) {
+    main {
+        margin: 0;
+    }
+
+    .mainSectionCard {
+        margin: 1rem auto;
+    }
+
+    #marketPrices {
+        display: none;
+    }
 }
