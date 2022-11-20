@@ -438,6 +438,7 @@ ul {
 @media (max-width: 414px) {
     main {
         margin: 0;
+        zoom: 0.75;
     }
 
     .mainSectionCard {
