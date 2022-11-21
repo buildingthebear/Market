@@ -7,6 +7,7 @@ import {useActiveProvider} from '../connectors'
 import {useCallback, useRef, useState} from 'react'
 import {JSON_RPC_URL, WALLET_CONNECT_PROJECT_ID} from '../constants'
 import Script from 'next/script'
+import bg from '../public/img/background-2.gif'
 
 const TOKEN_LIST = [
     {
@@ -76,7 +77,7 @@ const Home: NextPage = () => {
                 <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
             </Head>
 
-            <div id="backgroundImage" />
+            <div id="backgroundImage" style={{backgroundImage: `url(${bg.src})`}} />
             <div id="backgroundCover" />
             <header id="marketPrices" />
             <div id="walletConnectors" ref={connectors}>
@@ -2830,7 +2831,7 @@ AAAAAElFTkSuQmCC"
                             </li>
                         </ul>
                     </div>
-                    <div id="earlyAdopters" className="mainSectionCard">
+                    <div id="earlyAdopters" className="mainSectionCard" style={{backgroundImage: `url(${bg.src})`}}>
                         <div>
                             <a
                                 className=""
