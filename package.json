@@ -8,6 +8,10 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "resolutions": {
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2"
+  },
   "dependencies": {
     "@babel/runtime": "^7.20.1",
     "@ethersproject/abi": "^5.7.0",
@@ -17,6 +21,8 @@
     "@web3modal/react": "^2.0.0-beta.5",
     "ethers": "^5.7.2",
     "hardhat": "^2.12.2",
+    "immer": "^9.0.16",
+    "jotai-immer": "^0.1.0",
     "jquery": "^3.6.1",
     "next": "12.1.0",
     "react": "^17.0.2",
