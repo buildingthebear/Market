@@ -3,10 +3,11 @@ frontend:
   phases:
     preBuild:
       commands:
+        - npm ci
     build:
       commands:
         - npm i next
-        - npm run build
+        - npm run build && npm run start
   artifacts:
     baseDirectory: /
     files:
