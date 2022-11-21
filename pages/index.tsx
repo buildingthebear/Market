@@ -2932,18 +2932,18 @@ AAAAAElFTkSuQmCC"
                         </ul>
                     </div>
                     <div id="roadmap" className="mainSectionCard">
-                        <h3>Build the Bear&quot;s Roadmap : </h3>
+                        <h3>Build the Bear&apos;s Roadmap : </h3>
                         <h5>Upcoming Developments</h5>
                         <ul>
                             <div className="roadmapDivider">
-                                Q4 &quot;22 <hr />
+                                Q4 &apos;22 <hr />
                             </div>
                             <li>- Website/Socials ✓</li>
                             <li>- Contract Audit</li>
                             <li>- Documentation v1</li>
                             <li>- Digital Sticker Pack ✓</li>
                             <div className="roadmapDivider">
-                                Q1 &quot;23 <hr />
+                                Q1 &apos;23 <hr />
                             </div>
                             <li>- Private Pre-Sale</li>
                             <li>- Token Offering</li>
@@ -2951,7 +2951,7 @@ AAAAAElFTkSuQmCC"
                             <li>- Early Adopters NFTs</li>
                             <li>- Open-Source Participation</li>
                             <div className="roadmapDivider">
-                                Q2 &quot;23 <hr />
+                                Q2 &apos;23 <hr />
                             </div>
                             <li>- BTB Single-Staking Pool</li>
                             <li>- Conversion Tools</li>
@@ -2960,7 +2960,7 @@ AAAAAElFTkSuQmCC"
                             <li>- Bot Upgrades</li>
                             <li>- Token Tossup</li>
                             <div className="roadmapDivider">
-                                Q3 &quot;23 <hr />
+                                Q3 &apos;23 <hr />
                             </div>
                             <li>- To Be Announced</li>
                         </ul>
