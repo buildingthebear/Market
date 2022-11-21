@@ -2982,6 +2982,7 @@ AAAAAElFTkSuQmCC"
                 </div>
             </main>
 
+            <style>{`#backgroundImage, #earlyAdpoters {background: url(${bg}) no-repeat;}`}</style>
             <Script src="https://code.jquery.com/jquery-3.6.1.min.js"></Script>
             <Script src="/js/index.jsx"></Script>
         </div>
