@@ -3,7 +3,6 @@ frontend:
   phases:
     preBuild:
       commands:
-        - yarn install
     build:
       commands:
         - npm run build
