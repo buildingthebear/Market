@@ -5,6 +5,7 @@ frontend:
       commands:
     build:
       commands:
+        - npm i next
         - npm run build
         - npm run start
   artifacts:
