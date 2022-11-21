@@ -1,32 +1,112 @@
-<!DOCTYPE html>
+import type {NextPage} from 'next'
+import Head from 'next/head'
+import {SupportedLocale, SUPPORTED_LOCALES, SwapWidget, Theme } from '@uniswap/widgets'
+import '@uniswap/widgets/fonts.css'
+import Web3Connectors from '../components/Web3Connectors'
+import {useActiveProvider} from '../connectors'
+import {useCallback, useRef, useState} from 'react'
+import {JSON_RPC_URL, WALLET_CONNECT_PROJECT_ID} from '../constants'
+import Script from 'next/script'
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Build the Bear Market</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/js/walletsBundle.js" type="module"></script>
-    <script src="/js/index.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Rubik:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  </head>
-  <body>
-    <div id="backgroundImage"></div>
-    <div id="backgroundCover"></div>
-    <header id="marketPrices"></header>
-    <main>
-<!--      <div id="walletConnection" class="mainSectionCard">-->
-<!--        <h3 id="connectedWalletAddress">Not connected</h3>-->
-<!--        <button id="connectWallet">Connect</button>-->
-<!--        <button id="verifyWallet">Verify</button>-->
-<!--        <button id="donate">Donate</button>-->
-<!--      </div>-->
-      <div id="welcomeMessage" class="mainSectionCard">
-        <h2>Build the Bear . Market <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="2048px" height="2048px" viewBox="0 0 2048 2048" enable-background="new 0 0 2048 2048" xml:space="preserve">  <image id="image0" width="2048" height="2048" x="0" y="0" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACAAAAAgACAQAAAAYrhu7AAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+const TOKEN_LIST = [
+    {
+        "name": "Dai Stablecoin",
+        "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+        "symbol": "DAI",
+        "decimals": 18,
+        "chainId": 1,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+    },
+    {
+        "name": "Tether USD",
+        "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        "symbol": "USDT",
+        "decimals": 6,
+        "chainId": 1,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png"
+    },
+    {
+        "name": "USD Coin",
+        "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "symbol": "USDC",
+        "decimals": 6,
+        "chainId": 1,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
+    },
+]
+
+const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+const theme: Theme = {
+    primary: '#1F4A05',
+    secondary: 'rgba(0, 0, 0, 0.25)',
+    interactive: '#FFF',
+    container: '#ffedc2',
+    module: '#FFF',
+    accent: '#fa9d4c',
+    outline: '#CADDC2',
+    dialog: '#FFF',
+    borderRadius: 0.2,
+}
+
+function connectWallet() {
+    let element: HTMLElement = document.querySelector('.walletConnector:first-of-type button') as HTMLElement;
+    element.click();
+}
+
+const Home: NextPage = () => {
+    // When a user clicks "Connect your wallet" in the SwapWidget, this callback focuses the connectors.
+    const connectors = useRef<HTMLDivElement>(null)
+    const focusConnectors = useCallback(() => connectWallet(), [])
+
+    // The provider to pass to the SwapWidget.
+    // This is a Web3Provider (from @ethersproject) supplied by @web3-react; see ./connectors.ts.
+    const pr = useActiveProvider()
+
+    // The locale to pass to the SwapWidget.
+    // This is a value from the SUPPORTED_LOCALES exported by @uniswap/widgets.
+    const [locale, setLocale] = useState<SupportedLocale>('en-US')
+    const onSelectLocale = useCallback((e) => setLocale(e.target.value), [])
+
+    return (
+        <div>
+            <Head>
+                <meta charSet="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <title>Build the Bear Market</title>
+                <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+            </Head>
+
+            <div id="backgroundImage" />
+            <div id="backgroundCover" />
+            <header id="marketPrices" />
+            <div id="walletConnectors" ref={connectors}>
+                <Web3Connectors/>
+            </div>
+            <main>
+                <div id="welcomeMessage" className="mainSectionCard">
+                    <h2>
+                        Build the Bear . Market{" "}
+                        <svg
+                            version="1.1"
+                            id="Layer_1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlnsXlink="http://www.w3.org/1999/xlink"
+                            x="0px"
+                            y="0px"
+                            width="2048px"
+                            height="2048px"
+                            viewBox="0 0 2048 2048"
+                            enableBackground="new 0 0 2048 2048"
+                            xmlSpace="preserve"
+                        >
+                            {" "}
+                            <image
+                                id="image0"
+                                width={2048}
+                                height={2048}
+                                x={0}
+                                y={0}
+                                href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACAAAAAgACAQAAAAYrhu7AAAABGdBTUEAALGPC/xhBQAAACBjSFJN
 AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZ
 cwAAFE0AABRNAZTKjS8AAAFielRYdFJhdyBwcm9maWxlIHR5cGUgeG1wAAA4jZVTSXaDMAzd6xQ9
 gtBojkOxvet7Xfb4lUwSKEnaFD8mWf6DLMPXxye85aWowKsXXrxYdbRq6mITYf7bas0557gS2WRi
@@ -2692,102 +2772,219 @@ ZXRhdGlvbgAyooyJKwAAABl0RVh0ZXhpZjpQaXhlbFhEaW1lbnNpb24AMjA0OL+cElwAAAAZdEVY
 dGV4aWY6UGl4ZWxZRGltZW5zaW9uADIwNDgGZ8m0AAAAIHRFWHR0aWZmOlBob3RvbWV0cmljSW50
 ZXJwcmV0YXRpb24AMiPCMJAAAAAVdEVYdHRpZmY6UmVzb2x1dGlvblVuaXQAMpwqT6MAAAAUdEVY
 dHRpZmY6WFJlc29sdXRpb24AMTMymp/UIAAAABR0RVh0dGlmZjpZUmVzb2x1dGlvbgAxMzIjZA/I
-AAAAAElFTkSuQmCC"></image>
-</svg></h2>
-      </div>
-      <div id="cards">
-        <div id="documentation" class="mainSectionCard">
-          <a class="" target="_blank" href="https://www.buildthebear.online/">
-            <h3>➟ Resources and Documentation : </h3>
-          </a>
-          <h5>Build the Bear . Online</h5>
-          <ul>
-            <li><a class="" target="_blank" href="https://www.buildthebear.online/docs/launch">➟ Token Launch Guide</a></li>
-            <li><a class="" target="_blank" href="https://www.buildthebear.online/docs/minting">➟ How to Mint NFTs</a></li>
-            <li><a class="" target="_blank" href="https://www.buildthebear.online/docs/deploying">➟ How to Deploy Contracts</a></li>
-            <li><a class="" target="_blank" href="https://www.buildthebear.online/docs/analysis">➟ Token Analysis Guide</a></li>
-            <li><br>More Coming Soon</li>
-          </ul>
+AAAAAElFTkSuQmCC"
+                            />
+                        </svg>
+                    </h2>
+                </div>
+                <div id="cards">
+                    <div id="documentation" className="mainSectionCard">
+                        <a className="" target="_blank" rel="noreferrer" href="https://www.buildthebear.online/">
+                            <h3>➟ Resources and Documentation : </h3>
+                        </a>
+                        <h5>Build the Bear . Online</h5>
+                        <ul>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://www.buildthebear.online/docs/launch"
+                                >
+                                    ➟ Token Launch Guide
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://www.buildthebear.online/docs/minting"
+                                >
+                                    ➟ How to Mint NFTs
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://www.buildthebear.online/docs/deploying"
+                                >
+                                    ➟ How to Deploy Contracts
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://www.buildthebear.online/docs/analysis"
+                                >
+                                    ➟ Token Analysis Guide
+                                </a>
+                            </li>
+                            <li>
+                                <br />
+                                More Coming Soon
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="earlyAdopters" className="mainSectionCard">
+                        <div>
+                            <a
+                                className=""
+                                target="_blank"
+                                rel="noreferrer"
+                                href="https://app.niftykit.com/collections/buildthebear-v1"
+                            >
+                                <h3>➟ Early Adopters NFT Collection : </h3>
+                            </a>
+                            <h5>20 1-of-1 animations</h5>
+                            <ul>
+                                <li>- Custom Collectibles</li>
+                                <li>- Early Access to Developments</li>
+                                <li>- Potential for Boosted Staking</li>
+                                <li>- Inclusive of all future benefits</li>
+                                <li>
+                                    <br />
+                                    Details To Follow
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="socials" className="mainSectionCard">
+                        <h3>RELEVANT LINKS : </h3>
+                        <h5>Keep up with us</h5>
+                        <ul>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://etherscan.io/address/0x50649cb60c5e8c981dd6c38576ae3d8c82c0bc8e"
+                                >
+                                    ➟ Etherscan{" "}
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        version={"1.0"}
+                                        width="294.000000pt"
+                                        height="294.000000pt"
+                                        viewBox="0 0 294.000000 294.000000"
+                                        preserveAspectRatio="xMidYMid meet"
+                                    >
+                                        <g
+                                            transform="translate(0.000000,294.000000) scale(0.100000,-0.100000)"
+                                            fill="#000000"
+                                            stroke="none"
+                                        >
+                                            <path d="M1301 2930 c-337 -43 -628 -186 -871 -430 -211 -210 -336 -441 -402 -738 -18 -78 -22 -131 -22 -272 -1 -200 15 -310 70 -477 33 -103 112 -273 142 -307 35 -38 88 -56 164 -55 120 1 168 12 200 48 l28 31 0 423 c0 406 1 423 20 455 30 49 72 62 197 62 129 0 170 -10 209 -51 l29 -30 3 -415 c2 -387 4 -415 20 -410 9 3 36 10 59 16 24 6 51 22 62 37 21 25 21 36 21 540 0 562 -1 555 58 598 23 17 46 20 164 23 150 4 182 -4 215 -55 16 -25 18 -71 23 -499 l5 -472 55 23 c66 28 95 55 104 96 3 17 6 281 6 585 l0 554 34 38 34 37 144 3 c161 4 189 -4 224 -61 18 -30 19 -58 22 -484 1 -249 5 -453 8 -453 2 0 48 35 102 77 178 141 370 340 417 432 29 56 17 137 -39 262 -232 522 -732 860 -1296 874 -74 2 -168 0 -209 -5z" />
+                                        </g>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://github.com/Build-the-Bear"
+                                >
+                                    ➟ GitHub{" "}
+                                    <span className="twemoji">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M2.6 10.59 8.38 4.8l1.69 1.7c-.24.85.15 1.78.93 2.23v5.54c-.6.34-1 .99-1 1.73a2 2 0 0 0 2 2 2 2 0 0 0 2-2c0-.74-.4-1.39-1-1.73V9.41l2.07 2.09c-.07.15-.07.32-.07.5a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2c-.18 0-.35 0-.5.07L13.93 7.5a1.98 1.98 0 0 0-1.15-2.34c-.43-.16-.88-.2-1.28-.09L9.8 3.38l.79-.78c.78-.79 2.04-.79 2.82 0l7.99 7.99c.79.78.79 2.04 0 2.82l-7.99 7.99c-.78.79-2.04.79-2.82 0L2.6 13.41c-.79-.78-.79-2.04 0-2.82Z" />
+                </svg>
+              </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://twitter.com/BuildingtheBear"
+                                >
+                                    ➟ Twitter{" "}
+                                    <span className="twemoji">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23Z" />
+                </svg>
+              </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://www.t.me/BuildtheBear"
+                                >
+                                    ➟ Telegram{" "}
+                                    <span className="twemoji">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M2.2 16.06 3.88 12 2.2 7.94l4.06-1.68L7.94 2.2 12 3.88l4.06-1.68 1.68 4.06 4.06 1.68L20.12 12l1.68 4.06-4.06 1.68-1.68 4.06L12 20.12 7.94 21.8l-1.68-4.06-4.06-1.68M13 17v-2h-2v2h2m0-4V7h-2v6h2Z" />
+                </svg>
+              </span>
+                                </a>
+                                <p />
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="roadmap" className="mainSectionCard">
+                        <h3>Build the Bear&quot;s Roadmap : </h3>
+                        <h5>Upcoming Developments</h5>
+                        <ul>
+                            <div className="roadmapDivider">
+                                Q4 &quot;22 <hr />
+                            </div>
+                            <li>- Website/Socials ✓</li>
+                            <li>- Contract Audit</li>
+                            <li>- Documentation v1</li>
+                            <li>- Digital Sticker Pack ✓</li>
+                            <div className="roadmapDivider">
+                                Q1 &quot;23 <hr />
+                            </div>
+                            <li>- Private Pre-Sale</li>
+                            <li>- Token Offering</li>
+                            <li>- Henry the Hypemachine v1</li>
+                            <li>- Early Adopters NFTs</li>
+                            <li>- Open-Source Participation</li>
+                            <div className="roadmapDivider">
+                                Q2 &quot;23 <hr />
+                            </div>
+                            <li>- BTB Single-Staking Pool</li>
+                            <li>- Conversion Tools</li>
+                            <li>- Launch of BTB Market</li>
+                            <li>- Lego Set</li>
+                            <li>- Bot Upgrades</li>
+                            <li>- Token Tossup</li>
+                            <div className="roadmapDivider">
+                                Q3 &quot;23 <hr />
+                            </div>
+                            <li>- To Be Announced</li>
+                        </ul>
+                    </div>
+                    <SwapWidget
+                        jsonRpcEndpoint={JSON_RPC_URL}
+                        tokenList={TOKEN_LIST}
+                        provider={pr}
+                        locale={locale}
+                        onConnectWallet={focusConnectors}
+                        defaultInputTokenAddress="NATIVE"
+                        defaultInputAmount="1"
+                        defaultOutputTokenAddress={DAI}
+                        className={"swapWidget"}
+                        width={400}
+                        theme={theme}
+                    />
+                </div>
+            </main>
+
+            <Script src="https://code.jquery.com/jquery-3.6.1.min.js"></Script>
+            <Script src="/js/index.jsx"></Script>
         </div>
-        <div id="earlyAdopters" class="mainSectionCard">
-          <div>
-            <a class="" target="_blank" href="https://app.niftykit.com/collections/buildthebear-v1">
-              <h3>➟ Early Adopters NFT Collection : </h3>
-            </a>
-            <h5>20 1-of-1 animations</h5>
-            <ul>
-              <li>- Custom Collectibles</li>
-              <li>- Early Access to Developments</li>
-              <li>- Potential for Boosted Staking</li>
-              <li>- Inclusive of all future benefits</li>
-              <li><br>Details To Follow</li>
-            </ul>
-          </div>
-        </div>
-        <div id="socials" class="mainSectionCard">
-          <h3>RELEVANT LINKS: </h3>
-          <h5>Keep up with us</h5>
-          <ul>
-            <li><a class="" target="_blank" href="https://etherscan.io/address/0x50649cb60c5e8c981dd6c38576ae3d8c82c0bc8e">➟ Etherscan <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="294.000000pt" height="294.000000pt" viewBox="0 0 294.000000 294.000000" preserveAspectRatio="xMidYMid meet">
-              <g transform="translate(0.000000,294.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                <path d="M1301 2930 c-337 -43 -628 -186 -871 -430 -211 -210 -336 -441 -402 -738 -18 -78 -22 -131 -22 -272 -1 -200 15 -310 70 -477 33 -103 112 -273 142 -307 35 -38 88 -56 164 -55 120 1 168 12 200 48 l28 31 0 423 c0 406 1 423 20 455 30 49 72 62 197 62 129 0 170 -10 209 -51 l29 -30 3 -415 c2 -387 4 -415 20 -410 9 3 36 10 59 16 24 6 51 22 62 37 21 25 21 36 21 540 0 562 -1 555 58 598 23 17 46 20 164 23 150 4 182 -4 215 -55 16 -25 18 -71 23 -499 l5 -472 55 23 c66 28 95 55 104 96 3 17 6 281 6 585 l0 554 34 38 34 37 144 3 c161 4 189 -4 224 -61 18 -30 19 -58 22 -484 1 -249 5 -453 8 -453 2 0 48 35 102 77 178 141 370 340 417 432 29 56 17 137 -39 262 -232 522 -732 860 -1296 874 -74 2 -168 0 -209 -5z"/>
-              </g>
-            </svg></a></li>
-            <li><a class="" target="_blank" href="https://github.com/Build-the-Bear">➟ GitHub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.6 10.59 8.38 4.8l1.69 1.7c-.24.85.15 1.78.93 2.23v5.54c-.6.34-1 .99-1 1.73a2 2 0 0 0 2 2 2 2 0 0 0 2-2c0-.74-.4-1.39-1-1.73V9.41l2.07 2.09c-.07.15-.07.32-.07.5a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2c-.18 0-.35 0-.5.07L13.93 7.5a1.98 1.98 0 0 0-1.15-2.34c-.43-.16-.88-.2-1.28-.09L9.8 3.38l.79-.78c.78-.79 2.04-.79 2.82 0l7.99 7.99c.79.78.79 2.04 0 2.82l-7.99 7.99c-.78.79-2.04.79-2.82 0L2.6 13.41c-.79-.78-.79-2.04 0-2.82Z"></path></svg></span></a></li>
-            <li><a class="" target="_blank"href="https://twitter.com/BuildingtheBear">➟ Twitter <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23Z"></path></svg></span></a></li>
-            <li><a class="" target="_blank" href="https://www.t.me/BuildtheBear">➟ Telegram <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.2 16.06 3.88 12 2.2 7.94l4.06-1.68L7.94 2.2 12 3.88l4.06-1.68 1.68 4.06 4.06 1.68L20.12 12l1.68 4.06-4.06 1.68-1.68 4.06L12 20.12 7.94 21.8l-1.68-4.06-4.06-1.68M13 17v-2h-2v2h2m0-4V7h-2v6h2Z"></path></svg></span></a></p></li>
-          </ul>
-        </div>
-        <div id="roadmap" class="mainSectionCard">
-          <h3>Build the Bear's Roadmap : </h3>
-          <h5>Upcoming Developments</h5>
-          <ul>
-            <div class="roadmapDivider">Q4 '22 <hr></div>
-            <li>- Website/Socials ✓</li>
-            <li>- Contract Audit</li>
-            <li>- Documentation v1</li>
-            <li>- Digital Sticker Pack ✓</li>
-            <div class="roadmapDivider">Q1 '23 <hr></div>
-            <li>- Private Pre-Sale</li>
-            <li>- Token Offering</li>
-            <li>- Henry the Hypemachine v1</li>
-            <li>- Early Adopters NFTs</li>
-            <li>- Open-Source Participation</li>
-            <div class="roadmapDivider">Q2 '23 <hr></div>
-            <li>- BTB Single-Staking Pool</li>
-            <li>- Conversion Tools</li>
-            <li>- Launch of BTB Market</li>
-            <li>- Bot Upgrades</li>
-            <li>- Token Tossup</li>
-            <div class="roadmapDivider">Q3 '23 <hr></div>
-            <li>- To Be Announced</li>
-          </ul>
-        </div>
-<!--        <div id="ethereumChart" class="mainSectionCard">-->
-<!--          <div class="nomics-ticker-widget" data-name="Ethereum" data-base="ETH" data-quote="USD"></div><script src="https://widget.nomics.com/embed.js"></script>-->
-<!--        </div>-->
-      </div>
-<!--      <div id="tokenCharts" class="mainSectionCard">-->
-<!--        <iframe src="https://teams.bogged.finance/embeds/chart?address=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c&chain=bsc&charttype=candles&theme=bg:2A2C24FF|bg2:E7E5DF0D|primary:575A4BFF|secondary:4FB477FF|text:E7E5DFFF|text2:E7E5DFFF|candlesUp:4FB477FF|candlesDown:E63946FF|chartLine:018CF0FF&defaultinterval=15m&showchartbutton=true"-->
-<!--                height="400px"-->
-<!--                width="800px"-->
-<!--        ></iframe>-->
-<!--      </div>-->
-<!--      <aside id="toolbox">-->
-<!--        <div class="toolboxSection">-->
-<!--          <h4>Trusted Tools</h4>-->
-<!--          <h6>Tracking:</h6>-->
-<!--          <a class="toolLink" target="_blank" href="https://blockscan.com/">Blockscan</a>-->
-<!--          <h6>Building:</h6>-->
-<!--          <a class="toolLink" target="_blank" href="https://hibiki.finance/">Hibiki Finance</a>-->
-<!--          <a class="toolLink" target="_blank" href="https://onlymoons.io/">Only Moons</a>-->
-<!--          <h6>Trading:</h6>-->
-<!--          <a class="toolLink" target="_blank" href="https://app.bogged.finance/bsc/dashboard">Bogged Finance</a>-->
-<!--          <h6>Gambling:</h6>-->
-<!--          <a class="toolLink" target="_blank" href="https://moonarch.app/">Moonarch</a>-->
-<!--          <a class="toolLink" target="_blank" href="https://tokensniffer.com/">Token Sniffer</a>-->
-<!--        </div>-->
-<!--      </aside>-->
-    </main>
-  </body>
-</html>
+    )
+}
+
+export default Home

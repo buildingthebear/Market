@@ -7,7 +7,7 @@ let cur = [{Symbol: "BTC", Name: "Bitcoin"},
     {Symbol: "SOL", Name: "Solana"}];
 let acc = ``;
 
-$(async function() {
+async function getMarketPrices() {
     // fetch information for #marketPrices
     try {
         let res = await fetch(url);
@@ -49,38 +49,6 @@ $(async function() {
             panel.style.maxHeight = panel.scrollHeight + "px";
         }
     });
-});
-
-async function getAccount() {
-    try {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        acc = accounts[0];
-
-        $('#connectWallet').hide();
-        $('#verifyWallet').show();
-        $("#walletConnection").addClass("connectedWallet");
-        $("#connectedWalletAddress").text("connected: " + acc);
-    } catch (error) {
-        console.error(error);
-    }
 }
 
-async function donate() {
-    try {
-        web3.setProvider('https://data-seed-prebsc-1-s1.binance.org:8545/');
-
-        ethereum.request({
-            method: 'eth_sendTransaction',
-            params: [{
-                from: acc,
-                to: '0xa0794791BDF057ef4CF8109BF9Bc911B158DaD1E',
-                value: web3.utils.toWei('0.005', "ether"),
-                gasPrice: web3.utils.toWei('10', "gwei"),
-                gas: '0x7530',
-                    },
-                ],
-            }).then((txHash) => console.log(txHash)).catch((error) => console.error);
-    } catch (error) {
-        console.error(error);
-    }
-}
+getMarketPrices().then(r => console.log("Fetched Rates"));
