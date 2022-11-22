@@ -1,5 +1,6 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import {SupportedLocale, SUPPORTED_LOCALES, SwapWidget, Theme } from '@uniswap/widgets'
 import '@uniswap/widgets/fonts.css'
 import Web3Connectors from '../components/Web3Connectors'
@@ -77,7 +78,7 @@ const Home: NextPage = () => {
                 <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
             </Head>
 
-            <div id="backgroundImage" />
+            <div id="backgroundImage" style={{backgroundImage: `url(${bg.src})`}} />
             <div id="backgroundCover" />
             <header id="marketPrices" />
             <div id="walletConnectors" ref={connectors}>
@@ -2831,7 +2832,7 @@ AAAAAElFTkSuQmCC"
                             </li>
                         </ul>
                     </div>
-                    <div id="earlyAdopters" className="mainSectionCard">
+                    <div id="earlyAdopters" className="mainSectionCard" style={{backgroundImage: `url(${bg.src})`}}>
                         <div>
                             <a
                                 className=""
@@ -2982,7 +2983,6 @@ AAAAAElFTkSuQmCC"
                 </div>
             </main>
 
-            <style>{`#backgroundImage, #earlyAdopters {background-image: url(` + bg.src + `) !important;}`}</style>
             <Script src="https://code.jquery.com/jquery-3.6.1.min.js"></Script>
             <Script src="/js/index.jsx"></Script>
         </div>
