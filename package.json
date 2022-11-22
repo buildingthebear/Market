@@ -1,0 +1,55 @@
+{
+  "name": "widgets-next",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "resolutions": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.20.1",
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@ethersproject/contracts": "^5.7.0",
+    "@web3modal/ethereum": "^2.0.0-beta.5",
+    "@web3modal/react": "^2.0.0-beta.5",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.12.2",
+    "immer": "^9.0.16",
+    "jotai-immer": "^0.1.0",
+    "jquery": "^3.6.1",
+    "next": "12.1.0",
+    "react": "^17.0.2",
+    "react-dom": "17.0.2",
+    "react-is": "^18.2.0",
+    "react-redux": "^7.2.6",
+    "redux": "^4.2.0",
+    "sharp": "^0.31.2",
+    "wagmi": "^0.8.5"
+  },
+  "devDependencies": {
+    "@ethersproject/providers": "^5.5.1",
+    "@types/jquery": "^3.5.14",
+    "@types/node": "17.0.19",
+    "@types/react": "17.0.39",
+    "@uniswap/default-token-list": "^3.0.0",
+    "@uniswap/widgets": "^1.0.0",
+    "@walletconnect/ethereum-provider": "^1.8.0",
+    "@web3-react/core": "^8.0.22-beta.0",
+    "@web3-react/empty": "^8.0.11-beta.0",
+    "@web3-react/metamask": "^8.0.18-beta.0",
+    "@web3-react/types": "^8.0.11-beta.0",
+    "@web3-react/walletconnect": "^8.0.25-beta.0",
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.1.0",
+    "prettier": "^2.5.1",
+    "react-icons": "^4.3.1",
+    "typescript": "4.5.5"
+  }
+}
