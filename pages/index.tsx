@@ -77,7 +77,7 @@ const Home: NextPage = () => {
                 <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
             </Head>
 
-            <div id="backgroundImage" style={{backgroundImage: `url(${bg.src})`}} />
+            <div id="backgroundImage" />
             <div id="backgroundCover" />
             <header id="marketPrices" />
             <div id="walletConnectors" ref={connectors}>
@@ -2831,7 +2831,7 @@ AAAAAElFTkSuQmCC"
                             </li>
                         </ul>
                     </div>
-                    <div id="earlyAdopters" className="mainSectionCard" style={{backgroundImage: `url(${bg.src})`}}>
+                    <div id="earlyAdopters" className="mainSectionCard">
                         <div>
                             <a
                                 className=""
@@ -2982,7 +2982,7 @@ AAAAAElFTkSuQmCC"
                 </div>
             </main>
 
-            <style>{`#backgroundImage, #earlyAdpoters {background: url(${bg}) no-repeat;}`}</style>
+            <style>{`#backgroundImage, #earlyAdopters {background-image: url(` + bg.src + `) !important;}`}</style>
             <Script src="https://code.jquery.com/jquery-3.6.1.min.js"></Script>
             <Script src="/js/index.jsx"></Script>
         </div>
