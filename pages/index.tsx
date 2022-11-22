@@ -2781,7 +2781,7 @@ AAAAAElFTkSuQmCC"
                         <a className="" target="_blank" rel="noreferrer" href="https://www.buildthebear.online/">
                             <h3>➟ Resources and Documentation : </h3>
                         </a>
-                        <h5>Build the Bear . Online</h5>
+                        <h5>Build the Bear . Online</h5><hr />
                         <ul>
                             <li>
                                 <a
@@ -2840,7 +2840,7 @@ AAAAAElFTkSuQmCC"
                             >
                                 <h3>➟ Early Adopters NFT Collection : </h3>
                             </a>
-                            <h5>20 1-of-1 animations</h5>
+                            <h5>20 1-of-1 animations</h5><hr />
                             <ul>
                                 <li>- Custom Collectibles</li>
                                 <li>- Early Access to Developments</li>
@@ -2855,7 +2855,7 @@ AAAAAElFTkSuQmCC"
                     </div>
                     <div id="socials" className="mainSectionCard">
                         <h3>RELEVANT LINKS : </h3>
-                        <h5>Keep up with us</h5>
+                        <h5>Keep up with us</h5><hr />
                         <ul>
                             <li>
                                 <a
