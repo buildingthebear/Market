@@ -51,4 +51,4 @@ async function getMarketPrices() {
     });
 }
 
-getMarketPrices().then(r => console.log("Fetched Rates"));
+// getMarketPrices().then(r => console.log("Fetched Rates"));

@@ -1,7 +1,6 @@
 import { initializeConnector } from '@web3-react/core'
 import { Connector } from '@web3-react/types'
 import { WalletConnect } from '@web3-react/walletconnect'
-import {JSON_RPC_URL, WALLET_CONNECT_PROJECT_ID} from '../constants'
 import { toWeb3Connector } from './utils'
 
 export function isWalletConnect(connector: Connector) {
@@ -13,7 +12,7 @@ const connector = initializeConnector<WalletConnect>(
     new WalletConnect(
       actions,
       {
-        rpc: { 1: JSON_RPC_URL },
+        rpc: { 1: "https://cloudflare-eth.com/" },
       },
       false
     )

@@ -6,9 +6,7 @@ import '@uniswap/widgets/fonts.css'
 import Web3Connectors from '../components/Web3Connectors'
 import {useActiveProvider} from '../connectors'
 import {useCallback, useRef, useState} from 'react'
-import {JSON_RPC_URL, WALLET_CONNECT_PROJECT_ID} from '../constants'
 import Script from 'next/script'
-import bg from '/img/background-2.gif'
 
 const TOKEN_LIST = [
     {
@@ -63,11 +61,6 @@ const Home: NextPage = () => {
     // The provider to pass to the SwapWidget.
     // This is a Web3Provider (from @ethersproject) supplied by @web3-react; see ./connectors.ts.
     const pr = useActiveProvider()
-
-    // The locale to pass to the SwapWidget.
-    // This is a value from the SUPPORTED_LOCALES exported by @uniswap/widgets.
-    const [locale, setLocale] = useState<SupportedLocale>('en-US')
-    const onSelectLocale = useCallback((e) => setLocale(e.target.value), [])
 
     return (
         <div>
@@ -2966,10 +2959,10 @@ AAAAAElFTkSuQmCC"
                         </ul>
                     </div>
                     <SwapWidget
-                        jsonRpcEndpoint={JSON_RPC_URL}
+                        jsonRpcEndpoint={'https://cloudflare-eth.com/'}
                         tokenList={TOKEN_LIST}
                         provider={pr}
-                        locale={locale}
+                        locale={'en-US'}
                         onConnectWallet={focusConnectors}
                         defaultInputTokenAddress="NATIVE"
                         defaultInputAmount="1"
