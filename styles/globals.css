@@ -80,6 +80,11 @@ svg {
   height: 20px;
 }
 
+#socials li:nth-of-type(1) svg {
+  width: 16px;
+  height: 16px;
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -186,8 +191,6 @@ ul {
 }
 
 .mainSectionCard button {
-  box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-  margin: 1rem 0 0.25rem 0;
   padding: 0.25rem;
   cursor: pointer;
 }
@@ -209,6 +212,13 @@ ul {
   padding: 1rem;
   height: fit-content;
   margin-top: 2rem;
+  max-width: min-content;
+  opacity: 0;
+  transition: opacity 0.8s ease-in;
+}
+
+.mainSectionCardDescription {
+  font-size: 10px;
 }
 
 .md-button {
@@ -238,8 +248,11 @@ ul {
   font-size: 10px;
 }
 
+#swapWidget {
+  padding: 0;
+}
+
 .swapWidget {
-  margin: 2rem 0 0 2rem;
   border: 4px solid rgb(0 0 0 / 10%);
   border-radius: 0.5rem !important;
   box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
@@ -251,7 +264,7 @@ ul {
   border-radius: 0 0 0.25rem 0.25rem !important;
 }
 
-.swapWidget button[color="interactive"] > .button-large {
+.swapWidget button[color="interactive"]:has(.button-large) {
   padding: 0.25rem;
 }
 
@@ -449,6 +462,10 @@ ul {
   position: relative;
 }
 
+#social ul {
+  margin-top: auto;
+}
+
 #tokenCharts {
   padding: 1rem 0;
 }
@@ -539,9 +556,5 @@ ul {
 
   .walletConnector button {
     margin: 0 0.5rem 1rem 0.5rem;
-  }
-
-  .swapWidget {
-    margin: 0;
   }
 }
