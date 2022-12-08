@@ -140,7 +140,7 @@ const Home: NextPage = () => {
                             <li>
                                 <br/>
                                 <span className="mainSectionCardDescription"> Guides provided are meant to be
-                                    high-level directions for builders (and hodlers) who may need advice</span>
+                                    high-level direction for builders (and hodlers) who may need advice</span>
                                 <br/><br/>
                                 More Coming Soon
                             </li>
@@ -296,11 +296,11 @@ const Home: NextPage = () => {
                         </ul>
                     </div>
                     <div id="roadmap" className="mainSectionCard">
-                        <h3>Build the Bear&apos;s Roadmap : </h3>
+                        <h3>Build the Bear's Roadmap : </h3>
                         <h5>Upcoming Developments</h5>
                         <ul>
                             <div className="roadmapDivider">
-                                Q4 &apos;22 <hr/>
+                                Q4 '22 <hr/>
                             </div>
                             <li>- Website/Socials ✓</li>
                             <li>- Documentation v1 ✓</li>
@@ -308,7 +308,7 @@ const Home: NextPage = () => {
                             <li>- Contract Audit</li>
                             <li>- Private Pre-Sale</li>
                             <div className="roadmapDivider">
-                                Q1 &apos;23 <hr/>
+                                Q1 '23 <hr/>
                             </div>
                             <li>- Token Offering</li>
                             <li>- Henry the Hypemachine v1</li>
@@ -316,7 +316,7 @@ const Home: NextPage = () => {
                             <li>- Staking Pool</li>
                             <li>- Weekly Spotlights</li>
                             <div className="roadmapDivider">
-                                Q2 &apos;23 <hr/>
+                                Q2 '23 <hr/>
                             </div>
                             <li>- Open-Source Participation</li>
                             <li>- Conversion Tools</li>
@@ -324,7 +324,7 @@ const Home: NextPage = () => {
                             <li>- Bot Upgrades</li>
                             <li>- Lego Set</li>
                             <div className="roadmapDivider">
-                                Q3 &apos;23 <hr/>
+                                Q3 '23 <hr/>
                             </div>
                             <li>- Token Tossup</li>
                             <li>- Proof-of-Posts / KYD</li>
