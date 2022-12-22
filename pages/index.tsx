@@ -75,6 +75,9 @@ const Home: NextPage = () => {
             <div id="backgroundCover"/>
             <header id="marketPrices"/>
             <main>
+                <div id="walletConnectors" ref={connectors}>
+                    <Web3Connectors/>
+                </div>
                 <div id="welcomeMessage">
                     <h2>
                         Build the Bear . Market{" "}
@@ -112,6 +115,17 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
+                                    href="https://www.buildthebear.online/docs/analysis"
+                                >
+                                    ➟ Token Analysis Guide
+                                </a>
+                            </li>
+                            <br />
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
                                     href="https://www.buildthebear.online/docs/minting"
                                 >
                                     ➟ How to Mint NFTs
@@ -125,16 +139,6 @@ const Home: NextPage = () => {
                                     href="https://www.buildthebear.online/docs/deploying"
                                 >
                                     ➟ How to Deploy Contracts
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    className=""
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    href="https://www.buildthebear.online/docs/analysis"
-                                >
-                                    ➟ Token Analysis Guide
                                 </a>
                             </li>
                             <li>
@@ -160,7 +164,7 @@ const Home: NextPage = () => {
                             <h5>20 1-of-1 animations from the developer</h5>
                             <hr/>
                             <ul>
-                                <li>- 0.1Ξ to mint</li>
+                                <li><b>- Cost 0.1Ξ to mint</b></li>
                                 <li>- Custom Collectibles</li>
                                 <li>- Early Access to Developments</li>
                                 <li>- Potential for Boosted Staking</li>
@@ -194,7 +198,7 @@ const Home: NextPage = () => {
                         </div>
                     </div>
                     <div id="socials" className="mainSectionCard">
-                        <h3>RELEVANT LINKS : </h3>
+                        <h3>RELEVANT INFORMATION : </h3>
                         <h5>Keep up with us</h5>
                         <hr/>
                         <ul>
@@ -205,7 +209,7 @@ const Home: NextPage = () => {
                                     rel="noreferrer"
                                     href="https://etherscan.io/address/0x50649cb60c5e8c981dd6c38576ae3d8c82c0bc8e"
                                 >
-                                    ➟ Etherscan{" "}
+                                    ➟ buildthebear.eth{" "}
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         version={"1.0"}
@@ -230,15 +234,42 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
-                                    href="https://github.com/Build-the-Bear"
+                                    href="https://etherscan.io/token/0x0b2fB51f4713f08Ab72173BC83aB3bBa71B537Cd"
                                 >
-                                    ➟ GitHub{" "}
+                                    ➟ BTB Contract{" "}
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        version={"1.0"}
+                                        width="294.000000pt"
+                                        height="294.000000pt"
+                                        viewBox="0 0 294.000000 294.000000"
+                                        preserveAspectRatio="xMidYMid meet"
+                                    >
+                                        <g
+                                            transform="translate(0.000000,294.000000) scale(0.100000,-0.100000)"
+                                            fill="#000000"
+                                            stroke="none"
+                                        >
+                                            <path
+                                                d="M1301 2930 c-337 -43 -628 -186 -871 -430 -211 -210 -336 -441 -402 -738 -18 -78 -22 -131 -22 -272 -1 -200 15 -310 70 -477 33 -103 112 -273 142 -307 35 -38 88 -56 164 -55 120 1 168 12 200 48 l28 31 0 423 c0 406 1 423 20 455 30 49 72 62 197 62 129 0 170 -10 209 -51 l29 -30 3 -415 c2 -387 4 -415 20 -410 9 3 36 10 59 16 24 6 51 22 62 37 21 25 21 36 21 540 0 562 -1 555 58 598 23 17 46 20 164 23 150 4 182 -4 215 -55 16 -25 18 -71 23 -499 l5 -472 55 23 c66 28 95 55 104 96 3 17 6 281 6 585 l0 554 34 38 34 37 144 3 c161 4 189 -4 224 -61 18 -30 19 -58 22 -484 1 -249 5 -453 8 -453 2 0 48 35 102 77 178 141 370 340 417 432 29 56 17 137 -39 262 -232 522 -732 860 -1296 874 -74 2 -168 0 -209 -5z"/>
+                                        </g>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://www.t.me/BuildtheBear"
+                                >
+                                    ➟ Telegram{" "}
                                     <span className="twemoji">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                           <path
-                                              d="M2.6 10.59 8.38 4.8l1.69 1.7c-.24.85.15 1.78.93 2.23v5.54c-.6.34-1 .99-1 1.73a2 2 0 0 0 2 2 2 2 0 0 0 2-2c0-.74-.4-1.39-1-1.73V9.41l2.07 2.09c-.07.15-.07.32-.07.5a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2c-.18 0-.35 0-.5.07L13.93 7.5a1.98 1.98 0 0 0-1.15-2.34c-.43-.16-.88-.2-1.28-.09L9.8 3.38l.79-.78c.78-.79 2.04-.79 2.82 0l7.99 7.99c.79.78.79 2.04 0 2.82l-7.99 7.99c-.78.79-2.04.79-2.82 0L2.6 13.41c-.79-.78-.79-2.04 0-2.82Z"/>
+                                              d="M2.2 16.06 3.88 12 2.2 7.94l4.06-1.68L7.94 2.2 12 3.88l4.06-1.68 1.68 4.06 4.06 1.68L20.12 12l1.68 4.06-4.06 1.68-1.68 4.06L12 20.12 7.94 21.8l-1.68-4.06-4.06-1.68M13 17v-2h-2v2h2m0-4V7h-2v6h2Z"/>
                                         </svg>
-                                      </span>
+                                    </span>
                                 </a>
                             </li>
                             <li>
@@ -262,15 +293,15 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
-                                    href="https://www.t.me/BuildtheBear"
+                                    href="https://github.com/Build-the-Bear"
                                 >
-                                    ➟ Telegram{" "}
+                                    ➟ GitHub{" "}
                                     <span className="twemoji">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                           <path
-                                              d="M2.2 16.06 3.88 12 2.2 7.94l4.06-1.68L7.94 2.2 12 3.88l4.06-1.68 1.68 4.06 4.06 1.68L20.12 12l1.68 4.06-4.06 1.68-1.68 4.06L12 20.12 7.94 21.8l-1.68-4.06-4.06-1.68M13 17v-2h-2v2h2m0-4V7h-2v6h2Z"/>
+                                              d="M2.6 10.59 8.38 4.8l1.69 1.7c-.24.85.15 1.78.93 2.23v5.54c-.6.34-1 .99-1 1.73a2 2 0 0 0 2 2 2 2 0 0 0 2-2c0-.74-.4-1.39-1-1.73V9.41l2.07 2.09c-.07.15-.07.32-.07.5a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2c-.18 0-.35 0-.5.07L13.93 7.5a1.98 1.98 0 0 0-1.15-2.34c-.43-.16-.88-.2-1.28-.09L9.8 3.38l.79-.78c.78-.79 2.04-.79 2.82 0l7.99 7.99c.79.78.79 2.04 0 2.82l-7.99 7.99c-.78.79-2.04.79-2.82 0L2.6 13.41c-.79-.78-.79-2.04 0-2.82Z"/>
                                         </svg>
-                                    </span>
+                                      </span>
                                 </a>
                             </li>
                             <li>
@@ -298,39 +329,51 @@ const Home: NextPage = () => {
                     <div id="roadmap" className="mainSectionCard">
                         <h3>Build the Bear's Roadmap : </h3>
                         <h5>Upcoming Developments</h5>
-                        <ul>
-                            <div className="roadmapDivider">
-                                Q4 '22 <hr/>
-                            </div>
-                            <li>- Website/Socials ✓</li>
-                            <li>- Documentation v1 ✓</li>
-                            <li>- Digital Sticker Pack ✓</li>
-                            <li>- Contract Audit</li>
-                            <li>- Private Pre-Sale</li>
-                            <div className="roadmapDivider">
-                                Q1 '23 <hr/>
-                            </div>
-                            <li>- Token Offering</li>
-                            <li>- Henry the Hypemachine v1</li>
-                            <li>- Early Adopters NFTs</li>
-                            <li>- Staking Pool</li>
-                            <li>- Weekly Spotlights</li>
-                            <div className="roadmapDivider">
-                                Q2 '23 <hr/>
-                            </div>
-                            <li>- Open-Source Participation</li>
-                            <li>- Conversion Tools</li>
-                            <li>- Documentation v2</li>
-                            <li>- Bot Upgrades</li>
-                            <li>- Lego Set</li>
-                            <div className="roadmapDivider">
-                                Q3 '23 <hr/>
-                            </div>
-                            <li>- Token Tossup</li>
-                            <li>- Proof-of-Posts / KYD</li>
-                            <li>- Bug Bounty Program</li>
-                            <li>- Building and building and</li>
-                        </ul>
+                        <hr/>
+                        <div className="tabSet">
+                            <button id="defaultTab" className="tabLink active">Q4 '22</button>
+                            <button className="tabLink">Q1 '23</button>
+                            <button className="tabLink">Q2 '23</button>
+                            <button className="tabLink">Q3 '23</button>
+                        </div>
+                        <div id="Q422" className="tabContent">
+                            <ul>
+                                <li>- Website / Socials ✓</li>
+                                <li>- Documentation v1 ✓</li>
+                                <li>- Digital Sticker Pack ✓</li>
+                                <li>- Contract Peer Review ✓</li>
+                                <li>- Private Pre-Sale ✓</li>
+                            </ul>
+                        </div>
+                        <div id="Q123" className="tabContent">
+                            <ul>
+                                <li>- Public Token Offering</li>
+                                <li>- Henry the Hypemachine v1</li>
+                                <li>- Early Adopters NFTs</li>
+                                <li>- Staking Pools</li>
+                                <li>- Weekly Spotlights</li>
+                            </ul>
+                        </div>
+                        <div id="Q223" className="tabContent">
+                            <ul>
+                                <li>- Open-Source Participation</li>
+                                <li>- Conversion Tools</li>
+                                <li>- Documentation v2</li>
+                                <li>- Bot Upgrades</li>
+                                <li>- Physical Sticker Pack</li>
+                                <li>- Lego Sets</li>
+                            </ul>
+                        </div>
+                        <div id="Q323" className="tabContent">
+                            <ul>
+                                <li>- Token Tossup</li>
+                                <li>- Proof-of-Posts / KYD</li>
+                                <li>- Flooring Experts</li>
+                                <li>- Bug Bounty Program</li>
+                                <li>- Charlemagne the Clerk v1</li>
+                                <li>- Building and building and</li>
+                            </ul>
+                        </div>
                     </div>
                     <div id="swapWidget" className="mainSectionCard">
                         <SwapWidget
@@ -349,11 +392,6 @@ const Home: NextPage = () => {
                     </div>
                 </div>
             </main>
-            <div id="walletConnectors" ref={connectors}>
-                <Web3Connectors/>
-            </div>
-
-
             <Script src="https://cdn.kickoffpages.com/2.1.0/kol.js" id="koljs" data-campaign-id="168626" async></Script>
             <Script src="https://code.jquery.com/jquery-3.6.1.min.js"></Script>
             <Script src="/js/index.jsx"></Script>

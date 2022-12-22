@@ -2,6 +2,8 @@
 # Build the Bear Market
 Site contents for www.buildthebear.market
 
+Hosted on AWS Amplify, Built using Next, React, Web2 & Web3
+
 ## Local Deployment
 Clone the repository:
 

@@ -37,6 +37,10 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  opacity: 0.75;
+}
+
 h1, h2, h3, h4, h5 {
   margin: 0;
 }
@@ -80,7 +84,11 @@ svg {
   height: 20px;
 }
 
-#socials li:nth-of-type(1) svg {
+#socials li:nth-of-type(1) {
+  height: 22px;
+}
+
+#socials li:nth-of-type(1) svg, #socials li:nth-of-type(2) svg {
   width: 16px;
   height: 16px;
 }
@@ -266,6 +274,41 @@ ul {
 
 .swapWidget button[color="interactive"]:has(.button-large) {
   padding: 0.25rem;
+}
+
+.tabSet {
+  overflow: hidden;
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.tabContent {
+  display: none;
+}
+
+.tabContent {
+  animation: fadeEffect 0.5s;
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.tabLink {
+  padding: 0.25rem 0.75rem !important;
+  margin: 0.25rem;
+  border: none;
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0);
+  font-size: 12px;
+  transition: opacity 25ms;
+}
+
+.tabLink.active {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
 }
 
 .toolLink {
@@ -529,7 +572,7 @@ ul {
 #welcomeMessage {
   height: fit-content;
   max-height: 150px;
-  padding: 1.5rem 0;
+  padding: 1.25rem 0;
   text-align: center;
 }
 
@@ -540,7 +583,7 @@ ul {
   }
 
   .mainSectionCard {
-    margin: 1rem auto !important;
+    margin: 0.5rem auto !important;
   }
 
   #backgroundImage {
