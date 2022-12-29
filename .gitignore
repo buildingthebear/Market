@@ -38,4 +38,3 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-.DS_Store
