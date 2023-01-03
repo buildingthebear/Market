@@ -10,6 +10,14 @@ import Script from 'next/script'
 
 const TOKEN_LIST = [
     {
+        "name": "Build the Bear",
+        "address": "0x0b2fB51f4713f08Ab72173BC83aB3bBa71B537Cd",
+        "symbol": "BTB",
+        "decimals": 9,
+        "chainId": 1,
+        "logoURI": "https://www.buildthebear.market/img/btb-logo-solid-colorway-1.png"
+    },
+    {
         "name": "Dai Stablecoin",
         "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
         "symbol": "DAI",
@@ -35,7 +43,7 @@ const TOKEN_LIST = [
     },
 ]
 
-const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+const BTB = '0x0b2fB51f4713f08Ab72173BC83aB3bBa71B537Cd'
 const theme: Theme = {
     primary: '#1F4A05',
     secondary: 'rgba(0, 0, 0, 0.25)',
@@ -261,7 +269,20 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
-                                    href="https://www.t.me/BuildtheBear"
+                                    href="https://etherscan.io/dex/uniswapv2/0xb936c943341776832c76b9ad66320ec419f93466"
+                                >
+                                    ➟ BTB Chart{" "}
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                        <path fill="currentColor" d="M20 8H18.95L6.95 20H4C2.9 20 2 19.11 2 18C2 16.9 2.9 16 4 16H5.29L7 14.29V10C7 9.45 7.45 9 8 9H9C9.55 9 10 9.45 10 10V11.29L17.29 4H20C21.11 4 22 4.89 22 6C22 7.11 21.11 8 20 8M8.5 5C9.33 5 10 5.67 10 6.5C10 7.33 9.33 8 8.5 8C7.67 8 7 7.33 7 6.5C7 5.67 7.67 5 8.5 5M20.17 15.66L14.66 21.17L12.83 19.34L18.34 13.83L16.5 12H22V17.5L20.17 15.66Z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://www.t.me/BuildingtheBear"
                                 >
                                     ➟ Telegram{" "}
                                     <span className="twemoji">
@@ -339,19 +360,21 @@ const Home: NextPage = () => {
                         <div id="Q422" className="tabContent">
                             <ul>
                                 <li>- Website / Socials ✓</li>
-                                <li>- Documentation v1 ✓</li>
                                 <li>- Digital Sticker Pack ✓</li>
+                                <li>- Documentation v1 ✓</li>
                                 <li>- Contract Peer Review ✓</li>
                                 <li>- Private Pre-Sale ✓</li>
+                                <li>- Henry Alpha ✓</li>
                             </ul>
                         </div>
                         <div id="Q123" className="tabContent">
                             <ul>
                                 <li>- Public Token Offering</li>
-                                <li>- Henry the Hypemachine v1</li>
                                 <li>- Early Adopters NFTs</li>
                                 <li>- Staking Pools</li>
                                 <li>- Weekly Spotlights</li>
+                                <li>- Flooring Expert(s)</li>
+                                <li>- Henry Beta</li>
                             </ul>
                         </div>
                         <div id="Q223" className="tabContent">
@@ -359,18 +382,18 @@ const Home: NextPage = () => {
                                 <li>- Open-Source Participation</li>
                                 <li>- Conversion Tools</li>
                                 <li>- Documentation v2</li>
-                                <li>- Bot Upgrades</li>
+                                <li>- Henry the Hypemachine v1</li>
                                 <li>- Physical Sticker Pack</li>
                                 <li>- Lego Sets</li>
                             </ul>
                         </div>
                         <div id="Q323" className="tabContent">
                             <ul>
+                                <li>- BTB PFP</li>
+                                <li>- HodlWare</li>
                                 <li>- Token Tossup</li>
                                 <li>- Proof-of-Posts / KYD</li>
-                                <li>- Flooring Experts</li>
                                 <li>- Bug Bounty Program</li>
-                                <li>- Charlemagne the Clerk v1</li>
                                 <li>- Building and building and</li>
                             </ul>
                         </div>
@@ -384,11 +407,14 @@ const Home: NextPage = () => {
                             onConnectWallet={focusConnectors}
                             defaultInputTokenAddress="NATIVE"
                             defaultInputAmount="1"
-                            defaultOutputTokenAddress={DAI}
+                            defaultOutputTokenAddress={BTB}
                             className={"swapWidget"}
                             width={400}
                             theme={theme}
                         />
+                    </div>
+                    <div id="countdown" className="mainSectionCard">
+                        <iframe width="298" height="102" src="https://w2.countingdownto.com/4497604"></iframe>
                     </div>
                 </div>
             </main>

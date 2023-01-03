@@ -431,6 +431,21 @@ ul {
   margin: 0;
 }
 
+#countdown {
+  width: 12.8rem;
+  overflow: hidden;
+  border-radius: 0.25rem;
+  padding: 0;
+  height: 6.9rem;
+  opacity: 0.5 !important;
+}
+
+#countdown iframe {
+  border: 4px solid rgb(0 0 0 / 10%);
+  border-radius: 0;
+  transform: translateX(-10px);
+}
+
 #documentation {
   background: rgba(255, 203, 71, 0.5);
   border: 4px solid rgb(0 0 0 / 10%);
