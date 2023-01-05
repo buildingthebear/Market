@@ -269,7 +269,7 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
-                                    href="https://etherscan.io/dex/uniswapv2/0xb936c943341776832c76b9ad66320ec419f93466"
+                                    href="https://etherscan.io/dex/uniswapv2/0xe708fe7fce0c3fcac741e49a20439d79177753fa"
                                 >
                                     ➟ BTB Chart{" "}
                                     <svg width="24px" height="24px" viewBox="0 0 24 24">
