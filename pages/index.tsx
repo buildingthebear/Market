@@ -413,9 +413,6 @@ const Home: NextPage = () => {
                             theme={theme}
                         />
                     </div>
-                    <div id="countdown" className="mainSectionCard">
-                        <iframe width="298" height="102" src="https://w2.countingdownto.com/4497604"></iframe>
-                    </div>
                 </div>
             </main>
             <Script src="https://cdn.kickoffpages.com/2.1.0/kol.js" id="koljs" data-campaign-id="168626" async></Script>
