@@ -11,7 +11,7 @@ import Script from 'next/script'
 const TOKEN_LIST = [
     {
         "name": "Build the Bear",
-        "address": "0x0b2fB51f4713f08Ab72173BC83aB3bBa71B537Cd",
+        "address": "0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C",
         "symbol": "BTB",
         "decimals": 9,
         "chainId": 1,
@@ -43,7 +43,7 @@ const TOKEN_LIST = [
     },
 ]
 
-const BTB = '0x0b2fB51f4713f08Ab72173BC83aB3bBa71B537Cd'
+const BTB = '0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C'
 const theme: Theme = {
     primary: '#1F4A05',
     secondary: 'rgba(0, 0, 0, 0.25)',
@@ -242,7 +242,7 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
-                                    href="https://etherscan.io/token/0x0b2fB51f4713f08Ab72173BC83aB3bBa71B537Cd"
+                                    href="https://etherscan.io/token/0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C"
                                 >
                                     ➟ BTB Contract{" "}
                                     <svg
