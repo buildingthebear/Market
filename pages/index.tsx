@@ -78,10 +78,6 @@ const Home: NextPage = () => {
                 <title>Build the Bear Market</title>
                 <link rel="icon" type="image/x-icon" href="/img/favicon.ico"/>
             </Head>
-
-            <Image id={"backgroundImage"} src={"/img/background-2.webp"} alt={""} layout={"fill"}/>
-            <div id="backgroundCover"/>
-            <header id="marketPrices"/>
             <main>
                 <div id="walletConnectors" ref={connectors}>
                     <Web3Connectors/>
@@ -101,110 +97,6 @@ const Home: NextPage = () => {
                     </h2>
                 </div>
                 <div id="cards">
-                    <div id="documentation" className="mainSectionCard">
-                        <a className="" target="_blank" rel="noreferrer" href="https://www.buildthebear.online/">
-                            <h3>➟ Resources / Documentation : </h3>
-                        </a>
-                        <h5>Build the Bear . Online</h5>
-                        <hr/>
-                        <ul>
-                            <li>
-                                <a
-                                    className=""
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    href="https://www.buildthebear.online/docs/launch"
-                                >
-                                    ➟ Token Launch Guide
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    className=""
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    href="https://www.buildthebear.online/docs/analysis"
-                                >
-                                    ➟ Token Analysis Guide
-                                </a>
-                            </li>
-                            <br />
-                            <li>
-                                <a
-                                    className=""
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    href="https://www.buildthebear.online/docs/minting"
-                                >
-                                    ➟ How to Mint NFTs
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    className=""
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    href="https://www.buildthebear.online/docs/deploying"
-                                >
-                                    ➟ How to Deploy Contracts
-                                </a>
-                            </li>
-                            <li>
-                                <br/>
-                                <span className="mainSectionCardDescription"> Guides provided are meant to be
-                                    high-level direction for builders (and hodlers) who may need advice</span>
-                                <br/><br/>
-                                More Coming Soon
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="earlyAdopters" className="mainSectionCard">
-                        <Image id={"earlyAdoptersImage"} src={"/img/background-2.webp"} alt={""} layout={"fill"}/>
-                        <div>
-                            <a
-                                className=""
-                                target="_blank"
-                                rel="noreferrer"
-                                href="https://app.niftykit.com/drops/buildthebear-v1"
-                            >
-                                <h3>➟ Early Adopters NFT Collection : </h3>
-                            </a>
-                            <h5>20 1-of-1 animations from the developer</h5>
-                            <hr/>
-                            <ul>
-                                <li><b>- Cost 0.1Ξ to mint</b></li>
-                                <li>- Custom Collectibles</li>
-                                <li>- Early Access to Developments</li>
-                                <li>- Potential for Boosted Staking</li>
-                                <li>- Inclusive of all future benefits</li>
-                                <li>
-                                    <br/>
-                                    <span className="mainSectionCardDescription"> Whitelisted minters will be chosen
-                                        from top competition participants and other community events; See entry details
-                                        to the bottom-right of this page</span>
-                                    <br/><br/>
-                                    <a
-                                        className=""
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        href="https://app.niftykit.com/drops/buildthebear-v1"
-                                    >
-                                        ➟ Secure your mint
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        className=""
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        href="https://opensea.io/collection/build-the-bear-early-adopters"
-                                    >
-                                        ➟ See what's been minted
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                     <div id="socials" className="mainSectionCard">
                         <h3>RELEVANT INFORMATION : </h3>
                         <h5>Keep up with us</h5>
@@ -347,6 +239,128 @@ const Home: NextPage = () => {
                             </li>
                         </ul>
                     </div>
+                    <div id="earlyAdopters" className="mainSectionCard">
+                        <div>
+                            <a
+                                className=""
+                                target="_blank"
+                                rel="noreferrer"
+                                href="https://app.niftykit.com/drops/buildthebear-v1"
+                            >
+                                <h3>➟ Early Adopters NFT Collection : </h3>
+                            </a>
+                            <h5>20 1-of-1 animations from the developer</h5>
+                            <hr/>
+                            <ul>
+                                <li><b>- Cost 0.1Ξ to mint</b></li>
+                                <li>- Custom Collectibles</li>
+                                <li>- Early Access to Developments</li>
+                                <li>- Potential for Boosted Staking</li>
+                                <li>- Inclusive of all future benefits</li>
+                                <li>
+                                    <br/>
+                                    <span className="mainSectionCardDescription"> Whitelisted minters will be chosen
+                                        from top competition participants and other community events; See entry details
+                                        to the bottom-right of this page</span>
+                                    <br/><br/>
+                                    <a
+                                        className=""
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        href="https://app.niftykit.com/drops/buildthebear-v1"
+                                    >
+                                        ➟ Secure your mint
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        className=""
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        href="https://opensea.io/collection/build-the-bear-early-adopters"
+                                    >
+                                        ➟ See what's been minted
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="aboutUs" className="mainSectionCard">
+                        <h3>Frequently asked questions : </h3>
+                        <h5>Not that you asked</h5>
+                        <hr/>
+                        <ul>
+                            <li>
+                                <h6> ╙ What's the goal here?</h6>
+                                <span className="mainSectionCardDescription">Build the Bear's focused on improving the quality of DeFi participants through education, support, and an easy-to-use tooling ecosystem</span>
+                                <br/>
+                                <h6> ╙ How are we getting there?</h6>
+                                <span className="mainSectionCardDescription">By bringing current and future builders together to bridge the gap, and learn / grow with incentivized, open-source contribution</span>
+                                <br/>
+                                <h6> ╙ Who can participate?</h6>
+                                <span className="mainSectionCardDescription">Everyone! Build the Bear is completely open-source. If you're interested, check READMEs for contribution requirements</span>
+                                <br/>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="documentation" className="mainSectionCard">
+                        <a className="" target="_blank" rel="noreferrer" href="https://www.buildthebear.online/">
+                            <h3>➟ Resources / Documentation : </h3>
+                        </a>
+                        <h5>Build the Bear . Online</h5>
+                        <hr/>
+                        <ul>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://www.buildthebear.online/docs/launch"
+                                >
+                                    ➟ Token Launch Guide
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://www.buildthebear.online/docs/analysis"
+                                >
+                                    ➟ Token Analysis Guide
+                                </a>
+                            </li>
+                            <br />
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://www.buildthebear.online/docs/minting"
+                                >
+                                    ➟ How to Mint NFTs
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://www.buildthebear.online/docs/deploying"
+                                >
+                                    ➟ How to Deploy Contracts
+                                </a>
+                            </li>
+                            <li>
+                                <br/>
+                                <span className="mainSectionCardDescription"> Guides provided are meant to be
+                                    high-level direction for builders (and hodlers) who may need advice</span>
+                                <br/><br/>
+                                More Coming Soon
+                            </li>
+                        </ul>
+                    </div>
                     <div id="roadmap" className="mainSectionCard">
                         <h3>Build the Bear's Roadmap : </h3>
                         <h5>Upcoming Developments</h5>
@@ -369,7 +383,7 @@ const Home: NextPage = () => {
                         </div>
                         <div id="Q123" className="tabContent">
                             <ul>
-                                <li>- Public Token Offering</li>
+                                <li>- Public Token Offering ✓</li>
                                 <li>- Early Adopters NFTs</li>
                                 <li>- Staking Pools</li>
                                 <li>- Weekly Spotlights</li>
