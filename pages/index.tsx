@@ -107,6 +107,19 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
+                                    href="/pdf/Build-the-Bear-White-Paper-v1.pdf"
+                                >
+                                    ➟ White Paper{" "}
+                                    <svg viewBox="0 0 24 24">
+                                        <path fill="currentColor" d="M15.5,12C18,12 20,14 20,16.5C20,17.38 19.75,18.21 19.31,18.9L22.39,22L21,23.39L17.88,20.32C17.19,20.75 16.37,21 15.5,21C13,21 11,19 11,16.5C11,14 13,12 15.5,12M15.5,14A2.5,2.5 0 0,0 13,16.5A2.5,2.5 0 0,0 15.5,19A2.5,2.5 0 0,0 18,16.5A2.5,2.5 0 0,0 15.5,14M5,3H19C20.11,3 21,3.89 21,5V13.03C20.5,12.23 19.81,11.54 19,11V5H5V19H9.5C9.81,19.75 10.26,20.42 10.81,21H5C3.89,21 3,20.11 3,19V5C3,3.89 3.89,3 5,3M7,7H17V9H7V7M7,11H12.03C11.23,11.5 10.54,12.19 10,13H7V11M7,15H9.17C9.06,15.5 9,16 9,16.5V17H7V15Z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
                                     href="https://etherscan.io/address/0x50649cb60c5e8c981dd6c38576ae3d8c82c0bc8e"
                                 >
                                     ➟ buildthebear.eth{" "}
@@ -249,7 +262,7 @@ const Home: NextPage = () => {
                             >
                                 <h3>➟ Early Adopters NFT Collection : </h3>
                             </a>
-                            <h5>20 1-of-1 animations from the developer</h5>
+                            <h5>22 1-of-1 animations from the developer</h5>
                             <hr/>
                             <ul>
                                 <li><b>- Cost 0.1Ξ to mint</b></li>
@@ -292,13 +305,13 @@ const Home: NextPage = () => {
                         <ul>
                             <li>
                                 <h6> ╙ What's the goal here?</h6>
-                                <span className="mainSectionCardDescription">Build the Bear's focused on improving the quality of DeFi participants through education, support, and an easy-to-use tooling ecosystem</span>
+                                <span className="mainSectionCardDescription">Build the Bear is focused on improving the quality of DeFi projects and participants through education, support, and an easy-to-use tooling ecosystem</span>
                                 <br/>
                                 <h6> ╙ How are we getting there?</h6>
-                                <span className="mainSectionCardDescription">By bringing current and future builders together to bridge the gap, and learn / grow with incentivized, open-source contribution</span>
+                                <span className="mainSectionCardDescription">By bringing current and future builders together to bridge the gap; learning / growing with incentivized, open-source contribution</span>
                                 <br/>
                                 <h6> ╙ Who can participate?</h6>
-                                <span className="mainSectionCardDescription">Everyone! Build the Bear is completely open-source. If you're interested, check READMEs for contribution requirements</span>
+                                <span className="mainSectionCardDescription">Everyone! Build the Bear is completely open-source. If you're interested in something, check READMEs for contribution requirements</span>
                                 <br/>
 
                             </li>
@@ -366,8 +379,8 @@ const Home: NextPage = () => {
                         <h5>Upcoming Developments</h5>
                         <hr/>
                         <div className="tabSet">
-                            <button id="defaultTab" className="tabLink active">Q4 '22</button>
-                            <button className="tabLink">Q1 '23</button>
+                            <button className="tabLink">Q4 '22</button>
+                            <button id="defaultTab" className="tabLink active">Q1 '23</button>
                             <button className="tabLink">Q2 '23</button>
                             <button className="tabLink">Q3 '23</button>
                         </div>
@@ -384,9 +397,9 @@ const Home: NextPage = () => {
                         <div id="Q123" className="tabContent">
                             <ul>
                                 <li>- Public Token Offering ✓</li>
-                                <li>- Early Adopters NFTs</li>
+                                <li>- Early Adopters NFTs ✓</li>
                                 <li>- Staking Pools</li>
-                                <li>- Weekly Spotlights</li>
+                                <li>- Weekly Spotlights ✓</li>
                                 <li>- Flooring Expert(s)</li>
                                 <li>- Henry Beta</li>
                             </ul>
@@ -396,18 +409,18 @@ const Home: NextPage = () => {
                                 <li>- Open-Source Participation</li>
                                 <li>- Conversion Tools</li>
                                 <li>- Documentation v2</li>
+                                <li>- Token Tossup</li>
+                                <li>- Proof-of-Posts / KYD</li>
                                 <li>- Henry the Hypemachine v1</li>
-                                <li>- Physical Sticker Pack</li>
-                                <li>- Lego Sets</li>
                             </ul>
                         </div>
                         <div id="Q323" className="tabContent">
                             <ul>
                                 <li>- BTB PFP</li>
                                 <li>- HodlWare</li>
-                                <li>- Token Tossup</li>
-                                <li>- Proof-of-Posts / KYD</li>
+                                <li>- Lego Sets</li>
                                 <li>- Bug Bounty Program</li>
+                                <li>- Physical Sticker Pack</li>
                                 <li>- Building and building and</li>
                             </ul>
                         </div>
