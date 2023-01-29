@@ -78,6 +78,7 @@ const Home: NextPage = () => {
                 <title>Build the Bear Market</title>
                 <link rel="icon" type="image/x-icon" href="/img/favicon.ico"/>
             </Head>
+            <Image id={"backgroundImage"} src={"/img/banner.png"} alt={""} layout={"fill"}/>
             <main>
                 <div id="walletConnectors" ref={connectors}>
                     <Web3Connectors/>
@@ -101,6 +102,7 @@ const Home: NextPage = () => {
                         <h3>RELEVANT INFORMATION : </h3>
                         <h5>Keep up with us</h5>
                         <hr/>
+                        <Image id={"stickerImage"} src={"/img/happy.png"} alt={""} width={"64px"} height={"64px"} />
                         <ul>
                             <li>
                                 <a
@@ -112,33 +114,6 @@ const Home: NextPage = () => {
                                     ➟ White Paper{" "}
                                     <svg viewBox="0 0 24 24">
                                         <path fill="currentColor" d="M15.5,12C18,12 20,14 20,16.5C20,17.38 19.75,18.21 19.31,18.9L22.39,22L21,23.39L17.88,20.32C17.19,20.75 16.37,21 15.5,21C13,21 11,19 11,16.5C11,14 13,12 15.5,12M15.5,14A2.5,2.5 0 0,0 13,16.5A2.5,2.5 0 0,0 15.5,19A2.5,2.5 0 0,0 18,16.5A2.5,2.5 0 0,0 15.5,14M5,3H19C20.11,3 21,3.89 21,5V13.03C20.5,12.23 19.81,11.54 19,11V5H5V19H9.5C9.81,19.75 10.26,20.42 10.81,21H5C3.89,21 3,20.11 3,19V5C3,3.89 3.89,3 5,3M7,7H17V9H7V7M7,11H12.03C11.23,11.5 10.54,12.19 10,13H7V11M7,15H9.17C9.06,15.5 9,16 9,16.5V17H7V15Z" />
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    className=""
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    href="https://etherscan.io/address/0x50649cb60c5e8c981dd6c38576ae3d8c82c0bc8e"
-                                >
-                                    ➟ buildthebear.eth{" "}
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        version={"1.0"}
-                                        width="294.000000pt"
-                                        height="294.000000pt"
-                                        viewBox="0 0 294.000000 294.000000"
-                                        preserveAspectRatio="xMidYMid meet"
-                                    >
-                                        <g
-                                            transform="translate(0.000000,294.000000) scale(0.100000,-0.100000)"
-                                            fill="#000000"
-                                            stroke="none"
-                                        >
-                                            <path
-                                                d="M1301 2930 c-337 -43 -628 -186 -871 -430 -211 -210 -336 -441 -402 -738 -18 -78 -22 -131 -22 -272 -1 -200 15 -310 70 -477 33 -103 112 -273 142 -307 35 -38 88 -56 164 -55 120 1 168 12 200 48 l28 31 0 423 c0 406 1 423 20 455 30 49 72 62 197 62 129 0 170 -10 209 -51 l29 -30 3 -415 c2 -387 4 -415 20 -410 9 3 36 10 59 16 24 6 51 22 62 37 21 25 21 36 21 540 0 562 -1 555 58 598 23 17 46 20 164 23 150 4 182 -4 215 -55 16 -25 18 -71 23 -499 l5 -472 55 23 c66 28 95 55 104 96 3 17 6 281 6 585 l0 554 34 38 34 37 144 3 c161 4 189 -4 224 -61 18 -30 19 -58 22 -484 1 -249 5 -453 8 -453 2 0 48 35 102 77 178 141 370 340 417 432 29 56 17 137 -39 262 -232 522 -732 860 -1296 874 -74 2 -168 0 -209 -5z"/>
-                                        </g>
                                     </svg>
                                 </a>
                             </li>
@@ -174,7 +149,7 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
-                                    href="https://etherscan.io/dex/uniswapv2/0xe708fe7fce0c3fcac741e49a20439d79177753fa"
+                                    href="https://dexscreener.com/ethereum/0xe708fe7fce0c3fcac741e49a20439d79177753fa"
                                 >
                                     ➟ BTB Chart{" "}
                                     <svg width="24px" height="24px" viewBox="0 0 24 24">
@@ -187,7 +162,7 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
-                                    href="https://www.t.me/BuildingtheBear"
+                                    href="https://www.t.me/buildthebear"
                                 >
                                     ➟ Telegram{" "}
                                     <span className="twemoji">
@@ -195,6 +170,19 @@ const Home: NextPage = () => {
                                           <path
                                               d="M2.2 16.06 3.88 12 2.2 7.94l4.06-1.68L7.94 2.2 12 3.88l4.06-1.68 1.68 4.06 4.06 1.68L20.12 12l1.68 4.06-4.06 1.68-1.68 4.06L12 20.12 7.94 21.8l-1.68-4.06-4.06-1.68M13 17v-2h-2v2h2m0-4V7h-2v6h2Z"/>
                                         </svg>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://discord.gg/fyBRthxkyu"
+                                >
+                                    ➟ Discord{" "}
+                                    <span className="twemoji">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>account-group</title><path d="M12,5.5A3.5,3.5 0 0,1 15.5,9A3.5,3.5 0 0,1 12,12.5A3.5,3.5 0 0,1 8.5,9A3.5,3.5 0 0,1 12,5.5M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14A3,3 0 0,1 2,11A3,3 0 0,1 5,8M19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25M0,20V18.5C0,17.11 1.89,15.94 4.45,15.6C3.86,16.28 3.5,17.22 3.5,18.25V20H0M24,20H20.5V18.25C20.5,17.22 20.14,16.28 19.55,15.6C22.11,15.94 24,17.11 24,18.5V20Z" /></svg>
                                     </span>
                                 </a>
                             </li>
@@ -248,7 +236,6 @@ const Home: NextPage = () => {
                             <li>
                                 <br/>
                                 <span className="mainSectionCardDescription"> Got questions? Shoot us a message on telegram, twitter, or via e-mail</span>
-                                <br/><br/>
                             </li>
                         </ul>
                     </div>
@@ -296,6 +283,9 @@ const Home: NextPage = () => {
                                     </a>
                                 </li>
                             </ul>
+                            <video id="earlyAdoptersVideo" width="64" height="64" playsInline={true} autoPlay={true} controls={false} muted={true} loop={true}>
+                                <source src="/video/early-adopters-sample.mp4" type="video/mp4"></source>
+                            </video>
                         </div>
                     </div>
                     <div id="aboutUs" className="mainSectionCard">
@@ -312,8 +302,6 @@ const Home: NextPage = () => {
                                 <br/>
                                 <h6> ╙ Who can participate?</h6>
                                 <span className="mainSectionCardDescription">Everyone! Build the Bear is completely open-source. If you're interested in something, check READMEs for contribution requirements</span>
-                                <br/>
-
                             </li>
                         </ul>
                     </div>
@@ -370,7 +358,7 @@ const Home: NextPage = () => {
                                 <span className="mainSectionCardDescription"> Guides provided are meant to be
                                     high-level direction for builders (and hodlers) who may need advice</span>
                                 <br/><br/>
-                                More Coming Soon
+                                More Coming Soon 🏗️
                             </li>
                         </ul>
                     </div>
@@ -400,7 +388,7 @@ const Home: NextPage = () => {
                                 <li>- Early Adopters NFTs ✓</li>
                                 <li>- Staking Pools</li>
                                 <li>- Weekly Spotlights ✓</li>
-                                <li>- Flooring Expert(s)</li>
+                                <li>- Flooring Experts</li>
                                 <li>- Henry Beta</li>
                             </ul>
                         </div>
@@ -427,13 +415,13 @@ const Home: NextPage = () => {
                     </div>
                     <div id="swapWidget" className="mainSectionCard">
                         <SwapWidget
-                            jsonRpcEndpoint={'https://cloudflare-eth.com/'}
+                            jsonRpcEndpoint={process.env.JSON_RPC_URL}
                             tokenList={TOKEN_LIST}
                             provider={pr}
                             locale={'en-US'}
                             onConnectWallet={focusConnectors}
                             defaultInputTokenAddress="NATIVE"
-                            defaultInputAmount="1"
+                            defaultInputAmount="0.1"
                             defaultOutputTokenAddress={BTB}
                             className={"swapWidget"}
                             width={400}
