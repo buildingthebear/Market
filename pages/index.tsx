@@ -245,7 +245,7 @@ const Home: NextPage = () => {
                                 className=""
                                 target="_blank"
                                 rel="noreferrer"
-                                href="https://app.niftykit.com/drops/buildthebear-v1"
+                                href="https://opensea.io/collection/build-the-bear-early-adopters"
                             >
                                 <h3>➟ Early Adopters NFT Collection : </h3>
                             </a>
@@ -259,7 +259,7 @@ const Home: NextPage = () => {
                                 <li>- Inclusive of all future benefits</li>
                                 <li>
                                     <br/>
-                                    <span className="mainSectionCardDescription">Opening for public mint this February</span>
+                                    <span className="mainSectionCardDescription">Earn your place in BtB history with unique proof of your support! Minting is now available to the public</span>
                                     <br/><br/>
                                     <a
                                         className=""
@@ -267,7 +267,9 @@ const Home: NextPage = () => {
                                         rel="noreferrer"
                                         href="https://app.niftykit.com/drops/buildthebear-v1"
                                     >
-                                        <b>➟ Secure your mint</b>
+                                        <b>➟ Secure your mint{" "}
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>hand-coin</title><path d="M16 12C18.76 12 21 9.76 21 7S18.76 2 16 2 11 4.24 11 7 13.24 12 16 12M21.45 17.6C21.06 17.2 20.57 17 20 17H13L10.92 16.27L11.25 15.33L13 16H15.8C16.15 16 16.43 15.86 16.66 15.63S17 15.12 17 14.81C17 14.27 16.74 13.9 16.22 13.69L8.95 11H7V20L14 22L22.03 19C22.04 18.47 21.84 18 21.45 17.6M5 11H.984V22H5V11Z" /></svg>
+                                        </b>
                                     </a>
                                 </li>
                                 <li>
@@ -277,7 +279,8 @@ const Home: NextPage = () => {
                                         rel="noreferrer"
                                         href="https://opensea.io/collection/build-the-bear-early-adopters"
                                     >
-                                        ➟ See what's been minted
+                                        ➟ View on OpenSea{" "}
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>ferry</title><path d="M6,6H18V9.96L12,8L6,9.96M3.94,19H4C5.6,19 7,18.12 8,17C9,18.12 10.4,19 12,19C13.6,19 15,18.12 16,17C17,18.12 18.4,19 20,19H20.05L21.95,12.31C22.03,12.06 22,11.78 21.89,11.54C21.76,11.3 21.55,11.12 21.29,11.04L20,10.62V6C20,4.89 19.1,4 18,4H15V1H9V4H6A2,2 0 0,0 4,6V10.62L2.71,11.04C2.45,11.12 2.24,11.3 2.11,11.54C2,11.78 1.97,12.06 2.05,12.31M20,21C18.61,21 17.22,20.53 16,19.67C13.56,21.38 10.44,21.38 8,19.67C6.78,20.53 5.39,21 4,21H2V23H4C5.37,23 6.74,22.65 8,22C10.5,23.3 13.5,23.3 16,22C17.26,22.65 18.62,23 20,23H22V21H20Z" /></svg>
                                     </a>
                                 </li>
                             </ul>
@@ -317,7 +320,8 @@ const Home: NextPage = () => {
                                     rel="noreferrer"
                                     href="https://www.buildthebear.online/docs/launch"
                                 >
-                                    ➟ Token Launch Guide
+                                    ➟ Token Launch Guide{" "}
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>file-document-arrow-right-outline</title><path d="M23 19L20 16V18H16V20H20V22L23 19M13.8 22H6C4.9 22 4 21.1 4 20V4C4 2.9 4.9 2 6 2H14L20 8V13.1C19.7 13 19.3 13 19 13S18.3 13 18 13.1V9H13V4H6V20H13.1C13.2 20.7 13.5 21.4 13.8 22M8 12H16V13.8C15.9 13.9 15.8 13.9 15.7 14H8V12M8 16H13V18H8V16Z" /></svg>
                                 </a>
                             </li>
                             <li>
@@ -327,7 +331,8 @@ const Home: NextPage = () => {
                                     rel="noreferrer"
                                     href="https://www.buildthebear.online/docs/analysis"
                                 >
-                                    ➟ Token Analysis Guide
+                                    ➟ Token Analysis Guide{" "}
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>file-document-check-outline</title><path d="M23.5 17L18.5 22L15 18.5L16.5 17L18.5 19L22 15.5L23.5 17M6 2C4.89 2 4 2.9 4 4V20C4 21.11 4.89 22 6 22H13.81C13.45 21.38 13.2 20.7 13.08 20H6V4H13V9H18V13.08C18.33 13.03 18.67 13 19 13C19.34 13 19.67 13.03 20 13.08V8L14 2M8 12V14H16V12M8 16V18H13V16Z" /></svg>
                                 </a>
                             </li>
                             <br />
@@ -338,7 +343,8 @@ const Home: NextPage = () => {
                                     rel="noreferrer"
                                     href="https://www.buildthebear.online/docs/minting"
                                 >
-                                    ➟ How to Mint NFTs
+                                    ➟ How to Mint NFTs{" "}
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>file-document-edit-outline</title><path d="M8,12H16V14H8V12M10,20H6V4H13V9H18V12.1L20,10.1V8L14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H10V20M8,18H12.1L13,17.1V16H8V18M20.2,13C20.3,13 20.5,13.1 20.6,13.2L21.9,14.5C22.1,14.7 22.1,15.1 21.9,15.3L20.9,16.3L18.8,14.2L19.8,13.2C19.9,13.1 20,13 20.2,13M20.2,16.9L14.1,23H12V20.9L18.1,14.8L20.2,16.9Z" /></svg>
                                 </a>
                             </li>
                             <li>
@@ -348,7 +354,8 @@ const Home: NextPage = () => {
                                     rel="noreferrer"
                                     href="https://www.buildthebear.online/docs/deploying"
                                 >
-                                    ➟ How to Deploy Contracts
+                                    ➟ How to Deploy Contracts{" "}
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>file-document-alert-outline</title><path d="M20 17H22V15H20V17M20 7V13H22V7M6 16H11V18H6M6 12H14V14H6M4 2C2.89 2 2 2.89 2 4V20C2 21.11 2.89 22 4 22H16C17.11 22 18 21.11 18 20V8L12 2M4 4H11V9H16V20H4Z" /></svg>
                                 </a>
                             </li>
                             <li>

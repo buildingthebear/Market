@@ -492,7 +492,7 @@ ul {
   padding-bottom: 0.5rem;
 }
 
-#socials svg {
+li a svg {
   bottom: -2.5px;
   position: relative;
 }
@@ -592,4 +592,14 @@ ul {
   .walletConnector button {
     margin: 0 0.5rem 1rem 0.5rem;
   }
+}
+
+.web3modal-modal-lightbox { z-index: 999 !important; }
+.web3modal-modal-container { z-index: 999 !important; }
+.web3modal-modal-card { z-index: 999 !important; }
+nk-dropkit::part(mint-btn),
+nk-dropkit::part(mint-dropdown-icon),
+nk-dropkit::part(mint-text) {
+  font-family: Roboto;
+  background-color: #fbb13c;
 }
