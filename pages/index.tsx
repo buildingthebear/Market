@@ -255,13 +255,11 @@ const Home: NextPage = () => {
                                 <li><b>- Cost 0.1Ξ to mint</b></li>
                                 <li>- Custom Collectibles</li>
                                 <li>- Early Access to Developments</li>
-                                <li>- Potential for Boosted Staking</li>
+                                <li>- Additional 25% Base Staking Reward</li>
                                 <li>- Inclusive of all future benefits</li>
                                 <li>
                                     <br/>
-                                    <span className="mainSectionCardDescription"> Whitelisted minters will be chosen
-                                        from top competition participants and other community events; See entry details
-                                        to the bottom-right of this page</span>
+                                    <span className="mainSectionCardDescription">Opening for public mint this February</span>
                                     <br/><br/>
                                     <a
                                         className=""
