@@ -162,7 +162,7 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
-                                    href="https://www.t.me/buildthebear"
+                                    href="https://www.t.me/buildingthebear"
                                 >
                                     ➟ Telegram{" "}
                                     <span className="twemoji">
@@ -191,7 +191,7 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
-                                    href="https://twitter.com/BuildingtheBear"
+                                    href="https://twitter.com/buildingthebear"
                                 >
                                     ➟ Twitter{" "}
                                     <span className="twemoji">
@@ -207,7 +207,7 @@ const Home: NextPage = () => {
                                     className=""
                                     target="_blank"
                                     rel="noreferrer"
-                                    href="https://github.com/Build-the-Bear"
+                                    href="https://github.com/buildingthebear"
                                 >
                                     ➟ GitHub{" "}
                                     <span className="twemoji">
@@ -269,7 +269,7 @@ const Home: NextPage = () => {
                                         rel="noreferrer"
                                         href="https://app.niftykit.com/drops/buildthebear-v1"
                                     >
-                                        ➟ Secure your mint
+                                        <b>➟ Secure your mint</b>
                                     </a>
                                 </li>
                                 <li>
@@ -358,7 +358,7 @@ const Home: NextPage = () => {
                                 <span className="mainSectionCardDescription"> Guides provided are meant to be
                                     high-level direction for builders (and hodlers) who may need advice</span>
                                 <br/><br/>
-                                More Coming Soon 🏗️
+                                <b>More Coming Soon 🏗️</b>
                             </li>
                         </ul>
                     </div>
@@ -430,7 +430,6 @@ const Home: NextPage = () => {
                     </div>
                 </div>
             </main>
-            <Script src="https://cdn.kickoffpages.com/2.1.0/kol.js" id="koljs" data-campaign-id="168626" async></Script>
             <Script src="https://code.jquery.com/jquery-3.6.1.min.js"></Script>
             <Script src="/js/index.jsx"></Script>
         </div>
