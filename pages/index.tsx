@@ -78,7 +78,9 @@ const Home: NextPage = () => {
                 <title>Build the Bear Market</title>
                 <link rel="icon" type="image/x-icon" href="/img/favicon.ico"/>
             </Head>
-            <Image id={"backgroundImage"} src={"/img/banner.png"} alt={""} layout={"fill"}/>
+            <div className={"bg bg1"}></div>
+            <div className={"bg bg2"}></div>
+            <div className={"bg bg3"}></div>
             <main>
                 <div id="walletConnectors" ref={connectors}>
                     <Web3Connectors/>
@@ -96,13 +98,13 @@ const Home: NextPage = () => {
                                 stroke="none" fill="#2c2c2b"></path>
                         </svg>
                     </h2>
+                    <h6>We can all do better - For ourselves, and those around us</h6>
                 </div>
                 <div id="cards">
                     <div id="socials" className="mainSectionCard">
                         <h3>RELEVANT INFORMATION : </h3>
                         <h5>Keep up with us</h5>
                         <hr/>
-                        <Image id={"stickerImage"} src={"/img/happy.png"} alt={""} width={"64px"} height={"64px"} />
                         <ul>
                             <li>
                                 <a
@@ -299,16 +301,16 @@ const Home: NextPage = () => {
                                 <span className="mainSectionCardDescription">Build the Bear is focused on improving the quality of DeFi projects and participants through education, support, and an easy-to-use tooling ecosystem</span>
                                 <br/>
                                 <h6> ╙ How are we getting there?</h6>
-                                <span className="mainSectionCardDescription">By bringing current and future builders together to bridge the gap; learning / growing with incentivized, open-source contribution</span>
+                                <span className="mainSectionCardDescription">By bringing current and future builders together to bridge the gap; learning & growing with incentivized, open-source contribution</span>
                                 <br/>
                                 <h6> ╙ Who can participate?</h6>
-                                <span className="mainSectionCardDescription">Everyone! Build the Bear is completely open-source. If you're interested in something, check READMEs for contribution requirements</span>
+                                <span className="mainSectionCardDescription">Everyone! Build the Bear is completely open-source. If you're interested in something, check its README for contribution requirements</span>
                             </li>
                         </ul>
                     </div>
                     <div id="documentation" className="mainSectionCard">
                         <a className="" target="_blank" rel="noreferrer" href="https://www.buildthebear.online/">
-                            <h3>➟ Resources / Documentation : </h3>
+                            <h3>➟ Resources & Documentation : </h3>
                         </a>
                         <h5>Build the Bear . Online</h5>
                         <hr/>
@@ -434,6 +436,7 @@ const Home: NextPage = () => {
                         />
                     </div>
                 </div>
+                <div id={"stickerImage"}/>
             </main>
             <Script src="https://code.jquery.com/jquery-3.6.1.min.js"></Script>
             <Script src="/js/index.jsx"></Script>

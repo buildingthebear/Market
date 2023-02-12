@@ -36,7 +36,7 @@ document.onreadystatechange = function () {
             for (let i = 0; i < $('.mainSectionCard').length; i++) {
                 $('.mainSectionCard').eq(i).css("opacity", 1);
 
-                await sleep(400)
+                await sleep(300)
             }
         }
 
