@@ -7,6 +7,8 @@ import Web3Connectors from '../components/Web3Connectors'
 import {useActiveProvider} from '../connectors'
 import {useCallback, useRef, useState} from 'react'
 import Script from 'next/script'
+import StakingComponent from "../components/SingleStaking";
+import singleStaking from "../components/SingleStaking";
 
 const TOKEN_LIST = [
     {
@@ -434,6 +436,9 @@ const Home: NextPage = () => {
                             width={400}
                             theme={theme}
                         />
+                    </div>
+                    <div id="singleStakingWidget" className="mainSectionCard" ref={singleStaking}>
+                        <StakingComponent/>
                     </div>
                 </div>
                 <div id={"stickerImage"}/>
