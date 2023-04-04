@@ -377,7 +377,7 @@ const Home: NextPage = () => {
                         <hr/>
                         <div className="tabSet">
                             <button className="tabLink">Q4 '22</button>
-                            <button id="defaultTab" className="tabLink active">Q1 '23</button>
+                            <button className="defaultTab tabLink active">Q1 '23</button>
                             <button className="tabLink">Q2 '23</button>
                             <button className="tabLink">Q3 '23</button>
                         </div>

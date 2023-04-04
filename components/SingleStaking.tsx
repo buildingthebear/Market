@@ -10,6 +10,7 @@ const stakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0xD5dF35
 
 // List order of events
 // Loads, is connected, checks approval amount, prompts if applicable on stake, otherwise just stake
+//leading zero doesn't dissappear on input click
 
 function StakingComponent() {
     const [amount, setAmount] = useState(0);
@@ -156,26 +157,75 @@ function StakingComponent() {
 
     return (
         <div>
-            <h3>BTB Single-Staking : </h3>
+            <h3>BTB Single-Staking Pool: </h3>
             <h5>Earn a little extra</h5>
             <hr/>
-            <div className={"singleStakingContent"}>
+            <div className="tabSet">
+                <button className={"defaultTab tabLink active"}>Staking Controls</button>
+                <button className={"tabLink"}>Pool Details</button>
+            </div>
+            <div id="StakingControls" className="tabContent">
+                <div className={"singleStakingContent"}>
+                    <ul>
+                        <li>
+                            <span> BTB staked :</span> <span><b>{staked}</b></span>
+                        </li>
+                        <li>
+                            <span> BTB earned :</span> <span><b>{earned}</b></span>
+                        </li>
+                    </ul>
+                    <input type="number" value={Number(amount)} onChange={handleAmountChange} />
+                    <br />
+                    <button className={"stakingControl"} onClick={handleStake}>Stake</button>
+                    <button className={"stakingControl"} onClick={handleWithdraw}>Withdraw</button>
+                    <button className={"stakingControl"} onClick={harvestRewards}>Harvest Earnings</button>
+                </div>
+            </div>
+            <div id="PoolDetails" className="tabContent">
                 <ul>
                     <li>
-                        <span className="mainSectionCardDescription">Pool: 2% Supply Distributed over 3 months time, starting May 2023</span>
-                        <br/><br/>
-                    </li>
-                    <li>
-                        <span> BTB staked :</span> <span><b>{staked}</b></span>
-                    </li>
-                    <li>
-                        <span> BTB earned :</span> <span><b>{earned}</b></span>
+                        <div className={"inlineText"}>
+                            <h6> ╙ Pool Opens :</h6>
+                            <span className="mainSectionCardDescription">On May 1st 2023</span>
+                        </div>
+                        <div className={"inlineText"}>
+                            <h6> ╙ Pool Length :</h6>
+                            <span className="mainSectionCardDescription">3 month distribution</span>
+                        </div>
+                        <div className={"inlineText"}>
+                            <h6> ╙ Pool Amount :</h6>
+                            <span className="mainSectionCardDescription">2% supply available</span>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div className={"inlineText"}>
+                            <h6> ╙ Early Adopters :</h6>
+                            <span className="mainSectionCardDescription">Base reward + 25%</span>
+                        </div>
                     </li>
                 </ul>
-                <input type="number" value={Number(amount)} onChange={handleAmountChange} />
-                <button onClick={handleStake}>Stake</button>
-                <button onClick={handleWithdraw}>Withdraw</button>
-                <button onClick={harvestRewards}>Harvest Earnings</button>
+                <br/><br/>
+                <span className="mainSectionCardDescription">
+                    <a
+                        className=""
+                        target="_blank"
+                        rel="noreferrer"
+                        href="https://etherscan.io/token/0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C"
+                    >
+                        ➟ View on Explorer{" "}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            version={"1.0"}
+                            width="294.000000pt"
+                            height="294.000000pt"
+                            viewBox="0 0 294.000000 294.000000"
+                            preserveAspectRatio="xMidYMid meet">
+                            <g transform="translate(0.000000,294.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none" >
+                                <path d="M1301 2930 c-337 -43 -628 -186 -871 -430 -211 -210 -336 -441 -402 -738 -18 -78 -22 -131 -22 -272 -1 -200 15 -310 70 -477 33 -103 112 -273 142 -307 35 -38 88 -56 164 -55 120 1 168 12 200 48 l28 31 0 423 c0 406 1 423 20 455 30 49 72 62 197 62 129 0 170 -10 209 -51 l29 -30 3 -415 c2 -387 4 -415 20 -410 9 3 36 10 59 16 24 6 51 22 62 37 21 25 21 36 21 540 0 562 -1 555 58 598 23 17 46 20 164 23 150 4 182 -4 215 -55 16 -25 18 -71 23 -499 l5 -472 55 23 c66 28 95 55 104 96 3 17 6 281 6 585 l0 554 34 38 34 37 144 3 c161 4 189 -4 224 -61 18 -30 19 -58 22 -484 1 -249 5 -453 8 -453 2 0 48 35 102 77 178 141 370 340 417 432 29 56 17 137 -39 262 -232 522 -732 860 -1296 874 -74 2 -168 0 -209 -5z"/>
+                            </g>
+                        </svg>
+                    </a>
+                </span>
             </div>
         </div>
     );

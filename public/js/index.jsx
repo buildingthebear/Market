@@ -3,20 +3,23 @@ document.onreadystatechange = function () {
         $('.tabLink').on('click', function() {
             let tabPanelID = $(this).text().replace(/['\s]+/g, "");
 
-            openRoadmapTab(tabPanelID, $(this));
+            openCardTab($(this).parent(), tabPanelID, $(this));
         });
 
-        function openRoadmapTab(tabPanelID, tabLink) {
+        function openCardTab(tabSet, tabPanelID, tabLink) {
             let i, tabContent, tabPanel, tabLinks;
 
-            tabContent = document.getElementsByClassName("tabContent");
+            tabContent = tabSet.parents(".mainSectionCard").find(".tabContent");
 
             for (i = 0; i < tabContent.length; i++) {
                 let t = tabContent[i];
+
                 t.setAttribute("style", "display: none;");
             }
 
-            tabLinks = document.getElementsByClassName("tabLink");
+            tabLinks = tabSet.find(".tabLink");
+
+            console.log(tabLinks);
 
             for (i = 0; i < tabLinks.length; i++) {
                 tabLinks[i].setAttribute("class", "tabLink");
@@ -36,11 +39,13 @@ document.onreadystatechange = function () {
             for (let i = 0; i < $('.mainSectionCard').length; i++) {
                 $('.mainSectionCard').eq(i).css("opacity", 1);
 
-                await sleep(300)
+                await sleep(200)
             }
         }
 
-        $("#defaultTab").trigger("click");
+        $(".defaultTab").each(function() {
+            this.click();
+        });
 
         fadeCardsIn().then(r => console.log("Please, feel free to browse our wares"));
     }
