@@ -8,18 +8,16 @@ const web3 = new Web3(Web3.givenProvider || process.env.JSON_RPC_URL);
 const tokenContract = new web3.eth.Contract(TokenABI as AbiItem[], "0x408C02545C554EEBBc5811F92354F726F97C1D56");
 const stakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0xD5dF35F66ecfbA2aD8E608eA7196b990BEC04862");
 
-// List order of events
-// Loads, is connected, checks approval amount, prompts if applicable on stake, otherwise just stake
-//leading zero doesn't dissappear on input click
-
 function StakingComponent() {
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState(1000);
+    const [btbAvailable, setBTBAvailable] = useState(20000);
     const [staked, setStaked] = useState("0");
     const [earned, setEarned] = useState("0");
+    const [timeLeft, setTimeLeft] = useState("0");
 
     const handleStake = async()  => {
         try {
-            if (window.ethereum !== undefined) {
+            if (typeof window !== 'undefined' && window.ethereum !== undefined && amount > 0) {
                 const accounts = await web3.eth.requestAccounts();
                 const amountWei = BigInt(web3.utils.toWei(amount.toString(), 'ether'));
                 const amountInt = Number(amountWei / BigInt(10**9));
@@ -56,7 +54,7 @@ function StakingComponent() {
         let amountBalance = "0";
 
         try {
-            if (window.ethereum !== undefined) {
+            if (typeof window !== 'undefined' && window.ethereum !== undefined && amount > 0) {
                 const accounts = await web3.eth.requestAccounts();
                 const amountWei = BigInt(web3.utils.toWei(amount.toString(), 'ether'));
                 const amountInt = Number(amountWei / BigInt(10**9));
@@ -72,9 +70,9 @@ function StakingComponent() {
                 let balanceInt = Number(BigInt(amountBalance) / BigInt(10**9));
 
                 if (balanceInt >= amountInt) {
-                    const stakeResult = await stakingContract.methods.withdraw(amountInt).send({from: accounts[0]});
-                    const stakeTxHash = stakeResult.transactionHash;
-                    console.log("Un-staked", stakeTxHash);
+                    const withdrawResult = await stakingContract.methods.withdraw(amountInt).send({from: accounts[0]});
+                    const withdrawTxHash = withdrawResult.transactionHash;
+                    console.log("Un-staked", withdrawTxHash);
                 }
             }
         } catch (error) {
@@ -87,7 +85,7 @@ function StakingComponent() {
         let stakedAmount = "0";
 
         try {
-            if (window.ethereum !== undefined) {
+            if (typeof window !== 'undefined' && window.ethereum !== undefined) {
                 const accounts = await web3.eth.requestAccounts();
 
                 const rewardsResult = await stakingContract.methods.earned(accounts[0]).call()
@@ -115,11 +113,46 @@ function StakingComponent() {
         }
     }
 
-    // figure out how to display pool information and btb collection scaling
+    const checkFinishAt = async()  => {
+        let currentTime = new Date().getTime() / 1000;
+        let remainingTime = 0;
+        let timeLeftString = "";
+
+        try {
+            if (typeof window !== 'undefined' && window.ethereum !== undefined) {
+                const accounts = await web3.eth.requestAccounts();
+
+                console.log("checking finish at")
+
+                const finishAtResult = await stakingContract.methods.finishAt().call()
+                    .then((fin: any) => {
+                        if (Number(fin) > 0 && currentTime < Number(fin)) {
+                            console.log("pool active")
+
+                            remainingTime = Number(fin) - currentTime;
+
+                            console.log(remainingTime)
+
+                            timeLeftString = formatTimestamp(remainingTime);
+
+                            console.log(timeLeftString);
+                        }
+
+                        console.log(`Pool closes at: ${fin}`);
+                    }).catch((error: any) => {
+                        console.error(error);
+                    });
+
+                setTimeLeft(timeLeftString);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const harvestRewards = async()  => {
         try {
-            if (window.ethereum !== undefined) {
+            if (typeof window !== 'undefined' && window.ethereum !== undefined) {
                 const accounts = await web3.eth.requestAccounts();
 
                 const harvestResult = await stakingContract.methods.getReward().send({from: accounts[0]});
@@ -137,15 +170,37 @@ function StakingComponent() {
         setAmount(Number(event.target.value));
     };
 
-    checkRewards().then(() => { console.log("Fetched account information"); }).catch((error: any) => {
-        console.error(error);
-    });
-
     function stakingInit() {
-        checkRewards().then(() => { console.log("Fetched account information"); }).catch((error: any) => {
+        checkRewards().catch((error: any) => {
+            console.error(error);
+        });
+
+        checkFinishAt().catch((error: any) => {
             console.error(error);
         });
     }
+
+    function formatTimestamp(timestamp : any) {
+        const secondsInDay = 60 * 60 * 24;
+        const secondsInHour = 60 * 60;
+        const secondsInMinute = 60;
+
+        const days = Math.floor(timestamp / secondsInDay);
+        timestamp -= days * secondsInDay;
+        const hours = Math.floor(timestamp / secondsInHour);
+        timestamp -= hours * secondsInHour;
+        const minutes = Math.floor(timestamp / secondsInMinute);
+
+        return `${days} Days ${hours} Hours ${minutes} Minutes`;
+    }
+
+    checkRewards().catch((error: any) => {
+        console.error(error);
+    });
+
+    checkFinishAt().catch((error: any) => {
+        console.error(error);
+    });
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -157,15 +212,19 @@ function StakingComponent() {
 
     return (
         <div>
-            <h3>BTB Single-Staking Pool: </h3>
-            <h5>Earn a little extra</h5>
+            <h3>BTB Single - Staking Pool : </h3>
+            <h5>Put your tokens to work</h5>
             <hr/>
             <div className="tabSet">
-                <button className={"defaultTab tabLink active"}>Staking Controls</button>
-                <button className={"tabLink"}>Pool Details</button>
+                <button className={"defaultTab tabLink active"}>Staking</button>
+                <button className={"tabLink"}>Details</button>
             </div>
-            <div id="StakingControls" className="tabContent">
+            <div id="Staking" className="tabContent">
                 <div className={"singleStakingContent"}>
+                    <input type="number" value={Number(amount)} onChange={handleAmountChange} />
+                    <br />
+                    <button className={"stakingControl"} onClick={handleStake}>Stake</button>
+                    <button className={"stakingControl"} onClick={handleWithdraw}>Withdraw</button>
                     <ul>
                         <li>
                             <span> BTB staked :</span> <span><b>{staked}</b></span>
@@ -174,37 +233,50 @@ function StakingComponent() {
                             <span> BTB earned :</span> <span><b>{earned}</b></span>
                         </li>
                     </ul>
-                    <input type="number" value={Number(amount)} onChange={handleAmountChange} />
-                    <br />
-                    <button className={"stakingControl"} onClick={handleStake}>Stake</button>
-                    <button className={"stakingControl"} onClick={handleWithdraw}>Withdraw</button>
                     <button className={"stakingControl"} onClick={harvestRewards}>Harvest Earnings</button>
                 </div>
             </div>
-            <div id="PoolDetails" className="tabContent">
+            <div id="Details" className="tabContent">
                 <ul>
                     <li>
                         <div className={"inlineText"}>
-                            <h6> ╙ Pool Opens :</h6>
-                            <span className="mainSectionCardDescription">On May 1st 2023</span>
+                            <h6> ╙ Pool Size :</h6>
+                            <span className="mainSectionCardDescription">2% Supply or 20,000 BTB</span>
                         </div>
+                    </li>
+                    <li>
                         <div className={"inlineText"}>
                             <h6> ╙ Pool Length :</h6>
                             <span className="mainSectionCardDescription">3 month distribution</span>
                         </div>
+                    </li>
+                    <li>
                         <div className={"inlineText"}>
-                            <h6> ╙ Pool Amount :</h6>
-                            <span className="mainSectionCardDescription">2% supply available</span>
+                            <h6> ╙ Pool Closes :</h6>
+                            <span className="mainSectionCardDescription">{timeLeft}</span>
                         </div>
-                        <br/>
+                    </li>
+                    <li>
                         <br/>
                         <div className={"inlineText"}>
                             <h6> ╙ Early Adopters :</h6>
                             <span className="mainSectionCardDescription">Base reward + 25%</span>
                         </div>
                     </li>
+                    <li>
+                        <div className={"inlineText"}>
+                            <h6> ╙ BTB PFP :</h6>
+                            <span className="mainSectionCardDescription">Will be Base reward + 20%</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div className={"inlineText"}>
+                            <h6> ╙ Subsequent :</h6>
+                            <span className="mainSectionCardDescription">Each scales down by 5%</span>
+                        </div>
+                    </li>
                 </ul>
-                <br/><br/>
+                <br/>
                 <span className="mainSectionCardDescription">
                     <a
                         className=""
@@ -226,6 +298,7 @@ function StakingComponent() {
                         </svg>
                     </a>
                 </span>
+                <br/>
             </div>
         </div>
     );

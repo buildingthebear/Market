@@ -190,13 +190,14 @@ ul {
   margin: 0.25rem;
   border: none;
   background: none;
-  border: 1px solid rgba(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
   font-size: 12px;
   transition: opacity 25ms;
 }
 
 .tabLink.active {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.15);
   border-radius: 0.25rem;
 }
 
@@ -336,6 +337,10 @@ ul {
   padding-bottom: 0.5rem;
 }
 
+#singleStakingWidget span b {
+  font-family: 'Wayward Sans', sans-serif;
+}
+
 #singleStakingWidget .stakingControl {
   margin: 0.25rem;
 }
@@ -362,7 +367,7 @@ ul {
 
 #singleStakingWidget .stakingControl:nth-of-type(3) {
   background-color: #FEE5C8;
-  font-family: 'Wayward Sans', sans-serif;
+  margin-bottom: 0.5rem;
 }
 
 #singleStakingWidget .stakingControl:hover {
@@ -388,6 +393,8 @@ ul {
   margin: 1rem 0rem;
   background: rgba(255, 255, 255, 0.95);
   box-shadow: -4px 4px 0px rgb(0 0 0 / 20%);
+  font-weight: bold;
+  font-family: 'Wayward Sans', sans-serif;
 }
 
 #stickerImage {
