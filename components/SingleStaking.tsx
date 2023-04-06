@@ -1,8 +1,9 @@
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import React, {ChangeEvent, useState, useEffect, MouseEventHandler} from 'react';
 import Web3 from "web3";
 import TokenABI from "../contracts/BuildtheBearToken.json";
 import StakingABI from "../contracts/BuildtheBearSingleStake.json";
 import {AbiItem} from "web3-utils";
+import ClickEvent = JQuery.ClickEvent;
 
 const web3 = new Web3(Web3.givenProvider || process.env.JSON_RPC_URL);
 const tokenContract = new web3.eth.Contract(TokenABI as AbiItem[], "0x408C02545C554EEBBc5811F92354F726F97C1D56");
@@ -10,10 +11,11 @@ const stakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0xD5dF35
 
 function StakingComponent() {
     const [amount, setAmount] = useState(1000);
-    const [btbAvailable, setBTBAvailable] = useState(20000);
+    const [balance, setBalance] = useState("0");
     const [staked, setStaked] = useState("0");
     const [earned, setEarned] = useState("0");
-    const [timeLeft, setTimeLeft] = useState("0");
+    const [allowed, setAllowed] = useState(0);
+    const [timeLeft, setTimeLeft] = useState("0 Days 0 Hours 0 Minutes");
 
     const handleStake = async()  => {
         try {
@@ -22,22 +24,12 @@ function StakingComponent() {
                 const amountWei = BigInt(web3.utils.toWei(amount.toString(), 'ether'));
                 const amountInt = Number(amountWei / BigInt(10**9));
 
-                let amountAllowed = "0";
-
-                const allowanceResult = await tokenContract.methods.allowance(accounts[0], stakingContract.options.address).call()
-                    .then((allowance: any) => {
-                        amountAllowed = String(allowance) + "000000000";
-                        console.log(`Token allowance for owner ${accounts[0]} and spender ${stakingContract.options.address}: ${allowance}`);
-                    }).catch((error: any) => {
-                        console.error(error);
-                    });
-
-                let allowedInt = Number(BigInt(amountAllowed) / BigInt(10**9));
-
-                if (allowedInt < amountInt) {
+                if (allowed < amount) {
                     // Linter doesn't like the number of parameters, but this works
                     const approveResult = await tokenContract.methods.approve(stakingContract.options.address, amountInt).send({from: accounts[0]});
                     const approveTxHash = approveResult.transactionHash;
+
+                    $(".stakeButton").text("Stake");
                     console.log("Approved", approveTxHash);
                 }
 
@@ -80,9 +72,14 @@ function StakingComponent() {
         }
     }
 
-    const checkRewards = async()  => {
+    async function checkRewards() {
+        let currentTime = new Date().getTime() / 1000;
+        let remainingTime = 0;
+        let timeLeftString = "0 Days 0 Hours 0 Minutes";
+        let balanceAmount = "0";
         let accruedRewards = "0";
         let stakedAmount = "0";
+        let allowedAmount = 0;
 
         try {
             if (typeof window !== 'undefined' && window.ethereum !== undefined) {
@@ -90,7 +87,9 @@ function StakingComponent() {
 
                 const rewardsResult = await stakingContract.methods.earned(accounts[0]).call()
                     .then((ar: any) => {
-                        if (ar > 0) { accruedRewards = String(ar).slice(0, -9); }
+                        if (ar > 0) {
+                            accruedRewards = String(ar).slice(0, -9);
+                        }
                         console.log(`Rewards earned by ${accounts[0]}: ${ar}`);
                     }).catch((error: any) => {
                         console.error(error);
@@ -98,47 +97,53 @@ function StakingComponent() {
 
                 setEarned(accruedRewards);
 
-                const balanceResult = await stakingContract.methods.balanceOf(accounts[0]).call()
-                    .then((balance: any) => {
-                        if (balance > 0) { stakedAmount = String(balance).slice(0, -9); }
-                        console.log(`Balance of ${accounts[0]}: ${balance}`);
+                const stakedResult = await stakingContract.methods.balanceOf(accounts[0]).call()
+                    .then((stake: any) => {
+                        if (stake > 0) {
+                            stakedAmount = String(stake).slice(0, -9);
+                        }
+                        console.log(`Balance of ${accounts[0]}: ${stake}`);
                     }).catch((error: any) => {
                         console.error(error);
                     });
 
                 setStaked(stakedAmount);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
-    const checkFinishAt = async()  => {
-        let currentTime = new Date().getTime() / 1000;
-        let remainingTime = 0;
-        let timeLeftString = "";
+                const allowanceResult = await tokenContract.methods.allowance(accounts[0], stakingContract.options.address).call()
+                    .then((allowance: any) => {
+                        allowedAmount = allowance;
 
-        try {
-            if (typeof window !== 'undefined' && window.ethereum !== undefined) {
-                const accounts = await web3.eth.requestAccounts();
+                        if (BigInt(amount * 10 ** 9) < allowance) {
+                            $(".stakeButton").text("Stake");
+                        } else {
+                            $(".stakeButton").text("Approve");
+                        }
 
-                console.log("checking finish at")
+                        console.log(`Token allowance for owner ${accounts[0]} and spender ${stakingContract.options.address}: ${allowance}`);
+                    }).catch((error: any) => {
+                        console.error(error);
+                    });
+
+                setAllowed(Number(BigInt(allowedAmount) / BigInt(10 ** 9)));
+
+                const balanceResult = await tokenContract.methods.balanceOf(accounts[0]).call()
+                    .then((bal: any) => {
+                        if (bal > 0) {
+                            balanceAmount = String(bal).slice(0, -9);
+                        }
+                        console.log(`BTB balance for ${accounts[0]}: ${bal}`);
+                    }).catch((error: any) => {
+                        console.error(error);
+                    });
+
+                setBalance(balanceAmount);
 
                 const finishAtResult = await stakingContract.methods.finishAt().call()
                     .then((fin: any) => {
                         if (Number(fin) > 0 && currentTime < Number(fin)) {
-                            console.log("pool active")
-
                             remainingTime = Number(fin) - currentTime;
-
-                            console.log(remainingTime)
-
                             timeLeftString = formatTimestamp(remainingTime);
-
-                            console.log(timeLeftString);
                         }
-
-                        console.log(`Pool closes at: ${fin}`);
                     }).catch((error: any) => {
                         console.error(error);
                     });
@@ -170,15 +175,13 @@ function StakingComponent() {
         setAmount(Number(event.target.value));
     };
 
-    function stakingInit() {
-        checkRewards().catch((error: any) => {
-            console.error(error);
-        });
+    const stakeAll: MouseEventHandler<HTMLButtonElement> = (event) => {
+        setAmount(Number(balance));
+    };
 
-        checkFinishAt().catch((error: any) => {
-            console.error(error);
-        });
-    }
+    const withdrawAll: MouseEventHandler<HTMLButtonElement> = (event) => {
+        setAmount(Number(staked));
+    };
 
     function formatTimestamp(timestamp : any) {
         const secondsInDay = 60 * 60 * 24;
@@ -194,18 +197,18 @@ function StakingComponent() {
         return `${days} Days ${hours} Hours ${minutes} Minutes`;
     }
 
-    checkRewards().catch((error: any) => {
-        console.error(error);
-    });
+    checkRewards().then(r => console.log("Fetched reward information"));
 
-    checkFinishAt().catch((error: any) => {
-        console.error(error);
-    });
+    function stakingInit() {
+        checkRewards().then(r => console.log("Fetched reward information"));
+    }
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
             window.onload = function() {
-                setInterval(stakingInit, 20000);
+                setInterval(() => {
+                    stakingInit();
+                }, 20000);
             };
         }
     }, []);
@@ -221,10 +224,15 @@ function StakingComponent() {
             </div>
             <div id="Staking" className="tabContent">
                 <div className={"singleStakingContent"}>
-                    <input type="number" value={Number(amount)} onChange={handleAmountChange} />
+                    <div className={"stakingAmount"}>
+                        <input type="number" value={Number(amount)} onChange={handleAmountChange} />
+                    </div>
                     <br />
-                    <button className={"stakingControl"} onClick={handleStake}>Stake</button>
-                    <button className={"stakingControl"} onClick={handleWithdraw}>Withdraw</button>
+                    <button className={"stakingControl stakeButton"} onClick={handleStake}>Approve</button>
+                    <button className={"stakingControl stakeAllButton"} onClick={stakeAll}>All</button>
+                    <br />
+                    <button className={"stakingControl withdrawButton"} onClick={handleWithdraw}>Withdraw</button>
+                    <button className={"stakingControl withdrawAllButton"} onClick={withdrawAll}>All</button>
                     <ul>
                         <li>
                             <span> BTB staked :</span> <span><b>{staked}</b></span>
@@ -233,7 +241,7 @@ function StakingComponent() {
                             <span> BTB earned :</span> <span><b>{earned}</b></span>
                         </li>
                     </ul>
-                    <button className={"stakingControl"} onClick={harvestRewards}>Harvest Earnings</button>
+                    <button className={"stakingControl harvestButton"} onClick={harvestRewards}>Harvest Earnings</button>
                 </div>
             </div>
             <div id="Details" className="tabContent">
