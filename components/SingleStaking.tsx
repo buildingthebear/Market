@@ -144,9 +144,13 @@ function StakingComponent() {
                     .then((bal: any) => {
                         if (bal > 0) {
                             balanceAmount = String(bal).slice(0, -9);
+
+                            if (balanceAmount.length < 1) {
+                                balanceAmount = "0";
+                            }
                         }
 
-                        console.log(`%cSingle-Staking Widget: Un-Staked balance: ${String(bal).slice(0, -9)} BTB`, `color: green; padding: 2px;`);
+                        console.log(`%cSingle-Staking Widget: Un-Staked balance: ${balanceAmount} BTB`, `color: green; padding: 2px;`);
                     }).catch((error: any) => {
                         console.error(error);
                     });
@@ -157,9 +161,13 @@ function StakingComponent() {
                     .then((stake: any) => {
                         if (stake > 0) {
                             stakedAmount = String(stake).slice(0, -9);
+
+                            if (stakedAmount.length < 1) {
+                                stakedAmount = "0";
+                            }
                         }
 
-                        console.log(`%cSingle-Staking Widget: Staked balance: ${String(stake).slice(0, -9)} BTB`, `color: green; padding: 2px;`);
+                        console.log(`%cSingle-Staking Widget: Staked balance: ${stakedAmount} BTB`, `color: green; padding: 2px;`);
                     }).catch((error: any) => {
                         console.error(error);
                     });
