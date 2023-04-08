@@ -21,7 +21,7 @@ function StakingComponent() {
     // Check / prompt staking contract's spending allowance for message sender's BTB, then stake
     const handleStake = async() => {
         try {
-            $(".transaction-overlay").removeClass("hidden");
+            openTransactionIndicator();
 
             if (typeof window !== 'undefined' && window.ethereum !== undefined && amount > 0) {
                 const accounts = await web3.eth.requestAccounts();
@@ -32,9 +32,6 @@ function StakingComponent() {
                     // Linter doesn't like the number of parameters, but this works
                     const approveResult = await tokenContract.methods.approve(stakingContract.options.address, amountInt).send({from: accounts[0]});
                     const approveTxHash = approveResult.transactionHash;
-
-
-                    // TODO: Handle progress indicator waiting for approveTxHash
 
                     $(".stakeButton").text("Stake");
                     console.log("%cSingle-Staking Widget: Approved BTB for spend", approveTxHash);
@@ -47,7 +44,7 @@ function StakingComponent() {
         } catch (error) {
             console.error(error);
         } finally {
-            $(".transaction-overlay").addClass("hidden");
+            closeTransactionIndicator();
         }
     };
 
@@ -56,7 +53,7 @@ function StakingComponent() {
         let amountBalance = "0";
 
         try {
-            $(".transaction-overlay").removeClass("hidden");
+            openTransactionIndicator();
 
             if (typeof window !== 'undefined' && window.ethereum !== undefined && amount > 0) {
                 const accounts = await web3.eth.requestAccounts();
@@ -85,16 +82,16 @@ function StakingComponent() {
         } catch (error) {
             console.error(error);
         } finally {
-            $(".transaction-overlay").addClass("hidden");
+            closeTransactionIndicator();
         }
     }
 
     // Harvest all BTB reward earned
     const harvestRewards = async() => {
-        $(".transaction-overlay").removeClass("hidden");
-
         try {
-            if (typeof window !== 'undefined' && window.ethereum !== undefined) {
+            openTransactionIndicator();
+
+            if (typeof window !== 'undefined' && window.ethereum !== undefined && Number(earned) > 0) {
                 const accounts = await web3.eth.requestAccounts();
 
                 const harvestResult = await stakingContract.methods.getReward().send({from: accounts[0]});
@@ -107,7 +104,7 @@ function StakingComponent() {
         } catch (error) {
             console.error(error);
         } finally {
-            $(".transaction-overlay").addClass("hidden");
+            closeTransactionIndicator();
         }
     }
 
@@ -127,9 +124,14 @@ function StakingComponent() {
 
                 const allowanceResult = await tokenContract.methods.allowance(accounts[0], stakingContract.options.address).call()
                     .then((allowance: Number) => {
+                        let printedAmount = String(allowance).slice(0, -9);
                         allowedAmount = Number(allowance);
 
-                        console.log(`%cSingle-Staking Widget: Spending allowance: ${String(allowance).slice(0, -9)} BTB`, `color: green; padding: 2px;`);
+                        if (printedAmount.length < 1) {
+                            printedAmount = "0";
+                        }
+
+                        console.log(`%cSingle-Staking Widget: Spending allowance: ${printedAmount} BTB`, `color: green; padding: 2px;`);
                     }).catch((error: any) => {
                         console.error(error);
                     });
@@ -168,16 +170,16 @@ function StakingComponent() {
                     .then((ar: any) => {
                         if (ar > 0) {
                             earnedAmount = String(ar).slice(0, -9);
+
+                            if (earnedAmount.length < 1) {
+                                earnedAmount = "0";
+                            }
                         }
 
-                        console.log(`%cSingle-Staking Widget: Rewards earned: ${String(ar).slice(0, -9)} BTB`, `color: green; padding: 2px;`);
+                        console.log(`%cSingle-Staking Widget: Rewards earned: ${earnedAmount} BTB`, `color: green; padding: 2px;`);
                     }).catch((error: any) => {
                         console.error(error);
                     });
-
-                if (earnedAmount.length < 0) {
-                    earnedAmount = "0";
-                }
 
                 setEarned(earnedAmount);
 
@@ -222,6 +224,19 @@ function StakingComponent() {
         }
     }
 
+    // Update interface on transaction initiation
+    function openTransactionIndicator() {
+        $(".transaction-overlay").removeClass("hidden background");
+    }
+
+    function closeTransactionIndicator() {
+        $(".transaction-overlay").addClass("hidden");
+
+        setTimeout(function() {
+            $(".transaction-overlay").addClass("background");
+        }, 500);
+    }
+
     // Format pool-end timestamp for display
     function formatTimestamp(timestamp : any) {
         const secondsInDay = 60 * 60 * 24;
@@ -262,14 +277,6 @@ function StakingComponent() {
     // Component HTML
     return (
         <div>
-            <div className="transaction-overlay hidden">
-                <div className="transaction-container">
-                    <div className="transaction-header">
-                        <h2>Transaction in progress</h2>
-                        <div className="transaction-spinner"></div>
-                    </div>
-                </div>
-            </div>
             <h3>BTB Single - Staking Pool : </h3>
             <h5>Put your tokens to work</h5>
             <hr/>

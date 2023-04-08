@@ -4,7 +4,7 @@ import {SupportedLocale, SUPPORTED_LOCALES, SwapWidget, Theme} from '@uniswap/wi
 import '@uniswap/widgets/fonts.css'
 import Web3Connectors from '../components/Web3Connectors'
 import {useActiveProvider} from '../connectors'
-import {useCallback, useRef, useState} from 'react'
+import React, {useCallback, useRef, useState} from 'react'
 import Script from 'next/script'
 import StakingComponent from "../components/SingleStaking";
 import singleStaking from "../components/SingleStaking";
@@ -280,7 +280,7 @@ const Home: NextPage = () => {
                             <ul>
                                 <li>- Public Token Offering ✓</li>
                                 <li>- Early Adopters NFTs ✓</li>
-                                <li>- Staking Pools</li>
+                                <li>- Staking Pools ✓</li>
                                 <li>- Weekly Spotlights ✓</li>
                                 <li>- Flooring Experts</li>
                                 <li>- Henry Beta</li>
@@ -438,6 +438,14 @@ const Home: NextPage = () => {
                     </div>
                     <div id="singleStakingWidget" className="mainSectionCard" ref={singleStaking}>
                         <StakingComponent/>
+                    </div>
+                    <div className="transaction-overlay hidden background">
+                        <div className="transaction-container">
+                            <div className="transaction-header">
+                                <h2>Transaction in progress</h2>
+                                <div className="transaction-spinner"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>
