@@ -21,6 +21,8 @@ function StakingComponent() {
     // Check / prompt staking contract's spending allowance for message sender's BTB, then stake
     const handleStake = async() => {
         try {
+            $(".transaction-overlay").removeClass("hidden");
+
             if (typeof window !== 'undefined' && window.ethereum !== undefined && amount > 0) {
                 const accounts = await web3.eth.requestAccounts();
                 const amountWei = BigInt(web3.utils.toWei(amount.toString(), 'ether'));
@@ -30,6 +32,7 @@ function StakingComponent() {
                     // Linter doesn't like the number of parameters, but this works
                     const approveResult = await tokenContract.methods.approve(stakingContract.options.address, amountInt).send({from: accounts[0]});
                     const approveTxHash = approveResult.transactionHash;
+
 
                     // TODO: Handle progress indicator waiting for approveTxHash
 
@@ -43,6 +46,8 @@ function StakingComponent() {
             }
         } catch (error) {
             console.error(error);
+        } finally {
+            $(".transaction-overlay").addClass("hidden");
         }
     };
 
@@ -51,6 +56,8 @@ function StakingComponent() {
         let amountBalance = "0";
 
         try {
+            $(".transaction-overlay").removeClass("hidden");
+
             if (typeof window !== 'undefined' && window.ethereum !== undefined && amount > 0) {
                 const accounts = await web3.eth.requestAccounts();
                 const amountWei = BigInt(web3.utils.toWei(amount.toString(), 'ether'));
@@ -77,11 +84,15 @@ function StakingComponent() {
             }
         } catch (error) {
             console.error(error);
+        } finally {
+            $(".transaction-overlay").addClass("hidden");
         }
     }
 
     // Harvest all BTB reward earned
     const harvestRewards = async() => {
+        $(".transaction-overlay").removeClass("hidden");
+
         try {
             if (typeof window !== 'undefined' && window.ethereum !== undefined) {
                 const accounts = await web3.eth.requestAccounts();
@@ -95,6 +106,8 @@ function StakingComponent() {
             }
         } catch (error) {
             console.error(error);
+        } finally {
+            $(".transaction-overlay").addClass("hidden");
         }
     }
 
@@ -249,6 +262,14 @@ function StakingComponent() {
     // Component HTML
     return (
         <div>
+            <div className="transaction-overlay hidden">
+                <div className="transaction-container">
+                    <div className="transaction-header">
+                        <h2>Transaction in progress</h2>
+                        <div className="transaction-spinner"></div>
+                    </div>
+                </div>
+            </div>
             <h3>BTB Single - Staking Pool : </h3>
             <h5>Put your tokens to work</h5>
             <hr/>
