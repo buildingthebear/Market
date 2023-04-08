@@ -5,8 +5,8 @@ import TokenABI from "../contracts/BuildtheBearToken.json";
 import StakingABI from "../contracts/BuildtheBearSingleStake.json";
 
 const web3 = new Web3(Web3.givenProvider || process.env.JSON_RPC_URL);
-const tokenContract = new web3.eth.Contract(TokenABI as AbiItem[], "0x408C02545C554EEBBc5811F92354F726F97C1D56");
-const stakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0xbE13d9086BC1DF1DE91e01F0eA5009753B8cdDf6");
+const tokenContract = new web3.eth.Contract(TokenABI as AbiItem[], "0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C");
+const stakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0x24ad9922d3f75AaA3530C4788E106Ea0b427f5B2");
 
 // Build the Bear Single-Staking Component
 function StakingComponent() {
@@ -360,7 +360,7 @@ function StakingComponent() {
                         className=""
                         target="_blank"
                         rel="noreferrer"
-                        href="https://goerli.etherscan.io/address/0xbe13d9086bc1df1de91e01f0ea5009753b8cddf6"
+                        href="https://etherscan.io/address/0x24ad9922d3f75AaA3530C4788E106Ea0b427f5B2"
                     >
                         ➟ View on Explorer{" "}
                         <svg

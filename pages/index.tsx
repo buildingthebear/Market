@@ -421,6 +421,9 @@ const Home: NextPage = () => {
                             </video>
                         </div>
                     </div>
+                    <div id="singleStakingWidget" className="mainSectionCard" ref={singleStaking}>
+                        <StakingComponent/>
+                    </div>
                     <div id="swapWidget" className="mainSectionCard">
                         <SwapWidget
                             jsonRpcEndpoint={process.env.JSON_RPC_URL}
@@ -435,9 +438,6 @@ const Home: NextPage = () => {
                             width={400}
                             theme={theme}
                         />
-                    </div>
-                    <div id="singleStakingWidget" className="mainSectionCard" ref={singleStaking}>
-                        <StakingComponent/>
                     </div>
                     <div className="transaction-overlay hidden background">
                         <div className="transaction-container">
