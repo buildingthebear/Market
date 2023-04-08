@@ -19,8 +19,6 @@ document.onreadystatechange = function () {
 
             tabLinks = tabSet.find(".tabLink");
 
-            console.log(tabLinks);
-
             for (i = 0; i < tabLinks.length; i++) {
                 tabLinks[i].setAttribute("class", "tabLink");
             }

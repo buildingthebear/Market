@@ -1,6 +1,5 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import {SupportedLocale, SUPPORTED_LOCALES, SwapWidget, Theme} from '@uniswap/widgets'
 import '@uniswap/widgets/fonts.css'
 import Web3Connectors from '../components/Web3Connectors'
@@ -64,12 +63,9 @@ function connectWallet() {
 }
 
 const Home: NextPage = () => {
-    // When a user clicks "Connect your wallet" in the SwapWidget, this callback focuses the connectors.
     const connectors = useRef<HTMLDivElement>(null)
     const focusConnectors = useCallback(() => connectWallet(), [])
 
-    // The provider to pass to the SwapWidget.
-    // This is a Web3Provider (from @ethersproject) supplied by @web3-react; see ./connectors.ts.
     const pr = useActiveProvider()
 
     return (
@@ -243,56 +239,6 @@ const Home: NextPage = () => {
                             </li>
                         </ul>
                     </div>
-                    <div id="earlyAdopters" className="mainSectionCard">
-                        <div>
-                            <a
-                                className=""
-                                target="_blank"
-                                rel="noreferrer"
-                                href="https://opensea.io/collection/build-the-bear-early-adopters"
-                            >
-                                <h3>➟ Early Adopters NFT Collection : </h3>
-                            </a>
-                            <h5>22 1-of-1 animations from the developer</h5>
-                            <hr/>
-                            <ul>
-                                <li><b>- Cost 0.1Ξ to mint</b></li>
-                                <li>- Custom Collectibles</li>
-                                <li>- Early Access to Developments</li>
-                                <li>- Additional 25% Base Staking Reward</li>
-                                <li>- Inclusive of all future benefits</li>
-                                <li>
-                                    <br/>
-                                    <span className="mainSectionCardDescription">Earn your place in BtB history with unique proof of your support! Minting is now available to the public</span>
-                                    <br/><br/>
-                                    <a
-                                        className=""
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        href="https://app.niftykit.com/drops/buildthebear-v1"
-                                    >
-                                        <b>➟ Secure your mint{" "}
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>hand-coin</title><path d="M16 12C18.76 12 21 9.76 21 7S18.76 2 16 2 11 4.24 11 7 13.24 12 16 12M21.45 17.6C21.06 17.2 20.57 17 20 17H13L10.92 16.27L11.25 15.33L13 16H15.8C16.15 16 16.43 15.86 16.66 15.63S17 15.12 17 14.81C17 14.27 16.74 13.9 16.22 13.69L8.95 11H7V20L14 22L22.03 19C22.04 18.47 21.84 18 21.45 17.6M5 11H.984V22H5V11Z" /></svg>
-                                        </b>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        className=""
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        href="https://opensea.io/collection/build-the-bear-early-adopters"
-                                    >
-                                        ➟ View on OpenSea{" "}
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>ferry</title><path d="M6,6H18V9.96L12,8L6,9.96M3.94,19H4C5.6,19 7,18.12 8,17C9,18.12 10.4,19 12,19C13.6,19 15,18.12 16,17C17,18.12 18.4,19 20,19H20.05L21.95,12.31C22.03,12.06 22,11.78 21.89,11.54C21.76,11.3 21.55,11.12 21.29,11.04L20,10.62V6C20,4.89 19.1,4 18,4H15V1H9V4H6A2,2 0 0,0 4,6V10.62L2.71,11.04C2.45,11.12 2.24,11.3 2.11,11.54C2,11.78 1.97,12.06 2.05,12.31M20,21C18.61,21 17.22,20.53 16,19.67C13.56,21.38 10.44,21.38 8,19.67C6.78,20.53 5.39,21 4,21H2V23H4C5.37,23 6.74,22.65 8,22C10.5,23.3 13.5,23.3 16,22C17.26,22.65 18.62,23 20,23H22V21H20Z" /></svg>
-                                    </a>
-                                </li>
-                            </ul>
-                            <video id="earlyAdoptersVideo" width="64" height="64" playsInline={true} autoPlay={true} controls={false} muted={true} loop={true}>
-                                <source src="/video/early-adopters-sample.mp4" type="video/mp4"></source>
-                            </video>
-                        </div>
-                    </div>
                     <div id="aboutUs" className="mainSectionCard">
                         <h3>Frequently asked questions : </h3>
                         <h5>Not that you asked</h5>
@@ -309,6 +255,60 @@ const Home: NextPage = () => {
                                 <span className="mainSectionCardDescription">Everyone! Build the Bear is completely open-source. If you're interested in something, check its README for contribution requirements</span>
                             </li>
                         </ul>
+                    </div>
+                    <div id="roadmap" className="mainSectionCard">
+                        <h3>Build the Bear's Roadmap : </h3>
+                        <h5>Upcoming Developments</h5>
+                        <hr/>
+                        <div className="tabSet">
+                            <button className="tabLink">Q4 '22</button>
+                            <button className="defaultTab tabLink active">Q1 '23</button>
+                            <button className="tabLink">Q2 '23</button>
+                            <button className="tabLink">Q3 '23</button>
+                        </div>
+                        <div id="Q422" className="tabContent">
+                            <ul>
+                                <li>- Website / Socials ✓</li>
+                                <li>- Digital Sticker Pack ✓</li>
+                                <li>- Documentation v1 ✓</li>
+                                <li>- Contract Peer Review ✓</li>
+                                <li>- Private Pre-Sale ✓</li>
+                                <li>- Henry Alpha ✓</li>
+                            </ul>
+                        </div>
+                        <div id="Q123" className="tabContent">
+                            <ul>
+                                <li>- Public Token Offering ✓</li>
+                                <li>- Early Adopters NFTs ✓</li>
+                                <li>- Staking Pools</li>
+                                <li>- Weekly Spotlights ✓</li>
+                                <li>- Flooring Experts</li>
+                                <li>- Henry Beta</li>
+                            </ul>
+                        </div>
+                        <div id="Q223" className="tabContent">
+                            <ul>
+                                <li>- Open-Source Participation</li>
+                                <li>- Conversion Tools</li>
+                                <li>- Documentation v2</li>
+                                <li>- Token Tossup</li>
+                                <li>- Proof-of-Posts / KYD</li>
+                                <li>- Henry the Hypemachine v1</li>
+                            </ul>
+                        </div>
+                        <div id="Q323" className="tabContent">
+                            <ul>
+                                <li>- BTB PFP</li>
+                                <li>- HodlWare</li>
+                                <li>- Lego Sets</li>
+                                <li>- Bug Bounty Program</li>
+                                <li>- Physical Sticker Pack</li>
+                                <li>- Building and building and</li>
+                            </ul>
+                        </div>
+                        <br/>
+                        <span className="mainSectionCardDescription"> Long-term roadmap items and more listed on the last page of our white paper</span>
+                        <br/><br/>
                     </div>
                     <div id="documentation" className="mainSectionCard">
                         <a className="" target="_blank" rel="noreferrer" href="https://www.buildthebear.online/">
@@ -371,55 +371,54 @@ const Home: NextPage = () => {
                             </li>
                         </ul>
                     </div>
-                    <div id="roadmap" className="mainSectionCard">
-                        <h3>Build the Bear's Roadmap : </h3>
-                        <h5>Upcoming Developments</h5>
-                        <hr/>
-                        <div className="tabSet">
-                            <button className="tabLink">Q4 '22</button>
-                            <button className="defaultTab tabLink active">Q1 '23</button>
-                            <button className="tabLink">Q2 '23</button>
-                            <button className="tabLink">Q3 '23</button>
-                        </div>
-                        <div id="Q422" className="tabContent">
+                    <div id="earlyAdopters" className="mainSectionCard">
+                        <div>
+                            <a
+                                className=""
+                                target="_blank"
+                                rel="noreferrer"
+                                href="https://opensea.io/collection/build-the-bear-early-adopters"
+                            >
+                                <h3>➟ Early Adopters NFT Collection : </h3>
+                            </a>
+                            <h5>22 1-of-1 animations from the developer</h5>
+                            <hr/>
                             <ul>
-                                <li>- Website / Socials ✓</li>
-                                <li>- Digital Sticker Pack ✓</li>
-                                <li>- Documentation v1 ✓</li>
-                                <li>- Contract Peer Review ✓</li>
-                                <li>- Private Pre-Sale ✓</li>
-                                <li>- Henry Alpha ✓</li>
+                                <li><b>- Cost 0.1Ξ to mint</b></li>
+                                <li>- Custom Collectibles</li>
+                                <li>- Early Access to Developments</li>
+                                <li>- Additional 25% Base Staking Reward</li>
+                                <li>- Inclusive of all future benefits</li>
+                                <li>
+                                    <br/>
+                                    <span className="mainSectionCardDescription">Earn your place in BtB history with unique proof of your support! Minting is now available to the public</span>
+                                    <br/><br/>
+                                    <a
+                                        className=""
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        href="https://app.niftykit.com/drops/buildthebear-v1"
+                                    >
+                                        <b>➟ Secure your mint{" "}
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>hand-coin</title><path d="M16 12C18.76 12 21 9.76 21 7S18.76 2 16 2 11 4.24 11 7 13.24 12 16 12M21.45 17.6C21.06 17.2 20.57 17 20 17H13L10.92 16.27L11.25 15.33L13 16H15.8C16.15 16 16.43 15.86 16.66 15.63S17 15.12 17 14.81C17 14.27 16.74 13.9 16.22 13.69L8.95 11H7V20L14 22L22.03 19C22.04 18.47 21.84 18 21.45 17.6M5 11H.984V22H5V11Z" /></svg>
+                                        </b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        className=""
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        href="https://opensea.io/collection/build-the-bear-early-adopters"
+                                    >
+                                        ➟ View on OpenSea{" "}
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>ferry</title><path d="M6,6H18V9.96L12,8L6,9.96M3.94,19H4C5.6,19 7,18.12 8,17C9,18.12 10.4,19 12,19C13.6,19 15,18.12 16,17C17,18.12 18.4,19 20,19H20.05L21.95,12.31C22.03,12.06 22,11.78 21.89,11.54C21.76,11.3 21.55,11.12 21.29,11.04L20,10.62V6C20,4.89 19.1,4 18,4H15V1H9V4H6A2,2 0 0,0 4,6V10.62L2.71,11.04C2.45,11.12 2.24,11.3 2.11,11.54C2,11.78 1.97,12.06 2.05,12.31M20,21C18.61,21 17.22,20.53 16,19.67C13.56,21.38 10.44,21.38 8,19.67C6.78,20.53 5.39,21 4,21H2V23H4C5.37,23 6.74,22.65 8,22C10.5,23.3 13.5,23.3 16,22C17.26,22.65 18.62,23 20,23H22V21H20Z" /></svg>
+                                    </a>
+                                </li>
                             </ul>
-                        </div>
-                        <div id="Q123" className="tabContent">
-                            <ul>
-                                <li>- Public Token Offering ✓</li>
-                                <li>- Early Adopters NFTs ✓</li>
-                                <li>- Staking Pools</li>
-                                <li>- Weekly Spotlights ✓</li>
-                                <li>- Flooring Experts</li>
-                                <li>- Henry Beta</li>
-                            </ul>
-                        </div>
-                        <div id="Q223" className="tabContent">
-                            <ul>
-                                <li>- Open-Source Participation</li>
-                                <li>- Conversion Tools</li>
-                                <li>- Documentation v2</li>
-                                <li>- Token Tossup</li>
-                                <li>- Proof-of-Posts / KYD</li>
-                                <li>- Henry the Hypemachine v1</li>
-                            </ul>
-                        </div>
-                        <div id="Q323" className="tabContent">
-                            <ul>
-                                <li>- BTB PFP</li>
-                                <li>- HodlWare</li>
-                                <li>- Lego Sets</li>
-                                <li>- Bug Bounty Program</li>
-                                <li>- Physical Sticker Pack</li>
-                                <li>- Building and building and</li>
-                            </ul>
+                            <video id="earlyAdoptersVideo" width="64" height="64" playsInline={true} autoPlay={true} controls={false} muted={true} loop={true}>
+                                <source src="/video/early-adopters-sample.mp4" type="video/mp4"></source>
+                            </video>
                         </div>
                     </div>
                     <div id="swapWidget" className="mainSectionCard">
@@ -441,7 +440,6 @@ const Home: NextPage = () => {
                         <StakingComponent/>
                     </div>
                 </div>
-                <div id={"stickerImage"}/>
             </main>
             <Script src="https://code.jquery.com/jquery-3.6.1.min.js"></Script>
             <Script src="/js/index.jsx"></Script>

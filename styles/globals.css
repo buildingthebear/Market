@@ -32,6 +32,11 @@ h2 {
 
 }
 
+h5 {
+  text-align: right;
+  font-size: 12px;
+}
+
 h6 {
   margin-bottom: 0;
 }
@@ -120,7 +125,7 @@ ul {
 }
 
 .mainSectionCard:not(#swapWidget) {
-  box-shadow: -4px 4px 0px rgb(0 0 0 / 20%);
+  box-shadow: -4px 4px 0px rgb(0 0 0 / 40%);
   border: 4px solid rgb(0 0 0 / 10%);
 }
 
@@ -163,8 +168,13 @@ ul {
 }
 
 .stakingAmount {
-  display: inline-flex;
   text-align: center;
+  align-items: center;
+}
+
+.stakingAmount span {
+  font-family: 'Wayward Sans', sans-serif;
+  margin-left: 10px;
 }
 
 .swapWidget {
@@ -351,7 +361,7 @@ ul {
 }
 
 #singleStakingWidget .stakingControl {
-  margin: 0.25rem;
+  margin: 0.25rem 0.5rem;
 }
 
 #singleStakingWidget .stakingControl {
@@ -381,7 +391,6 @@ ul {
 
 #singleStakingWidget .stakingControl:hover {
   opacity: 0.75;
-  margin-right: 0.5rem;
   box-shadow: -2px 2px 0px rgb(0 0 0 / 10%);
 }
 
@@ -404,19 +413,7 @@ ul {
   box-shadow: -4px 4px 0px rgb(0 0 0 / 20%);
   font-weight: bold;
   font-family: 'Wayward Sans', sans-serif;
-}
-
-#stickerImage {
-  background: url(/img/king.png);
-  background-repeat: no-repeat;
-  background-size: contain;
-  position: fixed;
-  bottom: -50px;
-  right: -25px;
-  width: -webkit-fill-available;
-  height: 20%;
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
+  width: 50%;
 }
 
 #swapWidget {
