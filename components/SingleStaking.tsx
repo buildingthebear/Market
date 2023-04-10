@@ -11,8 +11,11 @@ const stakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0x24ad99
 // Build the Bear Single-Staking Component
 function StakingComponent() {
     // Chain information
+    let connectedAccount = "";
+
     const [amount, setAmount] = useState(1000);
     const [allowed, setAllowance] = useState(0);
+    const [apy, setAPY] = useState(0);
     const [balance, setBalance] = useState("0");
     const [staked, setStaked] = useState("0");
     const [earned, setEarned] = useState("0");
@@ -21,6 +24,7 @@ function StakingComponent() {
     // Check / prompt staking contract's spending allowance for message sender's BTB, then stake
     const handleStake = async() => {
         try {
+            $(".transaction-header h2").text("Staking BTB");
             openTransactionIndicator();
 
             if (typeof window !== 'undefined' && window.ethereum !== undefined && amount > 0) {
@@ -53,6 +57,7 @@ function StakingComponent() {
         let amountBalance = "0";
 
         try {
+            $(".transaction-header h2").text("Withdrawing BTB");
             openTransactionIndicator();
 
             if (typeof window !== 'undefined' && window.ethereum !== undefined && amount > 0) {
@@ -89,6 +94,7 @@ function StakingComponent() {
     // Harvest all BTB reward earned
     const harvestRewards = async() => {
         try {
+            $(".transaction-header h2").text("Harvesting Rewards");
             openTransactionIndicator();
 
             if (typeof window !== 'undefined' && window.ethereum !== undefined && Number(earned) > 0) {
@@ -202,6 +208,30 @@ function StakingComponent() {
                     });
 
                 setTimeLeft(timeLeftString);
+
+                let rewardRate = 0;
+                let totalStaked = 0;
+
+                const rewardRateResult = await stakingContract.methods.rewardRate().call()
+                    .then((rate: any) => {
+                        rewardRate = Number(rate);
+                    }).catch((error: any) => {
+                        console.error(error);
+                    });
+
+                const totalStakedResult = await stakingContract.methods.totalSupply().call()
+                    .then((total: any) => {
+                        totalStaked = Number(total);
+                    }).catch((error: any) => {
+                        console.error(error);
+                    });
+
+                const apy = (rewardRate * 365 * 86400 * 100) / totalStaked;
+
+                setAPY(Math.ceil(apy));
+
+                $(".connectedAccount").text(String(accounts[0]));
+                $(".connectedAccountBalance").text(Number(balanceAmount).toLocaleString() + " BTB");
             }
         } catch (error) {
             console.error(error);
@@ -211,11 +241,15 @@ function StakingComponent() {
     // Update amount to maximum stake for the user
     const stakeAll: MouseEventHandler<HTMLButtonElement> = (event) => {
         setAmount(Number(balance));
+
+        handleStake().then(r => console.log(`%cSingle-Staking Widget: Thanks for your support!`, `color: green; padding: 2px;`));
     };
 
     // Update amount to maximum withdrawal for the user
     const withdrawAll: MouseEventHandler<HTMLButtonElement> = (event) => {
         setAmount(Number(staked));
+
+        handleWithdraw().then(r => console.log(`%cSingle-Staking Widget: Thanks for your support!`, `color: green; padding: 2px;`));
     };
 
     // Update amount on input change
@@ -259,7 +293,7 @@ function StakingComponent() {
 
         const minutes = Math.floor(timestamp / secondsInMinute);
 
-        return `${days} Days ${hours} Hours ${minutes} Minutes`;
+        return `${days}D ${hours}H ${minutes}M`;
     }
 
     // Fetch chain information every 20 seconds
@@ -319,13 +353,7 @@ function StakingComponent() {
                     <li>
                         <div className={"inlineText"}>
                             <h6> ╙ Pool Size :</h6>
-                            <span className="mainSectionCardDescription">2% Supply or 20,000 BTB</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className={"inlineText"}>
-                            <h6> ╙ Pool Length :</h6>
-                            <span className="mainSectionCardDescription">3 month distribution</span>
+                            <span className="mainSectionCardDescription">2 % Supply or 20,000 BTB</span>
                         </div>
                     </li>
                     <li>
@@ -335,22 +363,28 @@ function StakingComponent() {
                         </div>
                     </li>
                     <li>
+                        <div className={"inlineText"}>
+                            <h6> ╙ Annual Yield :</h6>
+                            <span className="mainSectionCardDescription">~ {apy} %</span>
+                        </div>
+                    </li>
+                    <li>
                         <br/>
                         <div className={"inlineText"}>
                             <h6> ╙ Early Adopters :</h6>
-                            <span className="mainSectionCardDescription">Base reward + 25%</span>
+                            <span className="mainSectionCardDescription">Base reward + 25 %</span>
                         </div>
                     </li>
                     <li>
                         <div className={"inlineText"}>
                             <h6> ╙ BTB PFP :</h6>
-                            <span className="mainSectionCardDescription">Will be Base reward + 20%</span>
+                            <span className="mainSectionCardDescription">Will be Base reward + 20 %</span>
                         </div>
                     </li>
                     <li>
                         <div className={"inlineText"}>
                             <h6> ╙ Subsequent :</h6>
-                            <span className="mainSectionCardDescription">Each scales down by 5%</span>
+                            <span className="mainSectionCardDescription">Each scales down by 5 %</span>
                         </div>
                     </li>
                 </ul>

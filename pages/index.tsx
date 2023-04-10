@@ -82,6 +82,11 @@ const Home: NextPage = () => {
             <main>
                 <div id="walletConnectors" ref={connectors}>
                     <Web3Connectors/>
+                    <div className={"accountBalance"}>
+                        <h5 className={"connectedAccount"}></h5>
+                        <h5 className={"connectedAccountBalance"}></h5>
+
+                    </div>
                 </div>
                 <div id="welcomeMessage">
                     <h2>

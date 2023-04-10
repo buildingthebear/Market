@@ -93,13 +93,21 @@ ul {
   color: darkslategrey;
 }
 
-.connectedWallet * {
-  border-color: #FFD147 !important;
-  color: #FFD147 !important;
+.accountBalance {
+  display: inline-flex;
 }
 
-.connectedWallet {
-  border-color: #FFD147 !important;
+.connectedAccount, .connectedAccountBalance {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  padding: 5px;
+  margin: 1rem 1rem 1rem 0;
+  text-align: center;
+  border: 2px solid rgb(0 0 0 / 10%);
+}
+
+.connectedAccountBalance {
+  width: fit-content;
 }
 
 .connectorLabel {
@@ -324,14 +332,6 @@ ul {
   flex-wrap: wrap;
 }
 
-#connectedWalletAddress {
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 0;
-}
-
 #documentation {
   background: #fee6a5;
   border-radius: 0.5rem;
@@ -470,7 +470,7 @@ ul {
 
 #walletConnectors {
   position: fixed;
-  display: inline-flex;
+  text-align: right;
   right: 0;
   top: 1rem;
   transition: all 0.2s ease-out;
