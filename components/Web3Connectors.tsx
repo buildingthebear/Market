@@ -1,6 +1,7 @@
 import { connectors, getConnectorName, Web3Connector } from '../connectors'
 import { useCallback } from 'react'
 import Image from 'next/image'
+import {connectedAccount, connectedBalance} from "./SingleStaking";
 
 function Connector({ web3Connector }: { web3Connector: Web3Connector }) {
   const [connector, hooks] = web3Connector
@@ -8,9 +9,15 @@ function Connector({ web3Connector }: { web3Connector: Web3Connector }) {
   const onClick = useCallback(() => {
     if (isActive) {
       connector.deactivate()
+
+      $(".accountBalance").removeClass("visible");
+      $(".connectedAccount").text("0x000000000000000000000000000000000000dEaD");
+      $(".connectedAccountBalance").text("0 BTB");
     } else {
       connectors.forEach(([connector]) => connector.deactivate())
       connector.activate()
+
+      updateAccountInfo();
     }
   }, [connector, isActive])
   const connectorName = getConnectorName(connector)
@@ -35,4 +42,10 @@ export default function Connectors() {
         ))}
       </div>
   )
+}
+
+function updateAccountInfo() {
+  $(".accountBalance").addClass("visible");
+  $(".connectedAccount").text(connectedAccount);
+  $(".connectedAccountBalance").text(connectedBalance.toLocaleString() + " BTB");
 }

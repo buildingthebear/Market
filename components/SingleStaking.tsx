@@ -8,11 +8,12 @@ const web3 = new Web3(Web3.givenProvider || process.env.JSON_RPC_URL);
 const tokenContract = new web3.eth.Contract(TokenABI as AbiItem[], "0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C");
 const stakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0x24ad9922d3f75AaA3530C4788E106Ea0b427f5B2");
 
+export let connectedAccount = "0x000000000000000000000000000000000000dEaD";
+export let connectedBalance = 0;
+
 // Build the Bear Single-Staking Component
 function StakingComponent() {
     // Chain information
-    let connectedAccount = "";
-
     const [amount, setAmount] = useState(1000);
     const [allowed, setAllowance] = useState(0);
     const [apy, setAPY] = useState(0);
@@ -128,6 +129,8 @@ function StakingComponent() {
             if (typeof window !== 'undefined' && window.ethereum !== undefined) {
                 const accounts = await web3.eth.requestAccounts();
 
+                connectedAccount = accounts[0];
+
                 const allowanceResult = await tokenContract.methods.allowance(accounts[0], stakingContract.options.address).call()
                     .then((allowance: Number) => {
                         let printedAmount = String(allowance).slice(0, -9);
@@ -229,9 +232,6 @@ function StakingComponent() {
                 const apy = (rewardRate * 365 * 86400 * 100) / totalStaked;
 
                 setAPY(Math.ceil(apy));
-
-                $(".connectedAccount").text(String(accounts[0]));
-                $(".connectedAccountBalance").text(Number(balanceAmount).toLocaleString() + " BTB");
             }
         } catch (error) {
             console.error(error);
@@ -264,6 +264,12 @@ function StakingComponent() {
         } else {
             $(".stakeButton").text("Approve");
         }
+    }
+
+    function updateAccountInfo() {
+        $(".accountBalance").addClass("visible");
+        $(".connectedAccount").text(connectedAccount);
+        $(".connectedAccountBalance").text(connectedBalance.toLocaleString() + " BTB");
     }
 
     // Update interface on transaction initiation
@@ -309,12 +315,20 @@ function StakingComponent() {
         }
     }, []);
 
-    // Update interface on amount / allowed change
+    // Update interface on changes
     useEffect(() => {
         if (typeof $ !== 'undefined') {
             updateStakeButtons();
         }
     }, [amount, allowed]);
+
+    useEffect(() => {
+        if (typeof $ !== 'undefined') {
+            connectedBalance = Number(balance);
+
+            updateAccountInfo();
+        }
+    }, [balance]);
 
     // Component HTML
     return (

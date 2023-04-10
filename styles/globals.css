@@ -95,6 +95,11 @@ ul {
 
 .accountBalance {
   display: inline-flex;
+  opacity: 0.25;
+}
+
+.accountBalance.visible {
+  opacity: 1.0 !important;
 }
 
 .connectedAccount, .connectedAccountBalance {
