@@ -3,6 +3,7 @@ import Web3 from "web3";
 import {AbiItem} from "web3-utils";
 import TokenABI from "../contracts/BuildtheBearToken.json";
 import StakingABI from "../contracts/BuildtheBearSingleStake.json";
+import Accordion from './Accordion';
 
 const web3 = new Web3(Web3.givenProvider || process.env.JSON_RPC_URL);
 const tokenContract = new web3.eth.Contract(TokenABI as AbiItem[], "0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C");
@@ -10,6 +11,18 @@ const stakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0x24ad99
 
 export let connectedAccount = "0x000000000000000000000000000000000000dEaD";
 export let connectedBalance = 0;
+
+interface ButtonOption {
+    id: string;
+    label: string;
+}
+
+const buttonOptions: ButtonOption[] = [
+    { id: '3m', label: '3 mo' },
+    { id: '6m', label: '6 mo' },
+    { id: '9m', label: '9 mo' },
+    { id: '12m', label: '12 mo' },
+];
 
 // Build the Bear Single-Staking Component
 function StakingComponent() {
@@ -21,6 +34,12 @@ function StakingComponent() {
     const [staked, setStaked] = useState("0");
     const [earned, setEarned] = useState("0");
     const [timeLeft, setTimeLeft] = useState("0 Days 0 Hours 0 Minutes");
+
+    const [selectedOption, setSelectedOption] = useState<ButtonOption | null>(null);
+
+    const handleClick = (option: ButtonOption) => {
+        setSelectedOption(option);
+    };
 
     // Check / prompt staking contract's spending allowance for message sender's BTB, then stake
     const handleStake = async() => {
@@ -264,12 +283,19 @@ function StakingComponent() {
         } else {
             $(".stakeButton").text("Approve");
         }
+
+        if ($(".button-option.selected").length < 1) {
+            $(".button-option").eq(0).trigger('click');
+        }
     }
 
     function updateAccountInfo() {
         $(".accountBalance").addClass("visible");
+
         $(".connectedAccount").text(connectedAccount);
         $(".connectedAccountBalance").text(connectedBalance.toLocaleString() + " BTB");
+
+        $(".button-option").eq(0).trigger('click');
     }
 
     // Update interface on transaction initiation
@@ -302,6 +328,20 @@ function StakingComponent() {
         return `${days}D ${hours}H ${minutes}M`;
     }
 
+    const whenAvailable = () => {
+        if (typeof $ === 'undefined') {
+            setTimeout(whenAvailable, 50);
+        } else {
+            updateStakeButtons();
+
+            $(".mainSectionCard").has(".accordion").on("click", function() {
+
+            });
+        }
+    };
+
+    whenAvailable();
+
     // Fetch chain information every 20 seconds
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -312,6 +352,10 @@ function StakingComponent() {
                     fetchChainInfo().then(r => console.log("%cSingle-Staking Widget: Fetched chain information", `color: green; padding: 2px;`));
                 }, 20000);
             };
+        }
+
+        if (typeof $ !== 'undefined') {
+            updateStakeButtons();
         }
     }, []);
 
@@ -333,98 +377,216 @@ function StakingComponent() {
     // Component HTML
     return (
         <div>
-            <h3>BTB Single - Staking Pool : </h3>
-            <h5>Put your tokens to work</h5>
-            <hr/>
-            <div className="tabSet">
-                <button className={"defaultTab tabLink active"}>Staking</button>
-                <button className={"tabLink"}>Details</button>
-            </div>
-            <div id="Staking" className="tabContent">
-                <div className={"singleStakingContent"}>
-                    <div className={"stakingAmount"}>
-                        <input type="number" value={Number(amount)} onChange={handleAmountChange} />
-                        <span>BTB</span>
+            <div className="mainSectionCard stakingWidget singleStakingWidget">
+                <Accordion title="BTB Single - Staking Pool">
+                    <h5>Put your tokens to work</h5>
+                    <hr/>
+                    <div className="tabSet">
+                        <button className={"defaultTab tabLink active"}>Staking</button>
+                        <button className={"tabLink"}>Details</button>
                     </div>
-                    <button className={"stakingControl stakeButton"} onClick={handleStake}>Approve</button>
-                    <button className={"stakingControl stakeAllButton"} onClick={stakeAll}>All</button>
-                    <br />
-                    <button className={"stakingControl withdrawButton"} onClick={handleWithdraw}>Withdraw</button>
-                    <button className={"stakingControl withdrawAllButton"} onClick={withdrawAll}>All</button>
-                    <ul>
-                        <li>
-                            <span> BTB staked :</span> <span><b>{staked}</b></span>
-                        </li>
-                        <li>
-                            <span> BTB earned :</span> <span><b>{earned}</b></span>
-                        </li>
-                    </ul>
-                    <button className={"stakingControl harvestButton"} onClick={harvestRewards}>Harvest Earnings</button>
-                </div>
-            </div>
-            <div id="Details" className="tabContent">
-                <ul>
-                    <li>
-                        <div className={"inlineText"}>
-                            <h6> ╙ Pool Size :</h6>
-                            <span className="mainSectionCardDescription">2 % Supply or 20,000 BTB</span>
+                    <div id="Staking" className="tabContent">
+                        <div className={"stakingContent"}>
+                            <div className={"stakingAmount"}>
+                                <input type="number" value={Number(amount)} onChange={handleAmountChange} />
+                                <span>BTB</span>
+                            </div>
+                            <button className={"stakingControl stakeButton"} onClick={handleStake}>Approve</button>
+                            <button className={"stakingControl stakeAllButton"} onClick={stakeAll}>All</button>
+                            <br />
+                            <button className={"stakingControl withdrawButton"} onClick={handleWithdraw}>Withdraw</button>
+                            <button className={"stakingControl withdrawAllButton"} onClick={withdrawAll}>All</button>
+                            <ul>
+                                <li>
+                                    <span> BTB staked :</span> <span><b>{staked}</b></span>
+                                </li>
+                                <li>
+                                    <span> BTB earned :</span> <span><b>{earned}</b></span>
+                                </li>
+                            </ul>
+                            <button className={"stakingControl harvestButton"} onClick={harvestRewards}>Harvest Earnings</button>
                         </div>
-                    </li>
-                    <li>
-                        <div className={"inlineText"}>
-                            <h6> ╙ Pool Closes :</h6>
-                            <span className="mainSectionCardDescription">{timeLeft}</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className={"inlineText"}>
-                            <h6> ╙ Annual Yield :</h6>
-                            <span className="mainSectionCardDescription">~ {apy} %</span>
-                        </div>
-                    </li>
-                    <li>
+                    </div>
+                    <div id="Details" className="tabContent">
+                        <ul>
+                            <li>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ Pool Size :</h6>
+                                    <span className="mainSectionCardDescription">2 % Supply or 20,000 BTB</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ Pool Closes :</h6>
+                                    <span className="mainSectionCardDescription">{timeLeft}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ Pool Yield :</h6>
+                                    <span className="mainSectionCardDescription">~ {apy} % APY</span>
+                                </div>
+                            </li>
+                            <li>
+                                <br/>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ Early Adopters :</h6>
+                                    <span className="mainSectionCardDescription">Base reward + 25 %</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ BTB PFP :</h6>
+                                    <span className="mainSectionCardDescription">Will be Base reward + 20 %</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ Subsequent :</h6>
+                                    <span className="mainSectionCardDescription">Each scales down by 5 %</span>
+                                </div>
+                            </li>
+                        </ul>
                         <br/>
-                        <div className={"inlineText"}>
-                            <h6> ╙ Early Adopters :</h6>
-                            <span className="mainSectionCardDescription">Base reward + 25 %</span>
+                        <span className="mainSectionCardDescription">
+                        <a
+                            className=""
+                            target="_blank"
+                            rel="noreferrer"
+                            href="https://etherscan.io/address/0x24ad9922d3f75AaA3530C4788E106Ea0b427f5B2"
+                        >
+                            ➟ View on Explorer{" "}
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                version={"1.0"}
+                                width="294.000000pt"
+                                height="294.000000pt"
+                                viewBox="0 0 294.000000 294.000000"
+                                preserveAspectRatio="xMidYMid meet">
+                                <g transform="translate(0.000000,294.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none" >
+                                    <path d="M1301 2930 c-337 -43 -628 -186 -871 -430 -211 -210 -336 -441 -402 -738 -18 -78 -22 -131 -22 -272 -1 -200 15 -310 70 -477 33 -103 112 -273 142 -307 35 -38 88 -56 164 -55 120 1 168 12 200 48 l28 31 0 423 c0 406 1 423 20 455 30 49 72 62 197 62 129 0 170 -10 209 -51 l29 -30 3 -415 c2 -387 4 -415 20 -410 9 3 36 10 59 16 24 6 51 22 62 37 21 25 21 36 21 540 0 562 -1 555 58 598 23 17 46 20 164 23 150 4 182 -4 215 -55 16 -25 18 -71 23 -499 l5 -472 55 23 c66 28 95 55 104 96 3 17 6 281 6 585 l0 554 34 38 34 37 144 3 c161 4 189 -4 224 -61 18 -30 19 -58 22 -484 1 -249 5 -453 8 -453 2 0 48 35 102 77 178 141 370 340 417 432 29 56 17 137 -39 262 -232 522 -732 860 -1296 874 -74 2 -168 0 -209 -5z"/>
+                                </g>
+                            </svg>
+                        </a>
+                    </span>
+                        <br/>
+                    </div>
+                </Accordion>
+            </div>
+            <div className="mainSectionCard stakingWidget lockedStakingWidget">
+                <Accordion title="BTB Locked Staking Pool">
+                    <h5>Put your tokens in the vault</h5>
+                    <hr/>
+                    <div className="tabSet">
+                        <button className={"defaultTab tabLink active"}>Stake</button>
+                        <button className={"tabLink"}>Detail</button>
+                    </div>
+                    <div id="Stake" className="tabContent">
+                        <div className={"stakingContent"}>
+                            <div className={"stakingAmount"}>
+                                <input type="number" value={Number(amount)} onChange={handleAmountChange} />
+                                <span>BTB</span>
+                            </div>
+                            <div className="button-set">
+                                {buttonOptions.map((option) => (
+                                    <button
+                                        key={option.id}
+                                        className={`button-option ${selectedOption?.id === option.id ? 'selected' : ''}`}
+                                        onClick={() => handleClick(option)}
+                                    >{option.label}</button>
+                                ))}
+                            </div>
+                            <button className={"stakingControl stakeButton"} onClick={handleStake}>Approve</button>
+                            <button className={"stakingControl stakeAllButton"} onClick={stakeAll}>All</button>
+                            <br />
+                            <button className={"stakingControl withdrawButton"} onClick={handleWithdraw}>Withdraw</button>
+                            <button className={"stakingControl withdrawAllButton"} onClick={withdrawAll}>All</button>
+                            <ul>
+                                <li>
+                                    <span> BTB staked :</span> <span><b>{staked}</b></span>
+                                </li>
+                                <li>
+                                    <span> Staked for :</span> <span><b>{staked}</b></span>
+                                </li>
+                                <li>
+                                    <span> BTB earned :</span> <span><b>{earned}</b></span>
+                                </li>
+                            </ul>
+                            <button className={"stakingControl harvestButton"} onClick={harvestRewards}>Harvest Earnings</button>
                         </div>
-                    </li>
-                    <li>
-                        <div className={"inlineText"}>
-                            <h6> ╙ BTB PFP :</h6>
-                            <span className="mainSectionCardDescription">Will be Base reward + 20 %</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className={"inlineText"}>
-                            <h6> ╙ Subsequent :</h6>
-                            <span className="mainSectionCardDescription">Each scales down by 5 %</span>
-                        </div>
-                    </li>
-                </ul>
-                <br/>
-                <span className="mainSectionCardDescription">
-                    <a
-                        className=""
-                        target="_blank"
-                        rel="noreferrer"
-                        href="https://etherscan.io/address/0x24ad9922d3f75AaA3530C4788E106Ea0b427f5B2"
-                    >
-                        ➟ View on Explorer{" "}
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            version={"1.0"}
-                            width="294.000000pt"
-                            height="294.000000pt"
-                            viewBox="0 0 294.000000 294.000000"
-                            preserveAspectRatio="xMidYMid meet">
-                            <g transform="translate(0.000000,294.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none" >
-                                <path d="M1301 2930 c-337 -43 -628 -186 -871 -430 -211 -210 -336 -441 -402 -738 -18 -78 -22 -131 -22 -272 -1 -200 15 -310 70 -477 33 -103 112 -273 142 -307 35 -38 88 -56 164 -55 120 1 168 12 200 48 l28 31 0 423 c0 406 1 423 20 455 30 49 72 62 197 62 129 0 170 -10 209 -51 l29 -30 3 -415 c2 -387 4 -415 20 -410 9 3 36 10 59 16 24 6 51 22 62 37 21 25 21 36 21 540 0 562 -1 555 58 598 23 17 46 20 164 23 150 4 182 -4 215 -55 16 -25 18 -71 23 -499 l5 -472 55 23 c66 28 95 55 104 96 3 17 6 281 6 585 l0 554 34 38 34 37 144 3 c161 4 189 -4 224 -61 18 -30 19 -58 22 -484 1 -249 5 -453 8 -453 2 0 48 35 102 77 178 141 370 340 417 432 29 56 17 137 -39 262 -232 522 -732 860 -1296 874 -74 2 -168 0 -209 -5z"/>
-                            </g>
-                        </svg>
-                    </a>
-                </span>
-                <br/>
+                    </div>
+                    <div id="Detail" className="tabContent">
+                        <ul>
+                            <li>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ Pool Size :</h6>
+                                    <span className="mainSectionCardDescription">2 % Supply or 20,000 BTB</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ Pool Closes :</h6>
+                                    <span className="mainSectionCardDescription">{timeLeft}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ Pool Yield :</h6>
+                                    <span className="mainSectionCardDescription">~ {apy} % APY</span>
+                                </div>
+                            </li>
+                            <li>
+                                <br/>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ Lock Bonus :</h6>
+                                    <span className="mainSectionCardDescription">+ 10 % for every 3 months</span>
+                                </div>
+                            </li>
+                            <li>
+                                <br/>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ Early Adopters :</h6>
+                                    <span className="mainSectionCardDescription">Base reward + 25 %</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ BTB PFP :</h6>
+                                    <span className="mainSectionCardDescription">Will be Base reward + 20 %</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div className={"inlineText"}>
+                                    <h6> ╙ Subsequent :</h6>
+                                    <span className="mainSectionCardDescription">Each scales down by 5 %</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <br/>
+                        <span className="mainSectionCardDescription">
+                                <a
+                                    className=""
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    href="https://etherscan.io/address/0x24ad9922d3f75AaA3530C4788E106Ea0b427f5B2"
+                                >
+                                    ➟ View on Explorer{" "}
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        version={"1.0"}
+                                        width="294.000000pt"
+                                        height="294.000000pt"
+                                        viewBox="0 0 294.000000 294.000000"
+                                        preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,294.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none" >
+                                            <path d="M1301 2930 c-337 -43 -628 -186 -871 -430 -211 -210 -336 -441 -402 -738 -18 -78 -22 -131 -22 -272 -1 -200 15 -310 70 -477 33 -103 112 -273 142 -307 35 -38 88 -56 164 -55 120 1 168 12 200 48 l28 31 0 423 c0 406 1 423 20 455 30 49 72 62 197 62 129 0 170 -10 209 -51 l29 -30 3 -415 c2 -387 4 -415 20 -410 9 3 36 10 59 16 24 6 51 22 62 37 21 25 21 36 21 540 0 562 -1 555 58 598 23 17 46 20 164 23 150 4 182 -4 215 -55 16 -25 18 -71 23 -499 l5 -472 55 23 c66 28 95 55 104 96 3 17 6 281 6 585 l0 554 34 38 34 37 144 3 c161 4 189 -4 224 -61 18 -30 19 -58 22 -484 1 -249 5 -453 8 -453 2 0 48 35 102 77 178 141 370 340 417 432 29 56 17 137 -39 262 -232 522 -732 860 -1296 874 -74 2 -168 0 -209 -5z"/>
+                                        </g>
+                                    </svg>
+                                </a>
+                            </span>
+                        <br/>
+                    </div>
+                </Accordion>
             </div>
         </div>
     );
