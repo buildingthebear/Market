@@ -93,6 +93,103 @@ ul {
   color: darkslategrey;
 }
 
+.accountBalance {
+  display: inline-flex;
+  opacity: 0.25;
+}
+
+.accountBalance.visible {
+  opacity: 1.0 !important;
+}
+
+.accordion {
+  border-radius: 4px;
+}
+
+.accordion-title {
+  cursor: pointer;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+}
+
+.accordion-content.open {
+  max-height: 1000px;
+}
+
+.button-set {
+  margin: auto auto 0.5rem auto;
+}
+
+.button-option {
+  margin: 0 0.25rem;
+  background: #fff;
+  padding: 0.25rem 0.5rem !important;
+  border: none;
+  border-radius: 0.25rem;
+  border: 2px solid rgb(0 0 0 / 10%);
+  border-radius: 0.5rem;
+  box-shadow: -4px 4px 0px rgb(0 0 0 / 10%);
+  display: inline-flex;
+  align-items: center;
+}
+
+.button-option.selected,
+.button-option:hover {
+  color: #ffffff;
+  box-shadow: -2px 2px 0px rgb(0 0 0 / 10%);
+}
+
+.button-option:last-child {
+  margin-right: 0;
+}
+
+.button-option:nth-of-type(1) {
+  background: rgba(11, 61, 10, 0.3);
+}
+
+.button-option:nth-of-type(2) {
+  background: rgba(34, 139, 34, 0.3);
+
+}
+
+.button-option:nth-of-type(3) {
+  background: rgba(76, 175, 80, 0.3);
+
+}
+
+.button-option:nth-of-type(4) {
+  background: rgba(129, 199, 132, 0.3);
+}
+
+.connectedAccount, .connectedAccountBalance {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  padding: 5px;
+  margin: 1rem 1rem 1rem 0;
+  text-align: center;
+  border: 2px solid rgb(0 0 0 / 10%);
+}
+
+.connectedAccountBalance {
+  width: fit-content;
+}
+
+.connectorLabel {
+  margin-left: 0.3rem;
+}
+
+.expandCollapse {
+  text-align: center !important;
+}
+
+.expandCollapse button {
+  font-family: 'Wayward Sans', sans-serif !important;
+}
+
 .connectedWallet * {
   border-color: #FFD147 !important;
   color: #FFD147 !important;
@@ -115,8 +212,8 @@ ul {
 }
 
 .mainSectionCard {
-  margin: 2rem 1rem 0rem 1rem;
-  padding: 1rem;
+  padding: 1rem !important;
+  margin: 2rem auto;
   height: fit-content;
   max-width: min-content;
   opacity: 0;
@@ -127,6 +224,10 @@ ul {
 .mainSectionCard:not(#swapWidget) {
   box-shadow: -4px 4px 0px rgb(0 0 0 / 40%);
   border: 4px solid rgb(0 0 0 / 10%);
+}
+
+#swapWidget {
+  padding: 0 !important;
 }
 
 .mainSectionCard button {
@@ -143,7 +244,6 @@ ul {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin: 0.5rem 0;
 }
 
 .mainSectionCard ul a:hover, .mainSectionCard span a:hover {
@@ -190,6 +290,10 @@ ul {
 
 .swapWidget > div[style] > div[tabindex] > div[style] > :first-child {
   border-radius: 0 0 0.25rem 0.25rem !important;
+}
+
+.stakingWidget .stakingContent {
+  text-align: center;
 }
 
 .tabContent {
@@ -352,12 +456,6 @@ ul {
   margin: 0 0.5rem;
 }
 
-#earlyAdopters > div {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 0.2rem;
-  padding: 0.5rem;
-}
-
 #earlyAdoptersVideo {
   position: relative;
   margin: 1rem;
@@ -394,25 +492,37 @@ ul {
   height: 10px;
 }
 
+.singleStakingWidget {
+  background: #feecca;
+}
+
+.lockedStakingWidget {
+  background: #f6ead3;
+}
+
 #social ul {
   margin-top: auto;
 }
 
-#singleStakingWidget {
-  background: #feecca;
+#toggle-accordions-button {
+  background: none;
+  border: none;
+}
+
+.stakingWidget {
   border-radius: 0.5rem;
   padding-bottom: 0.5rem;
 }
 
-#singleStakingWidget span b {
+.stakingWidget span b {
   font-family: 'Wayward Sans', sans-serif;
 }
 
-#singleStakingWidget .stakingControl {
+.stakingWidget .stakingControl {
   margin: 0.25rem 0.5rem;
 }
 
-#singleStakingWidget .stakingControl {
+.stakingWidget .stakingControl {
   background: #fff;
   padding: 0.5rem;
   border: none;
@@ -424,34 +534,34 @@ ul {
   align-items: center;
 }
 
-#singleStakingWidget .stakingControl:nth-of-type(1), #singleStakingWidget .stakingControl:nth-of-type(2) {
-  background-color: #C2E7D9;
+.stakingWidget .stakingControl:nth-of-type(1), .stakingWidget  .stakingControl:nth-of-type(2) {
+  background-color: #C2E7A1;
 }
 
-#singleStakingWidget .stakingControl:nth-of-type(3), #singleStakingWidget .stakingControl:nth-of-type(4) {
+.stakingWidget .stakingControl:nth-of-type(3), .stakingWidget  .stakingControl:nth-of-type(4) {
   background-color: #FBD4B4;
 }
 
-#singleStakingWidget .stakingControl:nth-of-type(5) {
+.stakingWidget .stakingControl:nth-of-type(5) {
   background-color: #FEE5C8;
   margin-bottom: 0.5rem;
 }
 
-#singleStakingWidget .stakingControl:hover {
+.stakingWidget .stakingControl:hover {
   opacity: 0.75;
   box-shadow: -2px 2px 0px rgb(0 0 0 / 10%);
 }
 
-#singleStakingWidget .singleStakingContent {
+.stakingWidget .singleStakingContent {
   text-align: center;
 }
 
-#singleStakingWidget .mainSectionCardDescription {
+.stakingWidget .mainSectionCardDescription {
   display: flex;
   justify-content: center;
 }
 
-#singleStakingWidget input {
+.stakingWidget input {
   height: 2rem;
   border-radius: 0.25rem;
   border: 2px solid rgb(0 0 0 / 20%);
@@ -468,9 +578,14 @@ ul {
   padding: 0;
 }
 
+#infoCards, #productCards, #tokenCards {
+  margin: 0 1rem;
+}
+
 #walletConnectors {
   position: fixed;
-  display: inline-flex;
+  display: block;
+  text-align: right;
   right: 0;
   top: 1rem;
   transition: all 0.2s ease-out;
