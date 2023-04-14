@@ -33,8 +33,8 @@ h2 {
 }
 
 h5 {
-  text-align: right;
   font-size: 12px;
+  text-align: right;
 }
 
 h6 {
@@ -66,31 +66,46 @@ li a svg, span a svg {
 }
 
 main {
+  height: 100%;
   margin: 6rem 0;
   width: 100%;
-  height: 100%;
   z-index: 0;
 }
 
-span:has(#backgroundImage), span:has(#earlyAdoptersImage) {
+span:has(#earlyAdoptersImage) {
   z-index: -2 !important;
 }
 
 svg {
-  width: 20px;
   height: 20px;
+  width: 20px;
 }
 
 ul {
   list-style: none;
-  padding: 0;
   margin-bottom: 0;
+  padding: 0;
 }
+
 
 /* Rules by Class */
 
-.active {
-  color: darkslategrey;
+.accordion {
+  border-radius: 4px;
+}
+
+.accordionTitle {
+  cursor: pointer;
+}
+
+.accordionContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+}
+
+.accordionContent.open {
+  max-height: 1000px;
 }
 
 .accountBalance {
@@ -102,29 +117,34 @@ ul {
   opacity: 1.0 !important;
 }
 
-.accordion {
-  border-radius: 4px;
+.active {
+  color: darkslategrey;
 }
 
-.accordion-title {
-  cursor: pointer;
+.bg {
+  background-image: linear-gradient(-20deg, #415D43 50%, #FFF 50%);
+  animation:slide 8s ease-in-out infinite alternate;
+  bottom:0;
+  left:-50%;
+  opacity:0.05;
+  position:fixed;
+  right:-50%;
+  top:0;
+  z-index:-5;
 }
 
-.accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-in-out;
+.bg2 {
+  background-image: linear-gradient(-25deg, #415D43 50%, #FFF 50%);
+  animation-direction:alternate-reverse;
+  animation-duration:10s;
 }
 
-.accordion-content.open {
-  max-height: 1000px;
+.bg3 {
+  background-image: linear-gradient(-30deg, #415D43 50%, #FFF 50%);
+  animation-duration:12s;
 }
 
-.button-set {
-  margin: auto auto 0.5rem auto;
-}
-
-.button-option {
+.stakingOption {
   margin: 0 0.25rem;
   background: #fff;
   padding: 0.25rem 0.5rem !important;
@@ -137,32 +157,36 @@ ul {
   align-items: center;
 }
 
-.button-option.selected,
-.button-option:hover {
+.stakingOption.selected,
+.stakingOption:hover {
   color: #ffffff;
   box-shadow: -2px 2px 0px rgb(0 0 0 / 10%);
 }
 
-.button-option:last-child {
+.stakingOption:last-child {
   margin-right: 0;
 }
 
-.button-option:nth-of-type(1) {
+.stakingOption:nth-of-type(1) {
   background: rgba(11, 61, 10, 0.3);
 }
 
-.button-option:nth-of-type(2) {
+.stakingOption:nth-of-type(2) {
   background: rgba(34, 139, 34, 0.3);
 
 }
 
-.button-option:nth-of-type(3) {
+.stakingOption:nth-of-type(3) {
   background: rgba(76, 175, 80, 0.3);
 
 }
 
-.button-option:nth-of-type(4) {
+.stakingOption:nth-of-type(4) {
   background: rgba(129, 199, 132, 0.3);
+}
+
+.stakingOptions {
+  margin: auto auto 0.5rem auto;
 }
 
 .connectedAccount, .connectedAccountBalance {
@@ -178,18 +202,6 @@ ul {
   width: fit-content;
 }
 
-.connectorLabel {
-  margin-left: 0.3rem;
-}
-
-.expandCollapse {
-  text-align: center !important;
-}
-
-.expandCollapse button {
-  font-family: 'Wayward Sans', sans-serif !important;
-}
-
 .connectedWallet * {
   border-color: #FFD147 !important;
   color: #FFD147 !important;
@@ -203,12 +215,43 @@ ul {
   margin-left: 0.3rem;
 }
 
+.expandCollapse {
+  text-align: center !important;
+  left: 0;
+  top: 0;
+  position: fixed;
+  margin: 1rem;
+}
+
+.expandCollapse button {
+  font-family: 'Wayward Sans', sans-serif !important;
+}
+
+.henryBackground {
+  border-radius: 0.25rem;
+  background-image: url("../public/img/henryBear.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.075;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%; /* Changed from 500px to 100% */
+  position: absolute; /* Changed from relative to absolute */
+  z-index: -1; /* Added to place the background behind the content */
+}
+
 .inlineText {
   display: inline-flex;
 }
 
 .inlineText * {
   margin: 0 0.25rem;
+}
+
+.lockedStakingWidget {
+  background: rgba(255, 255, 240, 0.7);
 }
 
 .mainSectionCard {
@@ -219,15 +262,12 @@ ul {
   opacity: 0;
   transition: opacity 0.8s ease-in;
   z-index: 1;
+  cursor: pointer;
 }
 
 .mainSectionCard:not(#swapWidget) {
   box-shadow: -4px 4px 0px rgb(0 0 0 / 40%);
   border: 4px solid rgb(0 0 0 / 10%);
-}
-
-#swapWidget {
-  padding: 0 !important;
 }
 
 .mainSectionCard button {
@@ -240,10 +280,14 @@ ul {
 }
 
 .mainSectionCard h3 {
-  display: block;
+  display: inline-flex;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.mainSectionCard h3 svg {
+  margin-right: 5px;
 }
 
 .mainSectionCard ul a:hover, .mainSectionCard span a:hover {
@@ -263,8 +307,8 @@ ul {
   font-size: 10px;
 }
 
-.stakeAllButton {
-
+.singleStakingWidget {
+  background: rgba(255, 248, 232, 0.8);
 }
 
 .stakingAmount {
@@ -275,6 +319,73 @@ ul {
 .stakingAmount span {
   font-family: 'Wayward Sans', sans-serif;
   margin-left: 10px;
+}
+
+.stakingWidget {
+  border-radius: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.stakingWidget span b {
+  font-family: 'Wayward Sans', sans-serif;
+}
+
+.stakingWidget .stakingContent {
+  text-align: center;
+}
+
+.stakingWidget .stakingControl {
+  margin: 0.25rem 0.75rem;
+  background: #fff;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  border: 2px solid rgb(0 0 0 / 10%);
+  border-radius: 0.5rem;
+  box-shadow: -4px 4px 0px rgb(0 0 0 / 10%);
+  display: inline-flex;
+  align-items: center;
+}
+
+.stakingWidget .stakingControl:nth-of-type(1), .stakingWidget  .stakingControl:nth-of-type(2) {
+  background-color: #C2E7A1;
+}
+
+.stakingWidget .stakingControl:nth-of-type(3), .stakingWidget  .stakingControl:nth-of-type(4) {
+  background-color: #FBD4B4;
+}
+
+.stakingWidget .stakingControl:nth-of-type(5) {
+  background-color: #FEE5C8;
+  margin-bottom: 0.5rem;
+}
+
+.stakingWidget .stakingControl:hover {
+  opacity: 0.75;
+  box-shadow: -2px 2px 0px rgb(0 0 0 / 10%);
+}
+
+.stakingWidget .mainSectionCardDescription {
+  display: flex;
+  justify-content: center;
+}
+
+.stakingWidget input {
+  height: 2rem;
+  border-radius: 0.25rem;
+  border: 2px solid rgb(0 0 0 / 20%);
+  text-align: center;
+  margin: 1rem 0rem;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: -4px 4px 0px rgb(0 0 0 / 20%);
+  font-weight: bold;
+  font-family: 'Wayward Sans', sans-serif;
+  width: 50%;
+}
+
+.stakingWidget .mainSectionCardDescription svg {
+  width: 10px;
+  height: 10px;
 }
 
 .swapWidget {
@@ -290,10 +401,6 @@ ul {
 
 .swapWidget > div[style] > div[tabindex] > div[style] > :first-child {
   border-radius: 0 0 0.25rem 0.25rem !important;
-}
-
-.stakingWidget .stakingContent {
-  text-align: center;
 }
 
 .tabContent {
@@ -324,28 +431,7 @@ ul {
   border-radius: 0.25rem;
 }
 
-.transaction-overlay {
-  transition: opacity 0.45s ease-in-out;
-  animation: fadeEffect 0.45s;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10 !important;
-  opacity: 1 !important;
-}
-
-.transaction-overlay.hidden {
-  opacity: 0 !important;
-}
-
-.transaction-overlay.background {
-  z-index: -10 !important;
-}
-
-.transaction-container {
+.transactionContainer {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -358,11 +444,32 @@ ul {
   border: 4px solid rgb(0 0 0 / 10%);
 }
 
-.transaction-header {
+.transactionHeader {
   display: inline-flex;
 }
 
-.transaction-spinner {
+.transactionOverlay {
+  transition: opacity 0.45s ease-in-out;
+  animation: fadeEffect 0.45s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10 !important;
+  opacity: 1 !important;
+}
+
+.transactionOverlay.hidden {
+  opacity: 0 !important;
+}
+
+.transactionOverlay.background {
+  z-index: -10 !important;
+}
+
+.transactionSpinner {
   border: 4px solid #f3f3f3;
   border-top: 4px solid #2A2C24;
   border-radius: 50%;
@@ -417,7 +524,7 @@ ul {
 /* Rules by ID */
 
 #aboutUs {
-  background: #fffef395;
+  background: rgba(255, 248, 232, 0.9);
   border: 4px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
 }
@@ -437,7 +544,6 @@ ul {
 }
 
 #documentation {
-  background: #fee6a5;
   border-radius: 0.5rem;
   padding-bottom: 0.5rem;
   z-index: 0;
@@ -448,32 +554,26 @@ ul {
   padding: 0;
 }
 
-#earlyAdopters h3 {
-  margin: 1rem 0.5rem 0.5rem 0.5rem;
-}
-
 #earlyAdopters h5 {
   margin: 0 0.5rem;
 }
 
 #earlyAdoptersVideo {
   position: relative;
-  margin: 1rem;
-  margin-left: 72.5%;
-  margin-top: -30%;
+  margin: -30% 1rem 1rem 72.5%;
   border-radius: 0.25rem;
   border: 2px solid #2A2C24;
   outline: none;
 }
 
 #roadmap {
-  background: #f6ead3;
+  background: rgba(255, 255, 240, 0.9);
   border-radius: 0.5rem;
   padding-bottom: 0.5rem;
 }
 
 #socials {
-  background: #feecca;
+  background: rgba(254, 245, 224, 0.9);
   border-radius: 0.5rem;
   padding-bottom: 0.5rem;
 }
@@ -487,95 +587,28 @@ ul {
   height: 16px;
 }
 
-#singleStakingWidget .mainSectionCardDescription svg {
-  width: 10px;
-  height: 10px;
-}
-
-.singleStakingWidget {
-  background: #feecca;
-}
-
-.lockedStakingWidget {
-  background: #f6ead3;
+#henryWidget {
+  border-radius: 0.5rem;
+  position: relative;
 }
 
 #social ul {
   margin-top: auto;
 }
 
-#toggle-accordions-button {
-  background: none;
-  border: none;
-}
-
-.stakingWidget {
-  border-radius: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.stakingWidget span b {
-  font-family: 'Wayward Sans', sans-serif;
-}
-
-.stakingWidget .stakingControl {
-  margin: 0.25rem 0.5rem;
-}
-
-.stakingWidget .stakingControl {
-  background: #fff;
-  padding: 0.5rem;
-  border: none;
+#toggleAllAccordions {
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 0.25rem;
+  padding: 5px;
+  margin: 0.25rem;
+  text-align: center;
   border: 2px solid rgb(0 0 0 / 10%);
-  border-radius: 0.5rem;
-  box-shadow: -4px 4px 0px rgb(0 0 0 / 10%);
-  display: inline-flex;
-  align-items: center;
-}
-
-.stakingWidget .stakingControl:nth-of-type(1), .stakingWidget  .stakingControl:nth-of-type(2) {
-  background-color: #C2E7A1;
-}
-
-.stakingWidget .stakingControl:nth-of-type(3), .stakingWidget  .stakingControl:nth-of-type(4) {
-  background-color: #FBD4B4;
-}
-
-.stakingWidget .stakingControl:nth-of-type(5) {
-  background-color: #FEE5C8;
-  margin-bottom: 0.5rem;
-}
-
-.stakingWidget .stakingControl:hover {
-  opacity: 0.75;
-  box-shadow: -2px 2px 0px rgb(0 0 0 / 10%);
-}
-
-.stakingWidget .singleStakingContent {
-  text-align: center;
-}
-
-.stakingWidget .mainSectionCardDescription {
-  display: flex;
-  justify-content: center;
-}
-
-.stakingWidget input {
-  height: 2rem;
-  border-radius: 0.25rem;
-  border: 2px solid rgb(0 0 0 / 20%);
-  text-align: center;
-  margin: 1rem 0rem;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: -4px 4px 0px rgb(0 0 0 / 20%);
-  font-weight: bold;
-  font-family: 'Wayward Sans', sans-serif;
-  width: 50%;
+  animation: fadeEffect 0.5s;
+  color: rgb(0 0 0 / 50%);
 }
 
 #swapWidget {
-  padding: 0;
+  padding: 0 !important;
 }
 
 #infoCards, #productCards, #tokenCards {
@@ -614,6 +647,7 @@ ul {
   animation: cursor-blink 1.5s steps(2) infinite;
 }
 
+
 /* Mobile Adjustments */
 
 @media (max-width: 414px) {
@@ -637,31 +671,6 @@ ul {
   .walletConnector button {
     margin: 0 0.5rem 1rem 0.5rem;
   }
-}
-
-/* Background Animation */
-
-.bg {
-  background-image: linear-gradient(-20deg, #415D43 50%, #FFF 50%);
-  animation:slide 8s ease-in-out infinite alternate;
-  bottom:0;
-  left:-50%;
-  opacity:0.05;
-  position:fixed;
-  right:-50%;
-  top:0;
-  z-index:-5;
-}
-
-.bg2 {
-  background-image: linear-gradient(-25deg, #415D43 50%, #FFF 50%);
-  animation-direction:alternate-reverse;
-  animation-duration:10s;
-}
-
-.bg3 {
-  background-image: linear-gradient(-30deg, #415D43 50%, #FFF 50%);
-  animation-duration:12s;
 }
 
 

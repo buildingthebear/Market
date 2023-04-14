@@ -35,6 +35,10 @@ document.onreadystatechange = function () {
             }
 
             for (let i = 0; i < $('.mainSectionCard').length; i++) {
+                $('.mainSectionCard').eq(i).find(".accordionContent.open").each(function() {
+                    $(this).prev().trigger("click");
+                });
+
                 $('.mainSectionCard').eq(i).css("opacity", 1);
 
                 await sleep(150)

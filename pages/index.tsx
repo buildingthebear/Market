@@ -4,10 +4,12 @@ import {SwapWidget, Theme} from '@uniswap/widgets'
 import '@uniswap/widgets/fonts.css'
 import Web3Connectors from '../components/Web3Connectors'
 import {useActiveProvider} from '../connectors'
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useCallback, useRef, useEffect} from 'react'
 import Script from 'next/script'
-import StakingComponent from "../components/SingleStaking";
+import StakingComponent from "../components/Staking";
 import Accordion from "../components/Accordion";
+import HenryWidget from "../components/Henry";
+import * as Icons from '../components/svgIcons';
 
 const TOKEN_LIST = [
     {
@@ -49,52 +51,20 @@ const theme: Theme = {
     primary: '#1F4A05',
     secondary: 'rgba(0, 0, 0, 0.25)',
     interactive: '#FFF',
-    container: '#ffedc2',
+    container: 'rgba(254, 245, 224, 0.9)',
     module: '#FFF',
-    accent: '#fa9d4c',
+    accent: 'rgb(253,216,183)',
     outline: '#CADDC2',
     dialog: '#FFF',
     borderRadius: 0.2,
+    fontFamily: 'Rubik, sans-serif',
 }
+
 
 function connectWallet() {
     let element: HTMLElement = document.querySelector('.walletConnector:first-of-type button') as HTMLElement;
     element.click();
 }
-
-const toggleAllAccordions = (button: JQuery, delay: number) => {
-    const expandAll = button.text() === 'Expand All';
-
-    button.text(expandAll ? 'Collapse All' : 'Expand All');
-
-    let at = 1;
-
-    $(".accordion-title").each(function () {
-        setTimeout(() => {
-            const content = $(this).next();
-            if (expandAll && !content.is('.open')) {
-                $(this).trigger('click');
-            } else if (!expandAll && !content.is('.closed')) {
-                $(this).trigger('click');
-            }
-        }, at * delay);
-
-        at += 1;
-    });
-};
-
-
-const whenAvailable = () => {
-    if (typeof $ === 'undefined') {
-        setTimeout(whenAvailable, 50);
-    } else {
-        $("#toggle-accordions-button").on("click", function() {
-            toggleAllAccordions($(this), 100)
-        });
-    }
-};
-
-whenAvailable();
 
 const Home: NextPage = () => {
     const connectors = useRef<HTMLDivElement>(null)
@@ -139,7 +109,10 @@ const Home: NextPage = () => {
                 <div id="cards">
                     <div id="infoCards">
                         <div id="socials" className="mainSectionCard">
-                            <h3>RELEVANT LINKS & INFORMATION : </h3>
+                            <h3>
+                                {Icons.sproutIcon}
+                                RELEVANT LINKS & INFORMATION :
+                            </h3>
                             <h5>Keep up with us</h5>
                             <hr/>
                             <ul>
@@ -279,7 +252,7 @@ const Home: NextPage = () => {
                             </ul>
                         </div>
                         <div id="aboutUs" className="mainSectionCard">
-                            <Accordion title="Commonly asked questions">
+                            <Accordion title="Commonly asked questions" icon={Icons.grassIcon}>
                                 <h5>Not that you asked</h5>
                                 <hr/>
                                 <ul>
@@ -297,7 +270,7 @@ const Home: NextPage = () => {
                             </Accordion>
                         </div>
                         <div id="roadmap" className="mainSectionCard">
-                            <Accordion title="Build the Bear's Roadmap">
+                            <Accordion title="Build the Bear's Roadmap" icon={Icons.plantIcon}>
                                 <h5>Upcoming Developments</h5>
                                 <hr/>
                                 <div className="tabSet">
@@ -402,7 +375,7 @@ const Home: NextPage = () => {
                             </video>
                         </div>
                         <div id="documentation" className="mainSectionCard">
-                            <Accordion title="Resources & Documentation">
+                            <Accordion title="Resources & Documentation" icon={Icons.cabinetIcon}>
                                 <a className="" target="_blank" rel="noreferrer" href="https://www.buildthebear.online/">
                                     <h5>➟ Build the Bear . Online</h5>
                                 </a>
@@ -463,8 +436,9 @@ const Home: NextPage = () => {
                                 </ul>
                             </Accordion>
                         </div>
+                        <HenryWidget></HenryWidget>
                         <div className="expandCollapse">
-                            <button id="toggle-accordions-button">Expand All</button>
+                            <button id="toggleAllAccordions">Expand All Sections</button>
                         </div>
                     </div>
                     <div id="tokenCards">
@@ -485,11 +459,11 @@ const Home: NextPage = () => {
                         </div>
                         <StakingComponent/>
                     </div>
-                    <div className="transaction-overlay hidden background">
-                        <div className="transaction-container">
-                            <div className="transaction-header">
+                    <div className="transactionOverlay hidden background">
+                        <div className="transactionContainer">
+                            <div className="transactionHeader">
                                 <h2>Transaction in progress</h2>
-                                <div className="transaction-spinner"></div>
+                                <div className="transactionSpinner"></div>
                             </div>
                         </div>
                     </div>
