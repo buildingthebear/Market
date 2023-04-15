@@ -445,7 +445,7 @@ const Home: NextPage = () => {
                     <div id="tokenCards">
                         <div id="swapWidget" className="mainSectionCard">
                             <SwapWidget
-                                jsonRpcEndpoint={process.env.JSON_RPC_URL}
+                                jsonRpcEndpoint={process.env.JSON_RPC_URL as any}
                                 tokenList={TOKEN_LIST}
                                 provider={pr}
                                 locale={'en-US'}
