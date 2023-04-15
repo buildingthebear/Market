@@ -5,6 +5,7 @@ import TokenABI from "../contracts/BuildtheBearToken.json";
 import StakingABI from "../contracts/BuildtheBearSingleStake.json";
 import Accordion from '../components/Accordion';
 import * as Icons from '../components/svgIcons';
+import { requestedAccounts, setRequestedAccounts } from '../public/js/shared';
 
 const web3 = new Web3(Web3.givenProvider || process.env.JSON_RPC_URL);
 const tokenContract = new web3.eth.Contract(TokenABI as AbiItem[], "0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C");
@@ -31,7 +32,7 @@ function StakingComponent() {
     // Chain information
     const [amount, setAmount] = useState(1000);
     const [allowed, setAllowance] = useState(0);
-    const [apy, setAPY] = useState(0);
+    const [apy, setAPY] = useState(0.0);
     const [balance, setBalance] = useState("0");
     const [staked, setStaked] = useState("0");
     const [earned, setEarned] = useState("0");
@@ -91,8 +92,6 @@ function StakingComponent() {
                 const balanceResult = await singleStakingContract.methods.balanceOf(accounts[0]).call()
                     .then((balance: any) => {
                         amountBalance = String(balance) + "000000000";
-
-                        console.log(`Balance of ${accounts[0]}: ${balance}`);
                     }).catch((error: any) => {
                         console.error(error);
                     });
@@ -147,7 +146,9 @@ function StakingComponent() {
         let stakedAmount = "0";
 
         try {
-            if (typeof window !== 'undefined' && window.ethereum !== undefined) {
+            if (typeof window !== 'undefined' && window.ethereum !== undefined && !requestedAccounts) {
+                setRequestedAccounts(true);
+
                 const accounts = await web3.eth.requestAccounts();
 
                 connectedAccount = accounts[0];
@@ -253,6 +254,8 @@ function StakingComponent() {
                 const apy = (rewardRate * 365 * 86400 * 100) / totalStaked;
 
                 setAPY(Math.ceil(apy));
+
+                updateAccountInfo();
             }
         } catch (error) {
             console.error(error);
@@ -365,8 +368,6 @@ function StakingComponent() {
     useEffect(() => {
         if (typeof $ !== 'undefined') {
             connectedBalance = Number(balance);
-
-            updateAccountInfo();
         }
     }, [balance]);
 
