@@ -47,6 +47,21 @@ const TOKEN_LIST = [
 ]
 
 const BTB = '0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C'
+interface Theme {
+    primary: string;
+    secondary: string;
+    interactive: string;
+    container: string;
+    module: string;
+    accent: string;
+    outline: string;
+    dialog: string;
+    borderRadius?: ThemeBorderRadius;
+    fontFamily: string;
+}
+
+type ThemeBorderRadius = number | undefined;
+
 const theme: Theme = {
     primary: '#1F4A05',
     secondary: 'rgba(0, 0, 0, 0.25)',
@@ -58,8 +73,7 @@ const theme: Theme = {
     dialog: '#FFF',
     borderRadius: 0.2,
     fontFamily: 'Rubik, sans-serif',
-}
-
+};
 
 function connectWallet() {
     let element: HTMLElement = document.querySelector('.walletConnector:first-of-type button') as HTMLElement;
