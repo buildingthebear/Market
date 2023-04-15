@@ -1,6 +1,6 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
-import {SwapWidget, Theme} from '@uniswap/widgets'
+import {SwapWidget} from '@uniswap/widgets'
 import '@uniswap/widgets/fonts.css'
 import Web3Connectors from '../components/Web3Connectors'
 import {useActiveProvider} from '../connectors'
@@ -47,6 +47,9 @@ const TOKEN_LIST = [
 ]
 
 const BTB = '0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C'
+
+type ThemeBorderRadius = number | undefined;
+
 interface Theme {
     primary: string;
     secondary: string;
@@ -59,8 +62,6 @@ interface Theme {
     borderRadius?: ThemeBorderRadius;
     fontFamily: string;
 }
-
-type ThemeBorderRadius = number | undefined;
 
 const theme: Theme = {
     primary: '#1F4A05',
