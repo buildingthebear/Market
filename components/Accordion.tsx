@@ -1,4 +1,4 @@
-import React, {ReactNode, useState, useEffect, useRef} from 'react';
+import React, {ReactNode, useState, useEffect, useRef, useCallback} from 'react';
 
 interface AccordionProps {
     title: string;
@@ -57,7 +57,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, icon, children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const contentRef = useRef<HTMLDivElement>(null);
 
-    const toggleAccordion = () => {
+    const toggleAccordion = useCallback(() => {
         setIsOpen(!isOpen);
 
         setTimeout(function() {
@@ -67,7 +67,15 @@ const Accordion: React.FC<AccordionProps> = ({ title, icon, children }) => {
                 $("#toggleAllAccordions").text("Collapse All Sections");
             }
         }, 600);
-    };
+    }, [isOpen]);
+
+    const handleParentClick = useCallback((event: MouseEvent) => {
+        const accordionTitle = (event.target as Element).closest(".accordionTitle");
+        if (accordionTitle === null || accordionTitle === undefined || !accordionTitle.contains(event.target as Node)) {
+            // If the click target is not the accordion title or its children, toggle the accordion
+            toggleAccordion();
+        }
+    }, [toggleAccordion]);
 
     useEffect(() => {
         const parentElement = contentRef.current?.parentElement;
@@ -80,15 +88,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, icon, children }) => {
                 parentElement.removeEventListener("click", handleParentClick);
             }
         };
-    }, []);
-
-    const handleParentClick = (event: MouseEvent) => {
-        const accordionTitle = (event.target as Element).closest(".accordionTitle");
-        if (accordionTitle === null || accordionTitle === undefined || !accordionTitle.contains(event.target as Node)) {
-            // If the click target is not the accordion title or its children, toggle the accordion
-            toggleAccordion();
-        }
-    };
+    }, [handleParentClick]);
 
     return (
         <div ref={contentRef}>

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState, useEffect, MouseEventHandler} from 'react';
+import React, {ChangeEvent, useState, useEffect, MouseEventHandler, useCallback} from 'react';
 import Web3 from "web3";
 import {AbiItem} from "web3-utils";
 import TokenABI from "../contracts/BuildtheBearToken.json";
@@ -136,7 +136,7 @@ function StakingComponent() {
     }
 
     // Fetch staking contract's BTB spending allowance, user's BTB balance, staked balance, rewards earned, and pool-end timestamp
-    const fetchChainInfo = async() => {
+    const fetchChainInfo = useCallback(async () => {
         let timeLeftString = "0 Days 0 Hours 0 Minutes";
         let currentTime = new Date().getTime() / 1000;
         let remainingTime = 0;
@@ -260,7 +260,7 @@ function StakingComponent() {
         } catch (error) {
             console.error(error);
         }
-    }
+    }, []);
 
     // Update amount to maximum stake for the user
     const stakeAll: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -282,7 +282,7 @@ function StakingComponent() {
     };
 
     // Update interface on amount / allowed change
-    function updateStakeButtons() {
+    const updateStakeButtons = useCallback((): void => {
         if (amount <= allowed) {
             $(".stakeButton").text("Stake");
         } else {
@@ -292,7 +292,8 @@ function StakingComponent() {
         if ($(".stakingOption.selected").length < 1) {
             $(".stakingOption").eq(0).trigger('click');
         }
-    }
+    }, [amount, allowed]);
+
 
     function updateAccountInfo() {
         $(".accountBalance").addClass("visible");
@@ -356,14 +357,14 @@ function StakingComponent() {
         if (typeof $ !== 'undefined') {
             updateStakeButtons();
         }
-    }, []);
+    }, [fetchChainInfo, updateStakeButtons]);
 
     // Update interface on changes
     useEffect(() => {
         if (typeof $ !== 'undefined') {
             updateStakeButtons();
         }
-    }, [amount, allowed]);
+    }, [amount, allowed, updateStakeButtons]);
 
     useEffect(() => {
         if (typeof $ !== 'undefined') {
