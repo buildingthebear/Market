@@ -1,6 +1,6 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
-import {SwapWidget} from '@uniswap/widgets'
+import {SwapWidget, Theme} from '@uniswap/widgets'
 import '@uniswap/widgets/fonts.css'
 import Web3Connectors from '../components/Web3Connectors'
 import {useActiveProvider} from '../connectors'
@@ -48,21 +48,6 @@ const TOKEN_LIST = [
 
 const BTB = '0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C'
 
-type ThemeBorderRadius = number | undefined;
-
-interface Theme {
-    primary: string;
-    secondary: string;
-    interactive: string;
-    container: string;
-    module: string;
-    accent: string;
-    outline: string;
-    dialog: string;
-    borderRadius?: ThemeBorderRadius;
-    fontFamily: string;
-}
-
 const theme: Theme = {
     primary: '#1F4A05',
     secondary: 'rgba(0, 0, 0, 0.25)',
@@ -72,8 +57,8 @@ const theme: Theme = {
     accent: '#9CC69B',
     outline: '#CADDC2',
     dialog: '#FFF',
-    borderRadius: 0.2,
     fontFamily: 'Rubik, sans-serif',
+    borderRadius: 0.2,
 };
 
 function connectWallet() {
