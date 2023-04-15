@@ -1,13 +1,16 @@
-import React, {ChangeEvent, useState, useEffect, MouseEventHandler} from 'react';
+import React, {ChangeEvent, useState, useEffect, MouseEventHandler, useCallback} from 'react';
 import Web3 from "web3";
 import {AbiItem} from "web3-utils";
 import TokenABI from "../contracts/BuildtheBearToken.json";
 import StakingABI from "../contracts/BuildtheBearSingleStake.json";
-import Accordion from './Accordion';
+import Accordion from '../components/Accordion';
+import * as Icons from '../components/svgIcons';
+import { requestedAccounts, setRequestedAccounts } from '../public/js/shared';
 
 const web3 = new Web3(Web3.givenProvider || process.env.JSON_RPC_URL);
 const tokenContract = new web3.eth.Contract(TokenABI as AbiItem[], "0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C");
-const stakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0x24ad9922d3f75AaA3530C4788E106Ea0b427f5B2");
+const singleStakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0x24ad9922d3f75AaA3530C4788E106Ea0b427f5B2");
+const lockedStakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0x000000000000000000000000000000000000dEaD");
 
 export let connectedAccount = "0x000000000000000000000000000000000000dEaD";
 export let connectedBalance = 0;
@@ -29,7 +32,7 @@ function StakingComponent() {
     // Chain information
     const [amount, setAmount] = useState(1000);
     const [allowed, setAllowance] = useState(0);
-    const [apy, setAPY] = useState(0);
+    const [apy, setAPY] = useState(0.0);
     const [balance, setBalance] = useState("0");
     const [staked, setStaked] = useState("0");
     const [earned, setEarned] = useState("0");
@@ -44,7 +47,7 @@ function StakingComponent() {
     // Check / prompt staking contract's spending allowance for message sender's BTB, then stake
     const handleStake = async() => {
         try {
-            $(".transaction-header h2").text("Staking BTB");
+            $(".transactionHeader h2").text("Staking BTB");
             openTransactionIndicator();
 
             if (typeof window !== 'undefined' && window.ethereum !== undefined && amount > 0) {
@@ -54,14 +57,14 @@ function StakingComponent() {
 
                 if (amount > allowed) {
                     // Linter doesn't like the number of parameters, but this works
-                    const approveResult = await tokenContract.methods.approve(stakingContract.options.address, amountInt).send({from: accounts[0]});
+                    const approveResult = await tokenContract.methods.approve(singleStakingContract.options.address, amountInt).send({from: accounts[0]});
                     const approveTxHash = approveResult.transactionHash;
 
                     $(".stakeButton").text("Stake");
                     console.log("%cSingle-Staking Widget: Approved BTB for spend", approveTxHash);
                 }
 
-                const stakeResult = await stakingContract.methods.stake(amountInt).send({from: accounts[0]});
+                const stakeResult = await singleStakingContract.methods.stake(amountInt).send({from: accounts[0]});
                 const stakeTxHash = stakeResult.transactionHash;
                 console.log("%cSingle-Staking Widget: Staked BTB", `color: green; padding: 2px;`, stakeTxHash);
             }
@@ -77,7 +80,7 @@ function StakingComponent() {
         let amountBalance = "0";
 
         try {
-            $(".transaction-header h2").text("Withdrawing BTB");
+            $(".transactionHeader h2").text("Withdrawing BTB");
             openTransactionIndicator();
 
             if (typeof window !== 'undefined' && window.ethereum !== undefined && amount > 0) {
@@ -86,11 +89,9 @@ function StakingComponent() {
                 const amountInt = Number(amountWei / BigInt(10**9));
 
                 // Can be condensed to use fetched 'staked' amount
-                const balanceResult = await stakingContract.methods.balanceOf(accounts[0]).call()
+                const balanceResult = await singleStakingContract.methods.balanceOf(accounts[0]).call()
                     .then((balance: any) => {
                         amountBalance = String(balance) + "000000000";
-
-                        console.log(`Balance of ${accounts[0]}: ${balance}`);
                     }).catch((error: any) => {
                         console.error(error);
                     });
@@ -98,7 +99,7 @@ function StakingComponent() {
                 let balanceInt = Number(BigInt(amountBalance) / BigInt(10**9));
 
                 if (balanceInt >= amountInt) {
-                    const withdrawResult = await stakingContract.methods.withdraw(amountInt).send({from: accounts[0]});
+                    const withdrawResult = await singleStakingContract.methods.withdraw(amountInt).send({from: accounts[0]});
                     const withdrawTxHash = withdrawResult.transactionHash;
 
                     console.log("%cSingle-Staking Widget: Un-Staked BTB", `color: green; padding: 2px;`, withdrawTxHash);
@@ -114,13 +115,13 @@ function StakingComponent() {
     // Harvest all BTB reward earned
     const harvestRewards = async() => {
         try {
-            $(".transaction-header h2").text("Harvesting Rewards");
+            $(".transactionHeader h2").text("Harvesting Rewards");
             openTransactionIndicator();
 
             if (typeof window !== 'undefined' && window.ethereum !== undefined && Number(earned) > 0) {
                 const accounts = await web3.eth.requestAccounts();
 
-                const harvestResult = await stakingContract.methods.getReward().send({from: accounts[0]});
+                const harvestResult = await singleStakingContract.methods.getReward().send({from: accounts[0]});
                 const harvestTxHash = harvestResult.transactionHash;
 
                 console.log("%cSingle-Staking Widget: Harvested BTB rewards", `color: green; padding: 2px;`, harvestTxHash);
@@ -135,7 +136,7 @@ function StakingComponent() {
     }
 
     // Fetch staking contract's BTB spending allowance, user's BTB balance, staked balance, rewards earned, and pool-end timestamp
-    const fetchChainInfo = async() => {
+    const fetchChainInfo = useCallback(async () => {
         let timeLeftString = "0 Days 0 Hours 0 Minutes";
         let currentTime = new Date().getTime() / 1000;
         let remainingTime = 0;
@@ -145,12 +146,14 @@ function StakingComponent() {
         let stakedAmount = "0";
 
         try {
-            if (typeof window !== 'undefined' && window.ethereum !== undefined) {
+            if (typeof window !== 'undefined' && window.ethereum !== undefined && !requestedAccounts) {
+                setRequestedAccounts(true);
+
                 const accounts = await web3.eth.requestAccounts();
 
                 connectedAccount = accounts[0];
 
-                const allowanceResult = await tokenContract.methods.allowance(accounts[0], stakingContract.options.address).call()
+                const allowanceResult = await tokenContract.methods.allowance(accounts[0], singleStakingContract.options.address).call()
                     .then((allowance: Number) => {
                         let printedAmount = String(allowance).slice(0, -9);
                         allowedAmount = Number(allowance);
@@ -185,7 +188,7 @@ function StakingComponent() {
 
                 setBalance(balanceAmount);
 
-                const stakedResult = await stakingContract.methods.balanceOf(accounts[0]).call()
+                const stakedResult = await singleStakingContract.methods.balanceOf(accounts[0]).call()
                     .then((stake: any) => {
                         if (stake > 0) {
                             stakedAmount = String(stake).slice(0, -9);
@@ -202,7 +205,7 @@ function StakingComponent() {
 
                 setStaked(stakedAmount);
 
-                const rewardsResult = await stakingContract.methods.earned(accounts[0]).call()
+                const rewardsResult = await singleStakingContract.methods.earned(accounts[0]).call()
                     .then((ar: any) => {
                         if (ar > 0) {
                             earnedAmount = String(ar).slice(0, -9);
@@ -219,7 +222,7 @@ function StakingComponent() {
 
                 setEarned(earnedAmount);
 
-                const finishAtResult = await stakingContract.methods.finishAt().call()
+                const finishAtResult = await singleStakingContract.methods.finishAt().call()
                     .then((fin: any) => {
                         if (Number(fin) > 0 && currentTime < Number(fin)) {
                             remainingTime = Number(fin) - currentTime;
@@ -234,14 +237,14 @@ function StakingComponent() {
                 let rewardRate = 0;
                 let totalStaked = 0;
 
-                const rewardRateResult = await stakingContract.methods.rewardRate().call()
+                const rewardRateResult = await singleStakingContract.methods.rewardRate().call()
                     .then((rate: any) => {
                         rewardRate = Number(rate);
                     }).catch((error: any) => {
                         console.error(error);
                     });
 
-                const totalStakedResult = await stakingContract.methods.totalSupply().call()
+                const totalStakedResult = await singleStakingContract.methods.totalSupply().call()
                     .then((total: any) => {
                         totalStaked = Number(total);
                     }).catch((error: any) => {
@@ -251,11 +254,13 @@ function StakingComponent() {
                 const apy = (rewardRate * 365 * 86400 * 100) / totalStaked;
 
                 setAPY(Math.ceil(apy));
+
+                updateAccountInfo();
             }
         } catch (error) {
             console.error(error);
         }
-    }
+    }, []);
 
     // Update amount to maximum stake for the user
     const stakeAll: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -277,37 +282,36 @@ function StakingComponent() {
     };
 
     // Update interface on amount / allowed change
-    function updateStakeButtons() {
+    const updateStakeButtons = useCallback((): void => {
         if (amount <= allowed) {
             $(".stakeButton").text("Stake");
         } else {
             $(".stakeButton").text("Approve");
         }
 
-        if ($(".button-option.selected").length < 1) {
-            $(".button-option").eq(0).trigger('click');
+        if ($(".stakingOption.selected").length < 1) {
+            $(".stakingOption").eq(0).trigger('click');
         }
-    }
+    }, [amount, allowed]);
+
 
     function updateAccountInfo() {
         $(".accountBalance").addClass("visible");
-
         $(".connectedAccount").text(connectedAccount);
         $(".connectedAccountBalance").text(connectedBalance.toLocaleString() + " BTB");
-
-        $(".button-option").eq(0).trigger('click');
+        $(".stakingOption").eq(0).trigger('click');
     }
 
     // Update interface on transaction initiation
     function openTransactionIndicator() {
-        $(".transaction-overlay").removeClass("hidden background");
+        $(".transactionOverlay").removeClass("hidden background");
     }
 
     function closeTransactionIndicator() {
-        $(".transaction-overlay").addClass("hidden");
+        $(".transactionOverlay").addClass("hidden");
 
         setTimeout(function() {
-            $(".transaction-overlay").addClass("background");
+            $(".transactionOverlay").addClass("background");
         }, 500);
     }
 
@@ -333,10 +337,6 @@ function StakingComponent() {
             setTimeout(whenAvailable, 50);
         } else {
             updateStakeButtons();
-
-            $(".mainSectionCard").has(".accordion").on("click", function() {
-
-            });
         }
     };
 
@@ -357,28 +357,26 @@ function StakingComponent() {
         if (typeof $ !== 'undefined') {
             updateStakeButtons();
         }
-    }, []);
+    }, [fetchChainInfo, updateStakeButtons]);
 
     // Update interface on changes
     useEffect(() => {
         if (typeof $ !== 'undefined') {
             updateStakeButtons();
         }
-    }, [amount, allowed]);
+    }, [amount, allowed, updateStakeButtons]);
 
     useEffect(() => {
         if (typeof $ !== 'undefined') {
             connectedBalance = Number(balance);
-
-            updateAccountInfo();
         }
     }, [balance]);
 
     // Component HTML
     return (
         <div>
-            <div className="mainSectionCard stakingWidget singleStakingWidget">
-                <Accordion title="BTB Single - Staking Pool">
+            <div className="mainSectionCard stakingWidget singleStakingWidget" id="singleStakingWidget">
+                <Accordion title="BTB Single Staking Pool" icon={Icons.carrotIcon}>
                     <h5>Put your tokens to work</h5>
                     <hr/>
                     <div className="tabSet">
@@ -474,7 +472,7 @@ function StakingComponent() {
                 </Accordion>
             </div>
             <div className="mainSectionCard stakingWidget lockedStakingWidget">
-                <Accordion title="BTB Locked Staking Pool">
+                <Accordion title="BTB Locked Staking Pool" icon={Icons.grapeIcon}>
                     <h5>Put your tokens in the vault</h5>
                     <hr/>
                     <div className="tabSet">
@@ -487,11 +485,11 @@ function StakingComponent() {
                                 <input type="number" value={Number(amount)} onChange={handleAmountChange} />
                                 <span>BTB</span>
                             </div>
-                            <div className="button-set">
+                            <div className="stakingOptions">
                                 {buttonOptions.map((option) => (
                                     <button
                                         key={option.id}
-                                        className={`button-option ${selectedOption?.id === option.id ? 'selected' : ''}`}
+                                        className={`stakingOption ${selectedOption?.id === option.id ? 'selected' : ''}`}
                                         onClick={() => handleClick(option)}
                                     >{option.label}</button>
                                 ))}
@@ -592,4 +590,4 @@ function StakingComponent() {
     );
 }
 
-export default function SingleStaking() { return (<StakingComponent /> ) }
+export default function Staking() { return (<StakingComponent /> ) }

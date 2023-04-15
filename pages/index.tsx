@@ -1,13 +1,15 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
-import {SupportedLocale, SUPPORTED_LOCALES, SwapWidget, Theme} from '@uniswap/widgets'
+import {SwapWidget, Theme} from '@uniswap/widgets'
 import '@uniswap/widgets/fonts.css'
 import Web3Connectors from '../components/Web3Connectors'
 import {useActiveProvider} from '../connectors'
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useCallback, useRef, useEffect} from 'react'
 import Script from 'next/script'
-import StakingComponent from '../components/SingleStaking';
-import Accordion from '../components/Accordion';
+import StakingComponent from "../components/Staking";
+import Accordion from "../components/Accordion";
+import HenryWidget from "../components/Henry";
+import * as Icons from '../components/svgIcons';
 
 const TOKEN_LIST = [
     {
@@ -49,52 +51,20 @@ const theme: Theme = {
     primary: '#1F4A05',
     secondary: 'rgba(0, 0, 0, 0.25)',
     interactive: '#FFF',
-    container: '#ffedc2',
+    container: 'rgba(254, 245, 224, 0.9)',
     module: '#FFF',
-    accent: '#fa9d4c',
+    accent: '#9CC69B',
     outline: '#CADDC2',
     dialog: '#FFF',
     borderRadius: 0.2,
+    fontFamily: 'Rubik, sans-serif',
 }
+
 
 function connectWallet() {
     let element: HTMLElement = document.querySelector('.walletConnector:first-of-type button') as HTMLElement;
     element.click();
 }
-
-const toggleAllAccordions = (button: JQuery, delay: number) => {
-    const expandAll = button.text() === 'Expand All';
-
-    button.text(expandAll ? 'Collapse All' : 'Expand All');
-
-    let at = 1;
-
-    $(".accordion-title").each(function () {
-        setTimeout(() => {
-            const content = $(this).next();
-            if (expandAll && !content.is('.open')) {
-                $(this).trigger('click');
-            } else if (!expandAll && !content.is('.closed')) {
-                $(this).trigger('click');
-            }
-        }, at * delay);
-
-        at += 1;
-    });
-};
-
-
-const whenAvailable = () => {
-    if (typeof $ === 'undefined') {
-        setTimeout(whenAvailable, 50);
-    } else {
-        $("#toggle-accordions-button").on("click", function() {
-            toggleAllAccordions($(this), 100)
-        });
-    }
-};
-
-whenAvailable();
 
 const Home: NextPage = () => {
     const connectors = useRef<HTMLDivElement>(null)
@@ -139,7 +109,10 @@ const Home: NextPage = () => {
                 <div id="cards">
                     <div id="infoCards">
                         <div id="socials" className="mainSectionCard">
-                            <h3>RELEVANT LINKS & INFORMATION : </h3>
+                            <h3>
+                                {Icons.sproutIcon}
+                                RELEVANT LINKS & INFORMATION :
+                            </h3>
                             <h5>Keep up with us</h5>
                             <hr/>
                             <ul>
@@ -279,7 +252,7 @@ const Home: NextPage = () => {
                             </ul>
                         </div>
                         <div id="aboutUs" className="mainSectionCard">
-                            <Accordion title="Commonly asked questions">
+                            <Accordion title="Commonly asked questions" icon={Icons.grassIcon}>
                                 <h5>Not that you asked</h5>
                                 <hr/>
                                 <ul>
@@ -297,7 +270,7 @@ const Home: NextPage = () => {
                             </Accordion>
                         </div>
                         <div id="roadmap" className="mainSectionCard">
-                            <Accordion title="Build the Bear's Roadmap">
+                            <Accordion title="Build the Bear's Roadmap" icon={Icons.plantIcon}>
                                 <h5>Upcoming Developments</h5>
                                 <hr/>
                                 <div className="tabSet">
@@ -354,57 +327,55 @@ const Home: NextPage = () => {
                     </div>
                     <div id="productCards">
                         <div id="earlyAdopters" className="mainSectionCard">
-                            <div>
-                                <a
-                                    className=""
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    href="https://opensea.io/collection/build-the-bear-early-adopters"
-                                >
-                                    <h3>➟ Early Adopters NFT Collection : </h3>
-                                </a>
-                                <h5>22 1-of-1 animations from the developer</h5>
-                                <hr/>
-                                <ul>
-                                    <li><b>- Cost 0.1Ξ to mint</b></li>
-                                    <li>- Limited Edition Collectibles</li>
-                                    <li>- Additional 25% Staking Reward</li>
-                                    <li>- Early Access to Developments</li>
-                                    <li>- Inclusive of all future benefits</li>
-                                    <li>
-                                        <br/>
-                                        <span className="mainSectionCardDescription">Earn your place in BtB history with unique proof of your support! Minting is now available to the public</span>
-                                        <br/><br/>
-                                        <a
-                                            className=""
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            href="https://app.niftykit.com/drops/buildthebear-v1"
-                                        >
-                                            <b>➟ Secure your mint{" "}
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>hand-coin</title><path d="M16 12C18.76 12 21 9.76 21 7S18.76 2 16 2 11 4.24 11 7 13.24 12 16 12M21.45 17.6C21.06 17.2 20.57 17 20 17H13L10.92 16.27L11.25 15.33L13 16H15.8C16.15 16 16.43 15.86 16.66 15.63S17 15.12 17 14.81C17 14.27 16.74 13.9 16.22 13.69L8.95 11H7V20L14 22L22.03 19C22.04 18.47 21.84 18 21.45 17.6M5 11H.984V22H5V11Z" /></svg>
-                                            </b>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            className=""
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            href="https://opensea.io/collection/build-the-bear-early-adopters"
-                                        >
-                                            ➟ View on OpenSea{" "}
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>ferry</title><path d="M6,6H18V9.96L12,8L6,9.96M3.94,19H4C5.6,19 7,18.12 8,17C9,18.12 10.4,19 12,19C13.6,19 15,18.12 16,17C17,18.12 18.4,19 20,19H20.05L21.95,12.31C22.03,12.06 22,11.78 21.89,11.54C21.76,11.3 21.55,11.12 21.29,11.04L20,10.62V6C20,4.89 19.1,4 18,4H15V1H9V4H6A2,2 0 0,0 4,6V10.62L2.71,11.04C2.45,11.12 2.24,11.3 2.11,11.54C2,11.78 1.97,12.06 2.05,12.31M20,21C18.61,21 17.22,20.53 16,19.67C13.56,21.38 10.44,21.38 8,19.67C6.78,20.53 5.39,21 4,21H2V23H4C5.37,23 6.74,22.65 8,22C10.5,23.3 13.5,23.3 16,22C17.26,22.65 18.62,23 20,23H22V21H20Z" /></svg>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <video id="earlyAdoptersVideo" width="64" height="64" playsInline={true} autoPlay={true} controls={false} muted={true} loop={true}>
-                                    <source src="/video/early-adopters-sample.mp4" type="video/mp4"></source>
-                                </video>
-                            </div>
+                            <a
+                                className=""
+                                target="_blank"
+                                rel="noreferrer"
+                                href="https://opensea.io/collection/build-the-bear-early-adopters"
+                            >
+                                <h3>➟ Early Adopters NFT Collection : </h3>
+                            </a>
+                            <h5>22 1-of-1 animations from the developer</h5>
+                            <hr/>
+                            <ul>
+                                <li><b>- Cost 0.1Ξ to mint</b></li>
+                                <li>- Limited Edition Collectibles</li>
+                                <li>- Additional 25% Staking Reward</li>
+                                <li>- Early Access to Developments</li>
+                                <li>- Inclusive of all future benefits</li>
+                                <li>
+                                    <br/>
+                                    <span className="mainSectionCardDescription">Earn your place in BtB history with unique proof of your support! Minting is now available to the public</span>
+                                    <br/><br/>
+                                    <a
+                                        className=""
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        href="https://app.niftykit.com/drops/buildthebear-v1"
+                                    >
+                                        <b>➟ Secure your mint{" "}
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>hand-coin</title><path d="M16 12C18.76 12 21 9.76 21 7S18.76 2 16 2 11 4.24 11 7 13.24 12 16 12M21.45 17.6C21.06 17.2 20.57 17 20 17H13L10.92 16.27L11.25 15.33L13 16H15.8C16.15 16 16.43 15.86 16.66 15.63S17 15.12 17 14.81C17 14.27 16.74 13.9 16.22 13.69L8.95 11H7V20L14 22L22.03 19C22.04 18.47 21.84 18 21.45 17.6M5 11H.984V22H5V11Z" /></svg>
+                                        </b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        className=""
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        href="https://opensea.io/collection/build-the-bear-early-adopters"
+                                    >
+                                        ➟ View on OpenSea{" "}
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>ferry</title><path d="M6,6H18V9.96L12,8L6,9.96M3.94,19H4C5.6,19 7,18.12 8,17C9,18.12 10.4,19 12,19C13.6,19 15,18.12 16,17C17,18.12 18.4,19 20,19H20.05L21.95,12.31C22.03,12.06 22,11.78 21.89,11.54C21.76,11.3 21.55,11.12 21.29,11.04L20,10.62V6C20,4.89 19.1,4 18,4H15V1H9V4H6A2,2 0 0,0 4,6V10.62L2.71,11.04C2.45,11.12 2.24,11.3 2.11,11.54C2,11.78 1.97,12.06 2.05,12.31M20,21C18.61,21 17.22,20.53 16,19.67C13.56,21.38 10.44,21.38 8,19.67C6.78,20.53 5.39,21 4,21H2V23H4C5.37,23 6.74,22.65 8,22C10.5,23.3 13.5,23.3 16,22C17.26,22.65 18.62,23 20,23H22V21H20Z" /></svg>
+                                    </a>
+                                </li>
+                            </ul>
+                            <video id="earlyAdoptersVideo" width="64" height="64" playsInline={true} autoPlay={true} controls={false} muted={true} loop={true}>
+                                <source src="/video/early-adopters-sample.mp4" type="video/mp4"></source>
+                            </video>
                         </div>
                         <div id="documentation" className="mainSectionCard">
-                            <Accordion title="Resources & Documentation">
+                            <Accordion title="Resources & Documentation" icon={Icons.cabinetIcon}>
                                 <a className="" target="_blank" rel="noreferrer" href="https://www.buildthebear.online/">
                                     <h5>➟ Build the Bear . Online</h5>
                                 </a>
@@ -465,8 +436,9 @@ const Home: NextPage = () => {
                                 </ul>
                             </Accordion>
                         </div>
+                        <HenryWidget></HenryWidget>
                         <div className="expandCollapse">
-                            <button id="toggle-accordions-button">Expand All</button>
+                            <button id="toggleAllAccordions">Expand All Sections</button>
                         </div>
                     </div>
                     <div id="tokenCards">
@@ -487,11 +459,11 @@ const Home: NextPage = () => {
                         </div>
                         <StakingComponent/>
                     </div>
-                    <div className="transaction-overlay hidden background">
-                        <div className="transaction-container">
-                            <div className="transaction-header">
+                    <div className="transactionOverlay hidden background">
+                        <div className="transactionContainer">
+                            <div className="transactionHeader">
                                 <h2>Transaction in progress</h2>
-                                <div className="transaction-spinner"></div>
+                                <div className="transactionSpinner"></div>
                             </div>
                         </div>
                     </div>
