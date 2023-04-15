@@ -58,11 +58,12 @@ const theme: Theme = {
     outline: '#CADDC2',
     dialog: '#FFF',
     fontFamily: 'Rubik, sans-serif',
-    borderRadius: 0.2,
+    borderRadius: 0.2 as any,
 };
 
 function connectWallet() {
     let element: HTMLElement = document.querySelector('.walletConnector:first-of-type button') as HTMLElement;
+
     element.click();
 }
 
