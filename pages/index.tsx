@@ -53,7 +53,7 @@ const theme: Theme = {
     interactive: '#FFF',
     container: 'rgba(254, 245, 224, 0.9)',
     module: '#FFF',
-    accent: 'rgb(253,216,183)',
+    accent: '#9CC69B',
     outline: '#CADDC2',
     dialog: '#FFF',
     borderRadius: 0.2,

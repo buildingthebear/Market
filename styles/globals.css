@@ -196,19 +196,12 @@ ul {
   margin: 1rem 1rem 1rem 0;
   text-align: center;
   border: 2px solid rgb(0 0 0 / 10%);
+  box-shadow: -2px 2px 0px rgb(0 0 0 / 10%);
+  color: rgb(0 0 0 / 75%);
 }
 
 .connectedAccountBalance {
   width: fit-content;
-}
-
-.connectedWallet * {
-  border-color: #FFD147 !important;
-  color: #FFD147 !important;
-}
-
-.connectedWallet {
-  border-color: #FFD147 !important;
 }
 
 .connectorLabel {
@@ -251,7 +244,8 @@ ul {
 }
 
 .lockedStakingWidget {
-  background: rgba(255, 255, 240, 0.7);
+  background: rgba(255, 253, 250, 0.7);
+  display: none;
 }
 
 .mainSectionCard {
@@ -348,7 +342,7 @@ ul {
 }
 
 .stakingWidget .stakingControl:nth-of-type(1), .stakingWidget  .stakingControl:nth-of-type(2) {
-  background-color: #C2E7A1;
+  background-color: rgba(188, 220, 202, 0.9);
 }
 
 .stakingWidget .stakingControl:nth-of-type(3), .stakingWidget  .stakingControl:nth-of-type(4) {
@@ -535,14 +529,6 @@ ul {
   flex-wrap: wrap;
 }
 
-#connectedWalletAddress {
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 0;
-}
-
 #documentation {
   border-radius: 0.5rem;
   padding-bottom: 0.5rem;
@@ -604,7 +590,8 @@ ul {
   text-align: center;
   border: 2px solid rgb(0 0 0 / 10%);
   animation: fadeEffect 0.5s;
-  color: rgb(0 0 0 / 50%);
+  color: rgb(0 0 0 / 75%);
+  box-shadow: -2px 2px 0px rgb(0 0 0 / 10%);
 }
 
 #swapWidget {

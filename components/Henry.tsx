@@ -15,6 +15,8 @@ function HenryComponent() {// Component HTML
                         <li>
                             <span className="mainSectionCardDescription">Henry is our open-source Telegram bot. He listens in on group chats and joins the conversation when intrigued</span>
                             <br/><br/>
+                            <span className="mainSectionCardDescription">You can configure his settings for your chat, or fork him and build your own features!</span>
+                            <br/><br/>
                             <a
                                 className=""
                                 target="_blank"

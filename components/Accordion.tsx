@@ -26,7 +26,7 @@ const toggleAllAccordions = (button: JQuery, delay: number) => {
             const content = $(this).next();
             if (expandAll && !content.is('.open')) {
                 $(this).trigger('click');
-            } else if (!expandAll && !content.is('.closed')) {
+            } else if (!expandAll && content.is('.open')) {
                 $(this).trigger('click');
             }
         }, at * delay);
@@ -36,6 +36,7 @@ const toggleAllAccordions = (button: JQuery, delay: number) => {
 };
 
 
+
 const whenAvailable = () => {
     if (typeof $ === 'undefined') {
         setTimeout(whenAvailable, 50);
@@ -43,7 +44,7 @@ const whenAvailable = () => {
         $("#toggleAllAccordions").on("click", function() {
             toggleAllAccordions($(this), 100)
         });
-        
+
         $(".accordionContent.open").each(function() {
             $(this).prev().trigger("click");
         });

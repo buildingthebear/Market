@@ -9,7 +9,7 @@ import * as Icons from '../components/svgIcons';
 const web3 = new Web3(Web3.givenProvider || process.env.JSON_RPC_URL);
 const tokenContract = new web3.eth.Contract(TokenABI as AbiItem[], "0xAB8FEfd4CbB4884491053A1d84E7Af17317dA40C");
 const singleStakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0x24ad9922d3f75AaA3530C4788E106Ea0b427f5B2");
-const lockedStakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0x24ad9922d3f75AaA3530C4788E106Ea0b427f5B2");
+const lockedStakingContract = new web3.eth.Contract(StakingABI as AbiItem[], "0x000000000000000000000000000000000000dEaD");
 
 export let connectedAccount = "0x000000000000000000000000000000000000dEaD";
 export let connectedBalance = 0;
