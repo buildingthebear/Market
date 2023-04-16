@@ -70,6 +70,14 @@ const Accordion: React.FC<AccordionProps> = ({ title, icon, children }) => {
     }, [isOpen]);
 
     const handleParentClick = useCallback((event: MouseEvent) => {
+        const targetElement = event.target as Element;
+        const isIgnoredElement = targetElement.closest("button, a, input");
+
+        if (isIgnoredElement) {
+            // If the click target is a button, anchor, or input or its parent, ignore the click
+            return;
+        }
+
         const accordionTitle = (event.target as Element).closest(".accordionTitle");
         if (accordionTitle === null || accordionTitle === undefined || !accordionTitle.contains(event.target as Node)) {
             // If the click target is not the accordion title or its children, toggle the accordion
